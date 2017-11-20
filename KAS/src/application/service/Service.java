@@ -1,6 +1,7 @@
 package application.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import application.model.Konference;
 import storage.Storage;
@@ -16,12 +17,11 @@ public class Service {
 
     /**
      * Creater en ny konference.<br />
-     * Pre: hours >= 0.
      */
-    public static Konference createKonference(String name, int hours) {
-        assert hours >= 0;
-        Konference konference = new Konference(navn, hours);
-        Storage.storeCompany(company);
-        return company;
+    public static Konference createKonference(String navn, Date start, Date slut,
+            String adresse) {
+        Konference konference = new Konference(navn, start, slut, adresse);
+        Storage.storeKonference(konference);
+        return konference;
     }
 }

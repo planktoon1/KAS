@@ -10,17 +10,17 @@ public class Konference {
     private Date slut;
     private String adresse;
 
-    public Konference(String navn, ArrayList<Tilmelding> tilmeldinger, Date start, Date slut, String adresse) {
+    public Konference(String navn, Date start, Date slut, String adresse) {
         this.navn = navn;
-        if (tilmeldinger.size() > 0) {
-            this.tilmeldinger = tilmeldinger;
-        } else {
-            this.tilmeldinger = new ArrayList<Tilmelding>();
-        }
+        this.tilmeldinger = new ArrayList<Tilmelding>();
         this.start = start;
         this.slut = slut;
         this.adresse = adresse;
 
+    }
+
+    public void addTilmelding(Tilmelding tilmelding) {
+        tilmeldinger.add(tilmelding);
     }
 
 }
