@@ -47,6 +47,12 @@ public class KonferencePane extends GridPane {
         this.add(txfNavn, 2, 1);
         txfNavn.setEditable(false);
 
+        Label lblAdresse = new Label("Adresse:");
+        this.add(lblAdresse, 1, 2);
+
+        this.add(txfAdresse, 2, 2);
+        txfAdresse.setEditable(false);
+
         HBox hbxButtons = new HBox(40);
         this.add(hbxButtons, 0, 4, 3, 1);
         hbxButtons.setPadding(new Insets(10, 0, 0, 0));

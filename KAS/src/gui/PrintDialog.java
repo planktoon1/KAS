@@ -1,7 +1,5 @@
 package gui;
 
-import application.model.Company;
-import application.model.Employee;
 import application.service.Service;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
