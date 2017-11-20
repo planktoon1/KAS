@@ -9,6 +9,7 @@ import storage.Storage;
 public class Service {
 
     /**
+     * 
      * Returnerer alle Konferencer i Storage-klassen.
      */
     public static ArrayList<Konference> getAllkonferencer() {
