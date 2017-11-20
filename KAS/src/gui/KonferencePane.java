@@ -22,7 +22,8 @@ public class KonferencePane extends GridPane {
 
     // -------------------------------------------------------------------------
 
-    private final TextField txfNavn = new TextField(), txfAdresse = new TextField();
+    private final TextField txfNavn = new TextField(), txfAdresse = new TextField(), txfStartDate = new TextField(),
+            txfSlutDate = new TextField();
     private final ListView<Konference> lvwKonferencer = new ListView<>();
 
     private void initContent() {
@@ -34,7 +35,7 @@ public class KonferencePane extends GridPane {
         Label lblKonf = new Label("Konferencer");
         this.add(lblKonf, 0, 0);
 
-        this.add(lvwKonferencer, 0, 1, 1, 3);
+        this.add(lvwKonferencer, 0, 1, 1, 5);
         lvwKonferencer.setPrefWidth(200);
         lvwKonferencer.setPrefHeight(200);
 
@@ -53,8 +54,20 @@ public class KonferencePane extends GridPane {
         this.add(txfAdresse, 2, 2);
         txfAdresse.setEditable(false);
 
+        Label lblStartDate = new Label("Start dato:");
+        this.add(lblStartDate, 1, 3);
+
+        this.add(txfStartDate, 2, 3);
+        txfStartDate.setEditable(false);
+
+        Label lblSlutDate = new Label("Slut dato:");
+        this.add(lblSlutDate, 1, 4);
+
+        this.add(txfSlutDate, 2, 4);
+        txfSlutDate.setEditable(false);
+
         HBox hbxButtons = new HBox(40);
-        this.add(hbxButtons, 0, 4, 3, 1);
+        this.add(hbxButtons, 0, 6, 3, 1);
         hbxButtons.setPadding(new Insets(10, 0, 0, 0));
         hbxButtons.setAlignment(Pos.BASELINE_CENTER);
 
@@ -94,10 +107,13 @@ public class KonferencePane extends GridPane {
             if (konference != null) {
                 txfNavn.setText(konference.getNavn());
                 txfAdresse.setText("" + konference.getAdresse());
-
+                txfStartDate.setText("" + konference.getStart());
+                txfSlutDate.setText("" + konference.getSlut());
             } else {
                 txfNavn.clear();
                 txfAdresse.clear();
+                txfStartDate.clear();
+                txfSlutDate.clear();
             }
         }
 
