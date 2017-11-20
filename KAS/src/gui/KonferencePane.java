@@ -62,7 +62,7 @@ public class KonferencePane extends GridPane {
 
         Label lblSlutDate = new Label("Slut dato:");
         this.add(lblSlutDate, 1, 4);
-//gvu
+
         this.add(txfSlutDate, 2, 4);
         txfSlutDate.setEditable(false);
 
