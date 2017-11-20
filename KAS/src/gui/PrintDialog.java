@@ -1,7 +1,7 @@
 package gui;
 
-import application.model.Company;
-import application.model.Employee;
+import application.model.Deltager;
+import application.model.Konference;
 import application.service.Service;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -75,10 +75,10 @@ public class PrintDialog extends Stage {
             lbl.setText("All Employees:");
 
             StringBuilder sb = new StringBuilder();
-            for (Employee emp : Service.getAllEmployees()) {
-                Company company = emp.getCompany();
-                if (company != null)
-                    sb.append(emp + " - at " + company.getName() + "\n");
+            for (Deltager del : Service.getAllDeltagere()) {
+                Konference konference = del.getKonference();
+                if (konference != null)
+                    sb.append(emp + " - at " + konference.getName() + "\n");
                 else
                     sb.append(emp + "\n");
             }
@@ -89,8 +89,8 @@ public class PrintDialog extends Stage {
             lbl.setText("All Companies:");
 
             StringBuilder sb = new StringBuilder();
-            for (Company company : Service.getAllCompanies())
-                sb.append(company + "\n");
+            for (Konference konference : Service.getAllCompanies())
+                sb.append(konference + "\n");
             txa.setText(sb.toString());
         }
 

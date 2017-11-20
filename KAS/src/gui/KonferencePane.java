@@ -5,11 +5,9 @@ import application.service.Service;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -24,8 +22,7 @@ public class KonferencePane extends GridPane {
 
     // -------------------------------------------------------------------------
 
-    private final TextField txfNavn = new TextField(), txfHours = new TextField();
-    private final TextArea txaEmps = new TextArea();
+    private final TextField txfNavn = new TextField(), txfAdresse = new TextField();
     private final ListView<Konference> lvwKonferencer = new ListView<>();
 
     private void initContent() {
@@ -49,22 +46,6 @@ public class KonferencePane extends GridPane {
 
         this.add(txfNavn, 2, 1);
         txfNavn.setEditable(false);
-
-        Label lblHours = new Label("Weekly Hours:");
-        this.add(lblHours, 1, 2);
-
-        this.add(txfHours, 2, 2);
-        txfHours.setEditable(false);
-
-        Label lblEmps = new Label("Employees:");
-        this.add(lblEmps, 1, 3);
-        GridPane.setValignment(lblEmps, VPos.BASELINE);
-        lblEmps.setPadding(new Insets(4, 0, 4, 0));
-
-        this.add(txaEmps, 2, 3);
-        txaEmps.setPrefWidth(200);
-        txaEmps.setPrefHeight(100);
-        txaEmps.setEditable(false);
 
         HBox hbxButtons = new HBox(40);
         this.add(hbxButtons, 0, 4, 3, 1);
@@ -106,12 +87,11 @@ public class KonferencePane extends GridPane {
             Konference konference = lvwKonferencer.getSelectionModel().getSelectedItem();
             if (konference != null) {
                 txfNavn.setText(konference.getNavn());
-                txfHours.setText("" + konference.getAdresse());
+                txfAdresse.setText("" + konference.getAdresse());
 
             } else {
                 txfNavn.clear();
-                txfHours.clear();
-                txaEmps.clear();
+                txfAdresse.clear();
             }
         }
 

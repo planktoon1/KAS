@@ -23,6 +23,11 @@ public class Konference {
         tilmeldinger.add(tilmelding);
     }
 
+    public String toString() {
+        String string = "" + navn;
+        return string;
+    }
+
     public String getNavn() {
         return navn;
     }
