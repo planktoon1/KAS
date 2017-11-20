@@ -1,16 +1,11 @@
 package gui;
 
-import java.util.Optional;
-
-import application.model.Employee;
+import application.model.Konference;
 import application.service.Service;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -29,7 +24,7 @@ public class DeltagerPane extends GridPane {
 
     private final TextField txfName = new TextField(), txfWage = new TextField(),
             txfCompany = new TextField(), txfSalary = new TextField();
-    private final ListView<Employee> lvwEmployees = new ListView<>();
+    private final ListView<Konference> lvwKonferences = new ListView<>();
 
     private void initControls() {
         this.setPadding(new Insets(20));
@@ -37,15 +32,15 @@ public class DeltagerPane extends GridPane {
         this.setVgap(10);
         this.setGridLinesVisible(false);
 
-        Label lblComp = new Label("Employees");
+        Label lblComp = new Label("Konferences");
         this.add(lblComp, 0, 0);
 
-        this.add(lvwEmployees, 0, 1, 1, 5);
-        lvwEmployees.setPrefWidth(200);
-        lvwEmployees.setPrefHeight(200);
+        this.add(lvwKonferences, 0, 1, 1, 5);
+        lvwKonferences.setPrefWidth(200);
+        lvwKonferences.setPrefHeight(200);
 
-        ChangeListener<Employee> listener = (ov, o, n) -> controller.selectedEmployeeChanged();
-        lvwEmployees.getSelectionModel().selectedItemProperty().addListener(listener);
+        ChangeListener<Konference> listener = (ov, o, n) -> controller.selectedKonferenceChanged();
+        lvwKonferences.getSelectionModel().selectedItemProperty().addListener(listener);
 
         Label lblName = new Label("Name:");
         this.add(lblName, 1, 1);
@@ -89,7 +84,7 @@ public class DeltagerPane extends GridPane {
         hbxButtons.getChildren().add(btnDelete);
         btnDelete.setOnAction(event -> controller.deleteAction());
 
-        controller.fillLvwEmployees();
+        controller.fillLvwKonferences();
     }
 
     // -------------------------------------------------------------------------
@@ -101,32 +96,32 @@ public class DeltagerPane extends GridPane {
     // -------------------------------------------------------------------------
 
     private class Controller {
-        private EmployeeDialog createDialog, updateDialog;
+        private KonferenceDialog createDialog, updateDialog;
 
-        public void fillLvwEmployees() {
-            lvwEmployees.getItems().setAll(Service.getAllEmployees());
-            if (lvwEmployees.getItems().size() > 0)
-                lvwEmployees.getSelectionModel().select(0);
+        public void fillLvwKonferences() {
+            lvwKonferences.getItems().setAll(Service.getAllkonferencer());
+            if (lvwKonferences.getItems().size() > 0)
+                lvwKonferences.getSelectionModel().select(0);
         }
 
         public void updateControls() {
-            Employee employee = lvwEmployees.getSelectionModel().getSelectedItem();
-            if (employee != null) {
-                txfName.setText(employee.getName());
-                txfWage.setText("kr " + employee.getWage());
-                if (employee.getCompany() != null) {
-                    txfCompany.setText("" + employee.getCompany());
-                    txfSalary.setText("kr " + employee.weeklySalary());
-                } else {
-                    txfCompany.clear();
-                    txfSalary.clear();
-                }
-            } else {
-                txfName.clear();
-                txfWage.clear();
-                txfCompany.clear();
-                txfSalary.clear();
-            }
+//            Konference Konference = lvwKonferences.getSelectionModel().getSelectedItem();
+//            if (Konference != null) {
+//                txfName.setText(Konference.getName());
+//                txfWage.setText("kr " + Konference.getWage());
+//                if (Konference.getCompany() != null) {
+//                    txfCompany.setText("" + Konference.getCompany());
+//                    txfSalary.setText("kr " + Konference.weeklySalary());
+//                } else {
+//                    txfCompany.clear();
+//                    txfSalary.clear();
+//                }
+//            } else {
+//                txfName.clear();
+//                txfWage.clear();
+//                txfCompany.clear();
+//                txfSalary.clear();
+//            }
         }
 
         // --------------------------------------------------------------------
@@ -134,8 +129,8 @@ public class DeltagerPane extends GridPane {
         // Create button action
         public void createAction() {
             if (createDialog == null) {
-                createDialog = new EmployeeDialog("Create Employee", null);
-                Stage stage = (Stage) lvwEmployees.getScene().getWindow();
+                createDialog = new KonferenceDialog("Create Konference", null);
+                Stage stage = (Stage) lvwKonferences.getScene().getWindow();
                 createDialog.initOwner(stage);
             }
 
@@ -144,22 +139,22 @@ public class DeltagerPane extends GridPane {
 
             boolean isCreated = createDialog.getResult();
             if (isCreated) {
-                lvwEmployees.getItems().setAll(Service.getAllEmployees());
-                int index = lvwEmployees.getItems().size() - 1;
-                lvwEmployees.getSelectionModel().select(index);
+                lvwKonferences.getItems().setAll(Service.getAllkonferencer());
+                int index = lvwKonferences.getItems().size() - 1;
+                lvwKonferences.getSelectionModel().select(index);
             }
             this.updateControls();
         }
 
         // Update button action
         public void updateAction() {
-            Employee employee = lvwEmployees.getSelectionModel().getSelectedItem();
-            if (employee == null)
+            Konference Konference = lvwKonferences.getSelectionModel().getSelectedItem();
+            if (Konference == null)
                 return;
 
             if (updateDialog == null) {
-                updateDialog = new EmployeeDialog("Update Employee", employee);
-                Stage stage = (Stage) lvwEmployees.getScene().getWindow();
+                updateDialog = new KonferenceDialog("Update Konference", Konference);
+                Stage stage = (Stage) lvwKonferences.getScene().getWindow();
                 updateDialog.initOwner(stage);
             }
 
@@ -168,37 +163,37 @@ public class DeltagerPane extends GridPane {
 
             boolean isUpdated = updateDialog.getResult();
             if (isUpdated) {
-                int selectedIndex = lvwEmployees.getSelectionModel().getSelectedIndex();
-                lvwEmployees.getItems().setAll(Service.getAllEmployees());
-                lvwEmployees.getSelectionModel().select(selectedIndex);
+                int selectedIndex = lvwKonferences.getSelectionModel().getSelectedIndex();
+                lvwKonferences.getItems().setAll(Service.getAllkonferencer());
+                lvwKonferences.getSelectionModel().select(selectedIndex);
             }
         }
 
         // Delete button action
         public void deleteAction() {
-            Employee employee = lvwEmployees.getSelectionModel().getSelectedItem();
-            if (employee == null)
-                return;
-
-            Alert deleteAlert = new Alert(AlertType.CONFIRMATION);
-            deleteAlert.setTitle("Confirmation");
-            deleteAlert.setHeaderText("Delete the employee?");
-            deleteAlert.setContentText("Deletion can't be undone");
-            Stage stage = (Stage) lvwEmployees.getScene().getWindow();
-            deleteAlert.initOwner(stage);
-
-            Optional<ButtonType> result = deleteAlert.showAndWait();
-            // ... wait for the dialog to close
-
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                Service.deleteEmployee(employee);
-                lvwEmployees.getItems().setAll(Service.getAllEmployees());
-                this.updateControls();
-            }
+//            Konference Konference = lvwKonferences.getSelectionModel().getSelectedItem();
+//            if (Konference == null)
+//                return;
+//
+//            Alert deleteAlert = new Alert(AlertType.CONFIRMATION);
+//            deleteAlert.setTitle("Confirmation");
+//            deleteAlert.setHeaderText("Delete the Konference?");
+//            deleteAlert.setContentText("Deletion can't be undone");
+//            Stage stage = (Stage) lvwKonferences.getScene().getWindow();
+//            deleteAlert.initOwner(stage);
+//
+//            Optional<ButtonType> result = deleteAlert.showAndWait();
+//            // ... wait for the dialog to close
+//
+//            if (result.isPresent() && result.get() == ButtonType.OK) {
+//                Service.deleteKonference(Konference);
+//                lvwKonferences.getItems().setAll(Service.getAllkonferencer());
+//                this.updateControls();
+//            }
         }
 
-        // Selected item in lvwEmployees changed
-        public void selectedEmployeeChanged() {
+        // Selected item in lvwKonferences changed
+        public void selectedKonferenceChanged() {
             this.updateControls();
         }
     }
