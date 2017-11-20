@@ -3,6 +3,7 @@ package gui;
 import java.time.LocalDate;
 
 import application.model.Konference;
+import application.service.Service;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -121,30 +122,31 @@ public class KonferenceDialog extends Stage {
         public void okAction() {
             LocalDate startDate = startDatePicker.getValue();
             LocalDate slutDate = slutDatePicker.getValue();
-            String name = txfName.getText().trim();
+            String navn = txfName.getText().trim();
             String adresse = txfAdresse.getText().trim();
 
-            if (name.length() == 0) {
+            if (navn.length() == 0) {
                 lblError.setText("Name is empty");
                 return;
             }
-
-            int hours = -1;
-            try {
-                hours = Integer.parseInt(txfAdresse.getText().trim());
-            } catch (NumberFormatException ex) {
-                // do nothing
+            if (adresse.length() == 0) {
+                lblError.setText("Adresse er tom");
+                return;
             }
-            if (hours < 0) {
-                lblError.setText("Hours is not a positive number");
+            if (startDate == null) {
+                lblError.setText("Start dato er tom");
+                return;
+            }
+            if (slutDate == null) {
+                lblError.setText("Slut dato er tom");
                 return;
             }
 
             // Call Service methods
-//			if (konference != null)
+//            if (konference != null)
 //				Service.updateCompany(konference, name, hours);
 //			else
-//				Service.createCompany(name, hours);
+            Service.createKonference(navn, startDate, slutDate, adresse);
 
             result = true;
             KonferenceDialog.this.hide();
