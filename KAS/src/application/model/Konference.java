@@ -11,6 +11,7 @@ public class Konference {
     private String adresse;
 
     private ArrayList<Udflugt> udflugter;
+    private ArrayList<Hotel> hoteller;
 
     public Konference(String navn, LocalDate start, LocalDate slut, String adresse) {
         this.navn = navn;
@@ -18,7 +19,8 @@ public class Konference {
         this.start = start;
         this.slut = slut;
         this.adresse = adresse;
-
+        this.udflugter = new ArrayList<Udflugt>();
+        this.hoteller = new ArrayList<Hotel>();
     }
 
     public void addTilmelding(Tilmelding tilmelding) {
@@ -27,6 +29,10 @@ public class Konference {
 
     public void addUdflugt(Udflugt udflugt) {
         udflugter.add(udflugt);
+    }
+
+    public void addHotel(Hotel hotel) {
+        hoteller.add(hotel);
     }
 
     public String toString() {

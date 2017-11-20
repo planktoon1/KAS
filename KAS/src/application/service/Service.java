@@ -3,6 +3,7 @@ package application.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import application.model.Hotel;
 import application.model.Konference;
 import application.model.Udflugt;
 import storage.Storage;
@@ -18,6 +19,10 @@ public class Service {
     }
 
     public static ArrayList<Udflugt> getAllUdflugter() {
+        return Storage.getAllUdflugter();
+    }
+
+    public static ArrayList<Hotel> getAllHoteller() {
         return Storage.getAllUdflugter();
     }
 
