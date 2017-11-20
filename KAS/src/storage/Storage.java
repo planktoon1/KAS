@@ -27,6 +27,14 @@ public class Storage {
         konferencer.add(konference);
     }
 
+    public static ArrayList<Udflugt> getAllUdflugter() {
+        return new ArrayList<>(udflugter);
+    }
+
+    public static void storeUdflugt(Udflugt udflugt) {
+        udflugter.add(udflugt);
+    }
+
     public static void initStorage() {
 
     }
