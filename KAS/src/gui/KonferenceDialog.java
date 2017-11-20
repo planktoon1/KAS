@@ -19,13 +19,13 @@ public class KonferenceDialog extends Stage {
     private final Controller controller = new Controller();
 
     /** Note: company is nullable. */
-    public KonferenceDialog(String title, Konference konference) {
+    public KonferenceDialog(String navn, Konference konference) {
         controller.konference = konference;
 
         this.initModality(Modality.APPLICATION_MODAL);
         this.setResizable(false);
 
-        this.setTitle(title);
+        this.setTitle(navn);
         GridPane pane = new GridPane();
         this.initContent(pane);
 
@@ -103,8 +103,8 @@ public class KonferenceDialog extends Stage {
 
         public void updateControls() {
             if (konference != null) {
-                txfName.setText(konference.getNavn());
-                txfAdresse.setText("" + konference.getAdresse());
+                txfName.setText(konference.getName());
+                txfAdresse.setText("" + konference.getHours());
             } else {
                 txfName.clear();
                 txfAdresse.clear();
@@ -143,10 +143,17 @@ public class KonferenceDialog extends Stage {
             }
 
             // Call Service methods
+<<<<<<< HEAD
+            if (company != null)
+                Service.updateCompany(company, name, hours);
+            else
+                Service.createCompany(name, hours);
+=======
 //            if (konference != null)
 //				Service.updateCompany(konference, name, hours);
 //			else
             Service.createKonference(navn, startDate, slutDate, adresse);
+>>>>>>> branch 'master' of https://github.com/planktoon1/KAS.git
 
             result = true;
             KonferenceDialog.this.hide();
