@@ -24,4 +24,9 @@ public class Service {
         Storage.storeKonference(konference);
         return konference;
     }
+
+    public static void initStorage() {
+        Storage.initStorage();
+    }
+
 }
