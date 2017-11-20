@@ -32,8 +32,8 @@ public class Service {
     }
 
     public static Udflugt tilføjUdflugt(String sted, LocalDate dato, double pris, boolean frokost, String beskrivelse,
-            String navn) {
-        Udflugt udflugt = new Udflugt(sted, dato, pris, frokost, beskrivelse, navn);
+            String navn, Konference konference) {
+        Udflugt udflugt = new Udflugt(sted, dato, pris, frokost, beskrivelse, navn, konference);
         Storage.storeUdflugt(udflugt);
         return udflugt;
     }
