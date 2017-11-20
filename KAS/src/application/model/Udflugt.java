@@ -8,7 +8,7 @@ public class Udflugt {
     private double pris;
     private boolean frokost;
     private String beskrivelse;
-    private String navns;
+    private String navn;
 
     public Udflugt(String sted, Date dato, double pris, boolean frokost, String beskrivelse, String navn) {
         this.sted = sted;
@@ -16,7 +16,7 @@ public class Udflugt {
         this.pris = pris;
         this.frokost = frokost;
         this.beskrivelse = beskrivelse;
-        this.navns = navns;
+        this.navn = navn;
 
     }
 }
