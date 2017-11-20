@@ -10,7 +10,7 @@ public class Tilmelding {
     private Hotel hotel;
     private Udflugt udflugt;
     private Deltager deltager;
-    private double samletris;
+    private double samletPris;
 
     public Tilmelding(boolean erFordragsholder, Date ankomstdato, Date afrejsedato, String ledsager, Hotel hotel,
             Udflugt udflugt, Deltager deltager, double samletPris) {
@@ -21,6 +21,6 @@ public class Tilmelding {
         this.hotel = hotel;
         this.udflugt = udflugt;
         this.deltager = deltager;
-        this.samletris = samletPris;
+        this.samletPris = samletPris;
     }
 }
