@@ -1,6 +1,7 @@
 package gui;
 
 import application.model.Deltager;
+import application.model.Konference;
 import application.service.Service;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
@@ -82,8 +83,8 @@ public class DeltagerDialog extends Stage {
 		GridPane.setMargin(lblError, new Insets(0, 0, 10, 0));
 		lblError.setStyle("-fx-text-fill: red");
 
-		controller.fillCompanyComboBox();
-		controller.updateControls();
+		// controller.fillCompanyComboBox();
+		// controller.updateControls();
 	}
 
 	public boolean getResult() {
@@ -96,31 +97,31 @@ public class DeltagerDialog extends Stage {
 		private Deltager Deltager;
 		private boolean result = false;
 
-		public void fillCompanyComboBox() {
-			cbbCompany.getItems().addAll(Service.getAllCompanies());
-		}
+		// public void fillCompanyComboBox() {
+		// cbbCompany.getItems().addAll(Service.getAllkonferencer());
+		// }
 
-		public void updateControls() {
-			if (Deltager != null) {
-				txfName.setText(Deltager.getName());
-				txfWage.setText("" + Deltager.getWage());
-				if (Deltager.getCompany() != null) {
-					cbxCompany.setSelected(true);
-					cbbCompany.getSelectionModel().select(Deltager.getCompany());
-					cbbCompany.setDisable(false);
-				} else {
-					cbbCompany.getSelectionModel().select(0);
-					cbbCompany.setDisable(true);
-				}
-			} else {
-				txfName.clear();
-				txfWage.clear();
-				cbxCompany.setSelected(false);
-				cbbCompany.getSelectionModel().select(0);
-				cbbCompany.setDisable(true);
-			}
-			lblError.setText("");
-		}
+		// public void updateControls() {
+		// if (Deltager != null) {
+		// txfName.setText(Deltager.getName());
+		// txfWage.setText("" + Deltager.getWage());
+		// if (Deltager.getCompany() != null) {
+		// cbxCompany.setSelected(true);
+		// cbbCompany.getSelectionModel().select(Deltager.getCompany());
+		// cbbCompany.setDisable(false);
+		// } else {
+		// cbbCompany.getSelectionModel().select(0);
+		// cbbCompany.setDisable(true);
+		// }
+		// } else {
+		// txfName.clear();
+		// txfWage.clear();
+		// cbxCompany.setSelected(false);
+		// cbbCompany.getSelectionModel().select(0);
+		// cbbCompany.setDisable(true);
+		// }
+		// lblError.setText("");
+		// }
 
 		// ---------------------------------------------------------------------
 
@@ -149,7 +150,7 @@ public class DeltagerDialog extends Stage {
 				return;
 			}
 
-			Company company = null;
+			Konference konference = null;
 			if (cbxCompany.isSelected())
 				company = cbbCompany.getSelectionModel().getSelectedItem();
 
