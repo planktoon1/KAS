@@ -1,5 +1,7 @@
 package gui;
 
+import application.model.Deltager;
+import application.model.Konference;
 import application.service.Service;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -87,7 +89,7 @@ public class PrintDialog extends Stage {
             lbl.setText("All Companies:");
 
             StringBuilder sb = new StringBuilder();
-            for (Konference konference : Service.getAllCompanies())
+            for (Konference konference : Service.getAllkonferencer())
                 sb.append(konference + "\n");
             txa.setText(sb.toString());
         }
