@@ -103,8 +103,8 @@ public class KonferenceDialog extends Stage {
 
         public void updateControls() {
             if (konference != null) {
-                txfName.setText(konference.getName());
-                txfAdresse.setText("" + konference.getHours());
+                txfName.setText(konference.getNavn());
+                txfAdresse.setText("" + konference.getAdresse());
             } else {
                 txfName.clear();
                 txfAdresse.clear();
@@ -142,18 +142,10 @@ public class KonferenceDialog extends Stage {
                 return;
             }
 
-            // Call Service methods
-<<<<<<< HEAD
-            if (company != null)
-                Service.updateCompany(company, name, hours);
-            else
-                Service.createCompany(name, hours);
-=======
 //            if (konference != null)
 //				Service.updateCompany(konference, name, hours);
 //			else
             Service.createKonference(navn, startDate, slutDate, adresse);
->>>>>>> branch 'master' of https://github.com/planktoon1/KAS.git
 
             result = true;
             KonferenceDialog.this.hide();
