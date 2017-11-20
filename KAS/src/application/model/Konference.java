@@ -23,4 +23,24 @@ public class Konference {
         tilmeldinger.add(tilmelding);
     }
 
+    public String getNavn() {
+        return navn;
+    }
+
+    public ArrayList<Tilmelding> getTilmeldinger() {
+        return tilmeldinger;
+    }
+
+    public LocalDate getStart() {
+        return start;
+    }
+
+    public LocalDate getSlut() {
+        return slut;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
 }
