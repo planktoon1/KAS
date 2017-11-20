@@ -10,6 +10,8 @@ public class Konference {
     private LocalDate slut;
     private String adresse;
 
+    private ArrayList<Udflugt> udflugter;
+
     public Konference(String navn, LocalDate start, LocalDate slut, String adresse) {
         this.navn = navn;
         this.tilmeldinger = new ArrayList<Tilmelding>();
@@ -21,6 +23,10 @@ public class Konference {
 
     public void addTilmelding(Tilmelding tilmelding) {
         tilmeldinger.add(tilmelding);
+    }
+
+    public void addUdflugt(Udflugt udflugt) {
+        udflugter.add(udflugt);
     }
 
     public String toString() {
