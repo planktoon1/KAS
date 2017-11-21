@@ -35,8 +35,8 @@ public class Storage {
         udflugter.add(udflugt);
     }
 
-    public static ArrayList<Hotel> getAllHotel() {
-        return new ArrayList<>(Hotel);
+    public static ArrayList<Hotel> getAllHoteller() {
+        return new ArrayList<>(hoteller);
     }
 
     public static void storeHotel(Hotel hotel) {
