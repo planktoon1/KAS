@@ -126,19 +126,19 @@ public class KonferenceDialog extends Stage {
             String adresse = txfAdresse.getText().trim();
 
             if (navn.length() == 0) {
-                lblError.setText("Name is empty");
+                lblError.setText("Du mangler at indtaste et navn til konferencen!");
                 return;
             }
             if (adresse.length() == 0) {
-                lblError.setText("Adresse er tos");
+                lblError.setText("Adresse er tom!");
                 return;
             }
             if (startDate == null) {
-                lblError.setText("Start dato er tom");
+                lblError.setText("Start dato er tom!");
                 return;
             }
             if (slutDate == null) {
-                lblError.setText("Slut dato er tom");
+                lblError.setText("Slut dato er tom!");
                 return;
             }
 

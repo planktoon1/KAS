@@ -1,13 +1,17 @@
 package gui;
 
 import application.model.Deltager;
+import application.model.Hotel;
 import application.model.Konference;
+import application.model.Udflugt;
 import application.service.Service;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -34,9 +38,13 @@ public class DeltagerDialog extends Stage {
 
     // -------------------------------------------------------------------------
 
-    private final TextField txfNavn = new TextField(), txfWage = new TextField();
+    private final TextField txfNavn = new TextField(), txfWage = new TextField(), txfLedsager = new TextField();
     private final ComboBox<Konference> cbbKonferencer = new ComboBox<>();
+    private final ComboBox<Hotel> cbbHoteller = new ComboBox<>();
+    private final ComboBox<Udflugt> cbbUdflugter = new ComboBox<>();
     private final Label lblError = new Label();
+    private final CheckBox cbxFordrag = new CheckBox();
+    private final DatePicker startDatePicker = new DatePicker(), slutDatePicker = new DatePicker();
 
     private void initContent(GridPane pane) {
         pane.setPadding(new Insets(20, 20, 0, 20));
@@ -89,7 +97,10 @@ public class DeltagerDialog extends Stage {
         private boolean result = false;
 
         public void fillCompanyComboBox() {
-            cbbKonferencer.getItems().addAll(Service.getAllkonferencer());
+            cbbKonferencer.getItems().setAll(Service.getAllkonferencer());
+            if (cbbKonferencer.getItems().size() > 0) {
+                cbbKonferencer.getSelectionModel().select(0);
+            }
         }
 
         // public void updateControls() {
