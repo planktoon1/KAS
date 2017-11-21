@@ -1,12 +1,11 @@
 package application.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Tilmelding {
     private boolean erFordragsholder;
-    private Date ankomstdato;
-    private Date afrejsedato;
+    private LocalDate ankomstdato;
+    private LocalDate afrejsedato;
     private String ledsager;
     private Hotel hotel;
     private Udflugt udflugt;
@@ -15,8 +14,7 @@ public class Tilmelding {
     private Konference konference;
 
     public Tilmelding(boolean erFordragsholder, LocalDate ankomstdato, LocalDate afrejsedato, String ledsager,
-            Hotel hotel,
-            Udflugt udflugt, Deltager deltager, double samletPris, Konference konference) {
+            Hotel hotel, Udflugt udflugt, Deltager deltager, double samletPris, Konference konference) {
         this.erFordragsholder = erFordragsholder;
         this.ankomstdato = ankomstdato;
         this.afrejsedato = afrejsedato;
