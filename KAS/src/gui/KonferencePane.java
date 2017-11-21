@@ -27,6 +27,7 @@ public class KonferencePane extends GridPane {
             txfSlutDate = new TextField(); //txfAntalUdflugt = new TextField();
     private final ListView<Konference> lvwKonferencer = new ListView<>();
     private final ListView<Udflugt> lvwUdflugter = new ListView<>();
+    private final Button btnAddUdflugt = new Button("Opret Udflugt");
 
     private void initContent() {
         this.setPadding(new Insets(20));
@@ -94,9 +95,9 @@ public class KonferencePane extends GridPane {
         lvwUdflugter.setPrefWidth(200);
         lvwUdflugter.setPrefHeight(200);
 
-        Button btnAddUdflugt = new Button("Opret Udflugt");
         this.add(btnAddUdflugt, 4, 7);
         btnAddUdflugt.setOnAction(event -> controller.createUdflugtAction());
+        btnAddUdflugt.setDisable(true);
 
         controller.fillLvwKonferencer();
         controller.fillLvwUdflugter();
@@ -138,12 +139,14 @@ public class KonferencePane extends GridPane {
                 txfStartDate.setText("" + konference.getStart());
                 txfSlutDate.setText("" + konference.getSlut());
                 lvwUdflugter.getItems().setAll(konference.getUdflugter());
+                btnAddUdflugt.setDisable(false);
             } else {
                 txfNavn.clear();
                 txfAdresse.clear();
                 txfStartDate.clear();
                 txfSlutDate.clear();
                 lvwUdflugter.getItems().clear();
+                btnAddUdflugt.setDisable(true);
             }
         }
 

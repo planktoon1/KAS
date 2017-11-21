@@ -138,8 +138,8 @@ public class UdflugtDialog extends Stage {
         public void okAction() {
             LocalDate dato = DatePicker.getValue();
             double pris = 0.0;
-            if (txfPris.getText().length() > 0) {
-                pris = Double.parseDouble(txfPris.getText());
+            if (txfPris.getText().length() > 0 && validDouble(txfPris.getText()) == true) {
+                pris = 1.0 * Double.parseDouble(txfPris.getText());
             }
             boolean frokost = cbxFrokost.isSelected();
             String beskrivelse = txaBeskrivelse.getText().trim();
@@ -158,7 +158,7 @@ public class UdflugtDialog extends Stage {
                 lblError.setText("Dato er tom");
                 return;
             }
-            if (pris < 0) {
+            if (pris <= 0.0) {
                 lblError.setText("pris skal være over 0");
             }
             if (beskrivelse == null) {
@@ -173,6 +173,27 @@ public class UdflugtDialog extends Stage {
 
             result = true;
             UdflugtDialog.this.hide();
+        }
+
+        public boolean validDouble(String string) {
+            boolean result = true;
+            boolean dotFound = false;
+
+            for (int i = 0; i < string.length(); i++) {
+                if (string.charAt(i) >= '0' && string.charAt(i) <= '9' || string.charAt(i) == '.') {
+                    if (string.charAt(i) == '.') {
+                        if (dotFound) {
+                            result = false;
+                            break;
+                        }
+                        dotFound = true;
+                    }
+                } else {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
         }
     }
 }
