@@ -1,7 +1,6 @@
 package gui;
 
 import java.time.LocalDate;
-import java.util.function.UnaryOperator;
 
 import application.model.Konference;
 import application.model.Udflugt;
@@ -15,8 +14,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
-import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -70,14 +67,6 @@ public class UdflugtDialog extends Stage {
         pane.add(lblPris, 0, 4);
         GridPane.setMargin(lblPris, new Insets(10, 0, 0, 0));
 
-        UnaryOperator<Change> textFilter = change -> {
-            String input = change.getText();
-            if (!txfPris.getText().matches(input)) {
-                return null;
-            }
-            return change;
-        };
-        txfPris.setTextFormatter(new TextFormatter<String>(textFilter));
         pane.add(txfPris, 0, 5);
 
         pane.add(cbxFrokost, 0, 6);
@@ -149,7 +138,7 @@ public class UdflugtDialog extends Stage {
         public void okAction() {
             LocalDate dato = DatePicker.getValue();
             double pris = 0.0;
-            if (txfPris.getText().length() > 0) {
+            if (txfPris.getText().length() > 0 && validDouble(txfPris.getText()) == true) {
                 pris = 1.0 * Double.parseDouble(txfPris.getText());
             }
             boolean frokost = cbxFrokost.isSelected();
@@ -169,7 +158,7 @@ public class UdflugtDialog extends Stage {
                 lblError.setText("Dato er tom");
                 return;
             }
-            if (pris < 0) {
+            if (pris <= 0.0) {
                 lblError.setText("pris skal være over 0");
             }
             if (beskrivelse == null) {
@@ -184,6 +173,27 @@ public class UdflugtDialog extends Stage {
 
             result = true;
             UdflugtDialog.this.hide();
+        }
+
+        public boolean validDouble(String string) {
+            boolean result = true;
+            boolean dotFound = false;
+
+            for (int i = 0; i < string.length(); i++) {
+                if (string.charAt(i) >= '0' && string.charAt(i) <= '9' || string.charAt(i) == '.') {
+                    if (string.charAt(i) == '.') {
+                        if (dotFound) {
+                            result = false;
+                            break;
+                        }
+                        dotFound = true;
+                    }
+                } else {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
         }
     }
 }
