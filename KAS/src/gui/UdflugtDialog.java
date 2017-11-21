@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
@@ -38,8 +39,8 @@ public class UdflugtDialog extends Stage {
 
     // -------------------------------------------------------------------------
 
-    private final TextField txfName = new TextField(), txfSted = new TextField(), txfPris = new TextField(),
-            txfBeskrivelse = new TextField();
+    private final TextField txfName = new TextField(), txfSted = new TextField(), txfPris = new TextField();
+    private final TextArea txaBeskrivelse = new TextArea();
     private final CheckBox cbxFrokost = new CheckBox("Frokost ");
     private final Label lblError = new Label();
     private final DatePicker DatePicker = new DatePicker();
@@ -62,33 +63,40 @@ public class UdflugtDialog extends Stage {
 
         pane.add(txfSted, 0, 3);
 
+        Label lblPris = new Label("Pris (kr . øre)");
+        pane.add(lblPris, 0, 4);
+        GridPane.setMargin(lblPris, new Insets(10, 0, 0, 0));
+
+        pane.add(txfPris, 0, 5);
+
         pane.add(cbxFrokost, 0, 6);
 
         Label lblDato = new Label("Dato");
-        pane.add(lblDato, 0, 4);
+        pane.add(lblDato, 0, 7);
         GridPane.setMargin(lblDato, new Insets(10, 0, 0, 0));
         DatePicker.setShowWeekNumbers(true);
-        pane.add(DatePicker, 0, 5);
+        pane.add(DatePicker, 0, 8);
 
         Label lblBeskrivelse = new Label("Beskrivelse");
-        pane.add(lblBeskrivelse, 0, 7);
+        pane.add(lblBeskrivelse, 0, 9);
 
-        pane.add(txfBeskrivelse, 0, 8);
-        txfBeskrivelse.setPrefWidth(200);
+        pane.add(txaBeskrivelse, 0, 10);
+        txaBeskrivelse.setPrefWidth(200);
+        txaBeskrivelse.setPrefHeight(200);
 
         Button btnCancel = new Button("Annuller");
-        pane.add(btnCancel, 0, 9);
+        pane.add(btnCancel, 0, 11);
         GridPane.setHalignment(btnCancel, HPos.LEFT);
         GridPane.setMargin(btnCancel, new Insets(10, 0, 0, 30));
         btnCancel.setOnAction(event -> controller.cancelAction());
 
         Button btnOK = new Button("OK");
-        pane.add(btnOK, 0, 9);
+        pane.add(btnOK, 0, 11);
         GridPane.setHalignment(btnOK, HPos.RIGHT);
         GridPane.setMargin(btnOK, new Insets(10, 30, 0, 0));
         btnOK.setOnAction(event -> controller.okAction());
 
-        pane.add(lblError, 0, 10);
+        pane.add(lblError, 0, 12);
         GridPane.setMargin(lblError, new Insets(0, 0, 10, 0));
         lblError.setStyle("-fx-text-fill: red");
 
@@ -129,9 +137,12 @@ public class UdflugtDialog extends Stage {
         // OK button action
         public void okAction() {
             LocalDate dato = DatePicker.getValue();
-            double pris = (double) Double.parseDouble(txfPris.getText());
+            double pris = 0.0;
+            if (txfPris.getText().length() > 0) {
+                pris = Double.parseDouble(txfPris.getText());
+            }
             boolean frokost = cbxFrokost.isSelected();
-            String beskrivelse = txfBeskrivelse.getText().trim();
+            String beskrivelse = txaBeskrivelse.getText().trim();
             String navn = txfName.getText().trim();
             String sted = txfSted.getText().trim();
 
