@@ -23,7 +23,7 @@ public class Service {
     }
 
     public static ArrayList<Hotel> getAllHoteller() {
-        return Storage.getAllUdflugter();
+        return Storage.getAllHoteller();
     }
 
     /**

@@ -156,7 +156,7 @@ public class DeltagerDialog extends Stage {
 
             // Call Service methods
             if (Deltager != null)
-                Service.updateDeltager(Deltager, name, wage, company);
+                Service.updateDeltager(Deltager, name, wage);
             else
                 Service.createDeltager(name, wage, company);
 
