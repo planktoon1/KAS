@@ -12,7 +12,7 @@ public class Hotel {
         this.navn = navn;
         this.adresse = adresse;
         this.prisPrNat = prisPrNat;
-        if (hoteltillæg.size() > 0) {
+        if (hoteltillæg == null) {
             this.hoteltillæg = hoteltillæg;
         } else {
             this.hoteltillæg = new ArrayList<HotelTillæg>();

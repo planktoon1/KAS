@@ -24,7 +24,7 @@ public class KonferencePane extends GridPane {
     // -------------------------------------------------------------------------
 
     private final TextField txfNavn = new TextField(), txfAdresse = new TextField(), txfStartDate = new TextField(),
-            txfSlutDate = new TextField(), txfAntalUdflugt = new TextField();
+            txfSlutDate = new TextField(); //txfAntalUdflugt = new TextField();
     private final ListView<Konference> lvwKonferencer = new ListView<>();
     private final ListView<Udflugt> lvwUdflugter = new ListView<>();
 
@@ -170,7 +170,7 @@ public class KonferencePane extends GridPane {
 
         public void createUdflugtAction() {
             if (createUdflugtDialog == null) {
-                createUdflugtDialog = new UdflugtDialog("Create Udflugt", null);
+                createUdflugtDialog = new UdflugtDialog("Create Udflugt", null, konference);
                 Stage stage = (Stage) lvwUdflugter.getScene().getWindow();
                 createUdflugtDialog.initOwner(stage);
             }
@@ -178,7 +178,7 @@ public class KonferencePane extends GridPane {
             createUdflugtDialog.showAndWait();
             // ... wait for the dialog to close
 
-            boolean isCreated = createUdlfugtDialog.getResult();
+            boolean isCreated = createUdflugtDialog.getResult();
             if (isCreated) {
                 lvwUdflugter.getItems().setAll(konference.getUdflugter());
                 int index = lvwUdflugter.getItems().size() - 1;

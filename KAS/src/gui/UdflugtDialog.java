@@ -2,12 +2,14 @@ package gui;
 
 import java.time.LocalDate;
 
+import application.model.Konference;
 import application.model.Udflugt;
 import application.service.Service;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -19,8 +21,9 @@ public class UdflugtDialog extends Stage {
     private final Controller controller = new Controller();
 
     /** Note: company is nullable. */
-    public UdflugtDialog(String navn, Udflugt udflugt) {
+    public UdflugtDialog(String navn, Udflugt udflugt, Konference konference) {
         controller.udflugt = udflugt;
+        controller.konference = konference;
 
         this.initModality(Modality.APPLICATION_MODAL);
         this.setResizable(false);
@@ -35,9 +38,11 @@ public class UdflugtDialog extends Stage {
 
     // -------------------------------------------------------------------------
 
-    private final TextField txfName = new TextField(), txfAdresse = new TextField();
+    private final TextField txfName = new TextField(), txfSted = new TextField(), txfPris = new TextField(),
+            txfBeskrivelse = new TextField();
+    private final CheckBox cbxFrokost = new CheckBox("Frokost ");
     private final Label lblError = new Label();
-    private final DatePicker startDatePicker = new DatePicker(), slutDatePicker = new DatePicker();
+    private final DatePicker DatePicker = new DatePicker();
 
     private void initContent(GridPane pane) {
         pane.setPadding(new Insets(20, 20, 0, 20));
@@ -55,33 +60,35 @@ public class UdflugtDialog extends Stage {
         pane.add(lblAdresse, 0, 2);
         GridPane.setMargin(lblAdresse, new Insets(10, 0, 0, 0));
 
-        pane.add(txfAdresse, 0, 3);
+        pane.add(txfSted, 0, 3);
 
-        Label lblStartDato = new Label("Start Dato");
-        pane.add(lblStartDato, 0, 4);
-        GridPane.setMargin(lblStartDato, new Insets(10, 0, 0, 0));
-        startDatePicker.setShowWeekNumbers(true);
-        pane.add(startDatePicker, 0, 5);
+        pane.add(cbxFrokost, 0, 6);
 
-        Label lblSlutDato = new Label("Slut Dato");
-        pane.add(lblSlutDato, 0, 6);
-        GridPane.setMargin(lblSlutDato, new Insets(10, 0, 0, 0));
-        slutDatePicker.setShowWeekNumbers(true);
-        pane.add(slutDatePicker, 0, 7);
+        Label lblDato = new Label("Dato");
+        pane.add(lblDato, 0, 4);
+        GridPane.setMargin(lblDato, new Insets(10, 0, 0, 0));
+        DatePicker.setShowWeekNumbers(true);
+        pane.add(DatePicker, 0, 5);
+
+        Label lblBeskrivelse = new Label("Beskrivelse");
+        pane.add(lblBeskrivelse, 0, 7);
+
+        pane.add(txfBeskrivelse, 0, 8);
+        txfBeskrivelse.setPrefWidth(200);
 
         Button btnCancel = new Button("Annuller");
-        pane.add(btnCancel, 0, 8);
+        pane.add(btnCancel, 0, 9);
         GridPane.setHalignment(btnCancel, HPos.LEFT);
         GridPane.setMargin(btnCancel, new Insets(10, 0, 0, 30));
         btnCancel.setOnAction(event -> controller.cancelAction());
 
         Button btnOK = new Button("OK");
-        pane.add(btnOK, 0, 8);
+        pane.add(btnOK, 0, 9);
         GridPane.setHalignment(btnOK, HPos.RIGHT);
         GridPane.setMargin(btnOK, new Insets(10, 30, 0, 0));
         btnOK.setOnAction(event -> controller.okAction());
 
-        pane.add(lblError, 0, 9);
+        pane.add(lblError, 0, 10);
         GridPane.setMargin(lblError, new Insets(0, 0, 10, 0));
         lblError.setStyle("-fx-text-fill: red");
 
@@ -98,16 +105,17 @@ public class UdflugtDialog extends Stage {
     // -------------------------------------------------------------------------
 
     private class Controller {
+        private Konference konference;
         private Udflugt udflugt;
         private boolean result = false;
 
         public void updateControls() {
             if (udflugt != null) {
                 txfName.setText(udflugt.getNavn());
-                txfAdresse.setText("" + udflugt.getSted());
+                txfSted.setText("" + udflugt.getSted());
             } else {
                 txfName.clear();
-                txfAdresse.clear();
+                txfSted.clear();
             }
             lblError.setText("");
         }
@@ -120,26 +128,30 @@ public class UdflugtDialog extends Stage {
 
         // OK button action
         public void okAction() {
-            LocalDate startDate = startDatePicker.getValue();
-            LocalDate slutDate = slutDatePicker.getValue();
+            LocalDate dato = DatePicker.getValue();
+            double pris = (double) Double.parseDouble(txfPris.getText());
+            boolean frokost = cbxFrokost.isSelected();
+            String beskrivelse = txfBeskrivelse.getText().trim();
             String navn = txfName.getText().trim();
-            String adresse = txfAdresse.getText().trim();
+            String sted = txfSted.getText().trim();
 
             if (navn.length() == 0) {
                 lblError.setText("Name is empty");
                 return;
             }
-            if (adresse.length() == 0) {
+            if (sted.length() == 0) {
                 lblError.setText("Adresse er tom");
                 return;
             }
-            if (startDate == null) {
-                lblError.setText("Start dato er tom");
+            if (dato == null) {
+                lblError.setText("Dato er tom");
                 return;
             }
-            if (slutDate == null) {
-                lblError.setText("Slut dato er tom");
-                return;
+            if (pris < 0) {
+                lblError.setText("pris skal være over 0");
+            }
+            if (beskrivelse == null) {
+                lblError.setText("Beskrivelse er tom");
             }
 
 //            if (udflugt != null)
