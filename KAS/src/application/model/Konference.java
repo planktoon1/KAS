@@ -35,6 +35,7 @@ public class Konference {
         hoteller.add(hotel);
     }
 
+    @Override
     public String toString() {
         String string = "" + navn;
         return string;

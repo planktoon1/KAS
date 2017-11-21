@@ -1,11 +1,13 @@
 package gui;
 
 import application.model.Konference;
+import application.model.Tilmelding;
 import application.service.Service;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -22,9 +24,12 @@ public class DeltagerPane extends GridPane {
 
     //-------------------------------------------------------------------------
 
-    private final TextField txfName = new TextField(), txfWage = new TextField(),
-            txfCompany = new TextField(), txfSalary = new TextField();
+    private final TextField txfNavn = new TextField(),
+            txfLedsager = new TextField(), txfUdflugt = new TextField(), txfStartDate = new TextField(),
+            txfSlutDate = new TextField(), txfHotel = new TextField();
     private final ListView<Konference> lvwKonferencer = new ListView<>();
+    private final CheckBox cbxFordrag = new CheckBox();
+    private final ListView<Tilmelding> lvwTilmelding = new ListView<>();
 
     private void initControls() {
         this.setPadding(new Insets(20));
@@ -39,36 +44,57 @@ public class DeltagerPane extends GridPane {
         lvwKonferencer.setPrefWidth(200);
         lvwKonferencer.setPrefHeight(200);
 
+        Label lblTilmelding = new Label("Deltagere");
+        this.add(lblTilmelding, 3, 0);
+
+        this.add(lvwTilmelding, 3, 1, 1, 5);
+        lvwTilmelding.setPrefHeight(200);
+        lvwTilmelding.setPrefWidth(200);
+
         ChangeListener<Konference> listener = (ov, o, n) -> controller.selectedKonferenceChanged();
         lvwKonferencer.getSelectionModel().selectedItemProperty().addListener(listener);
 
-        Label lblName = new Label("Navn:");
-        this.add(lblName, 1, 1);
+        Label lblNavn = new Label("Navn:");
+        this.add(lblNavn, 1, 1);
 
-        this.add(txfName, 2, 1);
-        txfName.setPrefWidth(200);
-        txfName.setEditable(false);
+        this.add(txfNavn, 2, 1);
+        txfNavn.setPrefWidth(200);
+        txfNavn.setEditable(false);
 
-        Label lblWage = new Label(":");
-        this.add(lblWage, 1, 2);
+        Label lblFordrag = new Label("Fordragsholder:");
+        this.add(lblFordrag, 1, 2);
 
-        this.add(txfWage, 2, 2);
-        txfWage.setEditable(false);
+        this.add(cbxFordrag, 2, 2);
 
-        Label lblCompany = new Label("Company:");
-        this.add(lblCompany, 1, 3);
+        Label lblLedsager = new Label("Ledsager:");
+        this.add(lblLedsager, 1, 3);
 
-        this.add(txfCompany, 2, 3);
-        txfCompany.setEditable(false);
+        this.add(txfLedsager, 2, 3);
+        txfLedsager.setEditable(false);
 
-        Label lblSalary = new Label("Weekly Salary:");
-        this.add(lblSalary, 1, 4);
+        Label lblUdflugt = new Label("Udflugt(er):");
+        this.add(lblUdflugt, 1, 4);
 
-        this.add(txfSalary, 2, 4);
-        txfSalary.setEditable(false);
+        this.add(txfUdflugt, 2, 4);
+        txfUdflugt.setEditable(false);
+
+        Label lblStartDate = new Label("Start dato:");
+        this.add(lblStartDate, 1, 5);
+
+        this.add(txfStartDate, 2, 5);
+
+        Label lblSlutDate = new Label("Slut dato:");
+        this.add(lblSlutDate, 1, 6);
+
+        this.add(txfSlutDate, 2, 6);
+
+        Label lblHotel = new Label("Hotel:");
+        this.add(lblHotel, 1, 7);
+
+        this.add(txfHotel, 2, 7);
 
         HBox hbxButtons = new HBox(40);
-        this.add(hbxButtons, 0, 6, 3, 1);
+        this.add(hbxButtons, 0, 8, 3, 1);
         hbxButtons.setPadding(new Insets(10, 0, 0, 0));
         hbxButtons.setAlignment(Pos.BASELINE_CENTER);
 
@@ -84,7 +110,7 @@ public class DeltagerPane extends GridPane {
         hbxButtons.getChildren().add(btnDelete);
         btnDelete.setOnAction(event -> controller.deleteAction());
 
-        controller.fillLvwKonferences();
+        controller.fillLvw();
 
     }
 
@@ -98,32 +124,40 @@ public class DeltagerPane extends GridPane {
 
     private class Controller {
         private DeltagerDialog createDialog, updateDialog;
+        private Konference konference;
 
-        public void fillLvwKonferences() {
+        public void fillLvw() {
+
             lvwKonferencer.getItems().setAll(Service.getAllkonferencer());
             if (lvwKonferencer.getItems().size() > 0)
                 lvwKonferencer.getSelectionModel().select(0);
+
+            if (konference != null) {
+                lvwTilmelding.getItems().setAll(konference.getTilmeldinger());
+            }
         }
 
         public void updateControls() {
-            controller.fillLvwKonferences();
-//            Konference Konference = lvwKonferences.getSelectionModel().getSelectedItem();
-//            if (Konference != null) {
-//                txfName.setText(Konference.getName());
-//                txfWage.setText("kr " + Konference.getWage());
-//                if (Konference.getCompany() != null) {
-//                    txfCompany.setText("" + Konference.getCompany());
-//                    txfSalary.setText("kr " + Konference.weeklySalary());
-//                } else {
-//                    txfCompany.clear();
-//                    txfSalary.clear();
-//                }
-//            } else {
-//                txfName.clear();
-//                txfWage.clear();
-//                txfCompany.clear();
-//                txfSalary.clear();
-//            }
+            controller.fillLvw();
+            konference = lvwKonferencer.getSelectionModel().getSelectedItem();
+            Tilmelding tilmelding = lvwTilmelding.getSelectionModel().getSelectedItem();
+            konference = lvwKonferencer.getSelectionModel().getSelectedItem();
+            if (konference != null && tilmelding != null) {
+//                txfNavn.setText(konference.getNavn());
+//                txfFordrag.setText("" + konference.getAdresse());
+                txfLedsager.setText("" + tilmelding.getLedsager());
+
+//                txfUdflugt.setText("" + konference.getUdflugter());
+//                txfStartDate.setText("" + konference.getStart());
+//                txfSlutDate.setText("" + konference.getSlut());
+//                lvwUdflugter.getItems().setAll(konference.getUdflugter());
+            } else {
+                txfNavn.clear();
+//                txfFordrag.clear();
+//                txfStartDate.clear();
+//                txfSlutDate.clear();
+//                lvwUdflugter.getItems().clear();
+            }
         }
 
         // --------------------------------------------------------------------

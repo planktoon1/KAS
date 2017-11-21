@@ -2,9 +2,12 @@ package application.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
+import application.model.Deltager;
 import application.model.Hotel;
 import application.model.Konference;
+import application.model.Tilmelding;
 import application.model.Udflugt;
 import storage.Storage;
 
@@ -42,6 +45,13 @@ public class Service {
         konference.addUdflugt(udflugt);
         Storage.storeUdflugt(udflugt);
         return udflugt;
+    }
+
+    public static Tilmelding tilføjTilmelding(Boolean erFordragsholder, Date ankomstdato, Date afrejsedato,
+            String ledsager, Hotel hotel, Udflugt udflugt, Deltager deltager, double samletPris) {
+        Tilmelding tilmelding = new Tilmelding(erFordragsholder, ankomstdato, afrejsedato, ledsager, hotel, udflugt,
+                deltager, samletPris);
+        return tilmelding;
     }
 
     public static void initStorage() {

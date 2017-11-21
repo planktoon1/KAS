@@ -1,9 +1,13 @@
 package gui;
 
+import java.time.LocalDate;
+
 import application.model.Deltager;
+import application.model.Firma;
 import application.model.Hotel;
 import application.model.Udflugt;
 import application.service.Service;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -37,12 +41,14 @@ public class DeltagerDialog extends Stage {
 
     // -------------------------------------------------------------------------
 
-    private final TextField txfNavn = new TextField(), txfLedsager = new TextField();
+    private final TextField txfNavn = new TextField(), txfLedsager = new TextField(), txfAdresse = new TextField(),
+            txfTlf = new TextField();
 //    private final ComboBox<Konference> cbbKonferencer = new ComboBox<>();
     private final ComboBox<Hotel> cbbHoteller = new ComboBox<>();
     private final ComboBox<Udflugt> cbbUdflugter = new ComboBox<>();
+    private final ComboBox<Firma> cbbFirma = new ComboBox<>();
     private final Label lblError = new Label();
-    private final CheckBox cbxFordrag = new CheckBox();
+    private final CheckBox cbxFordrag = new CheckBox(), cbxFirma = new CheckBox();
     private final DatePicker startDatePicker = new DatePicker(), slutDatePicker = new DatePicker();
 
     private void initContent(GridPane pane) {
@@ -50,53 +56,74 @@ public class DeltagerDialog extends Stage {
         pane.setHgap(10);
         pane.setVgap(5);
         pane.setGridLinesVisible(false);
+        pane.setPrefHeight(600);
+        pane.setPrefWidth(400);
 
-        Label lblName = new Label("Navn");
-        pane.add(lblName, 0, 0);
+        Label lblNavn = new Label("Navn");
+        pane.add(lblNavn, 0, 0);
 
         pane.add(txfNavn, 0, 1);
         txfNavn.setPrefWidth(200);
+
+        Label lblAdresse = new Label("Adresse");
+        pane.add(lblAdresse, 0, 2);
+
+        pane.add(txfAdresse, 0, 3);
+
+        Label lblTlf = new Label("Tlf. nr");
+        pane.add(lblTlf, 0, 4);
+
+        pane.add(txfTlf, 0, 5);
 
         pane.add(cbxFordrag, 1, 1);
         cbxFordrag.setText("Fordragsholder");
 
         Label lblLedsager = new Label("Ledsager");
-        pane.add(lblLedsager, 0, 2);
+        pane.add(lblLedsager, 0, 7);
         GridPane.setMargin(lblLedsager, new Insets(10, 0, 0, 0));
 
-        pane.add(txfLedsager, 0, 3);
+        pane.add(txfLedsager, 0, 8);
 
         Label lblUdflugt = new Label("Udflugt");
-        pane.add(lblUdflugt, 1, 10);
+        pane.add(lblUdflugt, 1, 15);
 
-        pane.add(cbbUdflugter, 1, 11);
+        pane.add(cbbUdflugter, 1, 16);
 
         Label lblStartDate = new Label("Start dato");
-        pane.add(lblStartDate, 0, 6);
+        pane.add(lblStartDate, 0, 11);
 
-        pane.add(startDatePicker, 0, 7);
+        pane.add(startDatePicker, 0, 12);
 
         Label lblSlutDate = new Label("Slut dato");
-        pane.add(lblSlutDate, 0, 8);
+        pane.add(lblSlutDate, 0, 13);
 
-        pane.add(slutDatePicker, 0, 9);
+        pane.add(slutDatePicker, 0, 14);
 
         Label lblHotel = new Label("Hotel");
-        pane.add(lblHotel, 0, 10);
+        pane.add(lblHotel, 0, 15);
 
-        pane.add(cbbHoteller, 0, 11);
+        pane.add(cbbHoteller, 0, 16);
+
+        pane.add(cbxFirma, 0, 17);
+        cbxFirma.setText("Firma");
+
+        pane.add(cbbFirma, 0, 18);
+        cbbFirma.setDisable(true);
 
         Button btnCancel = new Button("Annuller");
-        pane.add(btnCancel, 0, 12);
+        pane.add(btnCancel, 0, 19);
         GridPane.setHalignment(btnCancel, HPos.LEFT);
         GridPane.setMargin(btnCancel, new Insets(10, 0, 0, 30));
         btnCancel.setOnAction(event -> controller.cancelAction());
 
         Button btnOK = new Button("OK");
-        pane.add(btnOK, 0, 12);
+        pane.add(btnOK, 0, 19);
         GridPane.setHalignment(btnOK, HPos.RIGHT);
         GridPane.setMargin(btnOK, new Insets(10, 30, 0, 0));
         btnOK.setOnAction(event -> controller.okAction());
+
+        ChangeListener<Boolean> listener = (ov, o, n) -> controller.firmaCbxChange(n);
+        cbxFirma.selectedProperty().addListener(listener);
 
         pane.add(lblError, 0, 13);
         GridPane.setMargin(lblError, new Insets(0, 0, 10, 0));
@@ -113,7 +140,7 @@ public class DeltagerDialog extends Stage {
     // -------------------------------------------------------------------------
 
     private class Controller {
-        private Deltager Deltager;
+        public Deltager Deltager;
         private boolean result = false;
 
         public void fillHotelComboBox() {
@@ -163,6 +190,34 @@ public class DeltagerDialog extends Stage {
 
             result = true;
             DeltagerDialog.this.hide();
+
+            LocalDate startDate = startDatePicker.getValue();
+            LocalDate slutDate = slutDatePicker.getValue();
+//            Deltager deltager = new Deltager(txfNavn.getText().trim(), adresse);
+
+//            if (navn.length() == 0) {
+//                lblError.setText("Du mangler at indtaste et navn til konferencen!");
+//                return;
+//            }
+
+            if (startDate == null) {
+                lblError.setText("Start dato er tom!");
+                return;
+            }
+            if (slutDate == null) {
+                lblError.setText("Slut dato er tom!");
+                return;
+            }
+
+//            if (konference != null)
+//              Service.updateCompany(konference, name, hours);
+//          else
+            Service.tilføjTilmelding();
+
+        }
+
+        public void firmaCbxChange(Boolean checked) {
+            cbbFirma.setDisable(!checked);
         }
 
     }

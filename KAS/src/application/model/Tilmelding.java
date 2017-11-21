@@ -23,4 +23,8 @@ public class Tilmelding {
         this.deltager = deltager;
         this.samletPris = samletPris;
     }
+
+    public String getLedsager() {
+        return ledsager;
+    }
 }
