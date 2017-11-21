@@ -46,4 +46,9 @@ public class Udflugt {
         return konference;
     }
 
+    public String toString() {
+        String string = "" + navn;
+        return string;
+    }
+
 }

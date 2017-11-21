@@ -1,6 +1,7 @@
 package gui;
 
 import java.time.LocalDate;
+import java.util.function.UnaryOperator;
 
 import application.model.Konference;
 import application.model.Udflugt;
@@ -14,6 +15,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -67,6 +70,14 @@ public class UdflugtDialog extends Stage {
         pane.add(lblPris, 0, 4);
         GridPane.setMargin(lblPris, new Insets(10, 0, 0, 0));
 
+        UnaryOperator<Change> textFilter = change -> {
+            String input = change.getText();
+            if (!txfPris.getText().matches(input)) {
+                return null;
+            }
+            return change;
+        };
+        txfPris.setTextFormatter(new TextFormatter<String>(textFilter));
         pane.add(txfPris, 0, 5);
 
         pane.add(cbxFrokost, 0, 6);
@@ -139,7 +150,7 @@ public class UdflugtDialog extends Stage {
             LocalDate dato = DatePicker.getValue();
             double pris = 0.0;
             if (txfPris.getText().length() > 0) {
-                pris = Double.parseDouble(txfPris.getText());
+                pris = 1.0 * Double.parseDouble(txfPris.getText());
             }
             boolean frokost = cbxFrokost.isSelected();
             String beskrivelse = txaBeskrivelse.getText().trim();
