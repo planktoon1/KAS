@@ -2,14 +2,12 @@ package storage;
 
 import java.util.ArrayList;
 
-import application.model.Firma;
 import application.model.Hotel;
 import application.model.Konference;
 import application.model.Tilmelding;
 import application.model.Udflugt;
 
 public class Storage {
-    private static final ArrayList<Firma> firmaer = new ArrayList<>();
     private static final ArrayList<Hotel> hoteller = new ArrayList<>();
     private static final ArrayList<Konference> konferencer = new ArrayList<>();
     private static final ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
@@ -23,6 +21,14 @@ public class Storage {
 
     public static void storeKonference(Konference konference) {
         konferencer.add(konference);
+    }
+
+    public static ArrayList<Tilmelding> getAllTilmeldinger() {
+        return new ArrayList<>(tilmeldinger);
+    }
+
+    public static void storeTilmeldinger(Tilmelding tilmelding) {
+        tilmeldinger.add(tilmelding);
     }
 
     public static ArrayList<Udflugt> getAllUdflugter() {
