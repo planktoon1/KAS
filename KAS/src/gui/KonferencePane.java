@@ -178,21 +178,12 @@ public class KonferencePane extends GridPane {
             createUdflugtDialog.showAndWait();
             // ... wait for the dialog to close
 
-<<<<<<< HEAD
-////            boolean isCreated = createUdlfugtDialog.getResult();
-//            if (isCreated) {
-//                lvwUdflugter.getItems().setAll(konference.getUdflugter());
-//                int index = lvwUdflugter.getItems().size() - 1;
-//                lvwUdflugter.getSelectionModel().select(index);
-//            }
-=======
             boolean isCreated = createUdflugtDialog.getResult();
             if (isCreated) {
                 lvwUdflugter.getItems().setAll(konference.getUdflugter());
                 int index = lvwUdflugter.getItems().size() - 1;
                 lvwUdflugter.getSelectionModel().select(index);
             }
->>>>>>> branch 'master' of https://github.com/planktoon1/KAS.git
         }
 
         // Update button action
