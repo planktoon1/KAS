@@ -149,6 +149,7 @@ public class KonferenceDialog extends Stage {
 
             result = true;
             KonferenceDialog.this.hide();
+
         }
     }
 }

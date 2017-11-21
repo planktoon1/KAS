@@ -2,7 +2,6 @@ package gui;
 
 import application.model.Deltager;
 import application.model.Hotel;
-import application.model.Konference;
 import application.model.Udflugt;
 import application.service.Service;
 import javafx.geometry.HPos;
@@ -38,8 +37,8 @@ public class DeltagerDialog extends Stage {
 
     // -------------------------------------------------------------------------
 
-    private final TextField txfNavn = new TextField(), txfWage = new TextField(), txfLedsager = new TextField();
-    private final ComboBox<Konference> cbbKonferencer = new ComboBox<>();
+    private final TextField txfNavn = new TextField(), txfLedsager = new TextField();
+//    private final ComboBox<Konference> cbbKonferencer = new ComboBox<>();
     private final ComboBox<Hotel> cbbHoteller = new ComboBox<>();
     private final ComboBox<Udflugt> cbbUdflugter = new ComboBox<>();
     private final Label lblError = new Label();
@@ -52,37 +51,58 @@ public class DeltagerDialog extends Stage {
         pane.setVgap(5);
         pane.setGridLinesVisible(false);
 
-        Label lblName = new Label("Name");
+        Label lblName = new Label("Navn");
         pane.add(lblName, 0, 0);
 
         pane.add(txfNavn, 0, 1);
         txfNavn.setPrefWidth(200);
 
-        Label lblWage = new Label("Hourly Wage");
-        pane.add(lblWage, 0, 2);
-        GridPane.setMargin(lblWage, new Insets(10, 0, 0, 0));
+        pane.add(cbxFordrag, 1, 1);
+        cbxFordrag.setText("Fordragsholder");
 
-        pane.add(txfWage, 0, 3);
+        Label lblLedsager = new Label("Ledsager");
+        pane.add(lblLedsager, 0, 2);
+        GridPane.setMargin(lblLedsager, new Insets(10, 0, 0, 0));
 
-        pane.add(cbbKonferencer, 0, 5);
+        pane.add(txfLedsager, 0, 3);
 
-        Button btnCancel = new Button("Cancel");
-        pane.add(btnCancel, 0, 6);
+        Label lblUdflugt = new Label("Udflugt");
+        pane.add(lblUdflugt, 1, 10);
+
+        pane.add(cbbUdflugter, 1, 11);
+
+        Label lblStartDate = new Label("Start dato");
+        pane.add(lblStartDate, 0, 6);
+
+        pane.add(startDatePicker, 0, 7);
+
+        Label lblSlutDate = new Label("Slut dato");
+        pane.add(lblSlutDate, 0, 8);
+
+        pane.add(slutDatePicker, 0, 9);
+
+        Label lblHotel = new Label("Hotel");
+        pane.add(lblHotel, 0, 10);
+
+        pane.add(cbbHoteller, 0, 11);
+
+        Button btnCancel = new Button("Annuller");
+        pane.add(btnCancel, 0, 12);
         GridPane.setHalignment(btnCancel, HPos.LEFT);
         GridPane.setMargin(btnCancel, new Insets(10, 0, 0, 30));
         btnCancel.setOnAction(event -> controller.cancelAction());
 
         Button btnOK = new Button("OK");
-        pane.add(btnOK, 0, 6);
+        pane.add(btnOK, 0, 12);
         GridPane.setHalignment(btnOK, HPos.RIGHT);
         GridPane.setMargin(btnOK, new Insets(10, 30, 0, 0));
         btnOK.setOnAction(event -> controller.okAction());
 
-        pane.add(lblError, 0, 7);
+        pane.add(lblError, 0, 13);
         GridPane.setMargin(lblError, new Insets(0, 0, 10, 0));
         lblError.setStyle("-fx-text-fill: red");
 
-        controller.fillCompanyComboBox();
+        controller.fillHotelComboBox();
 //         controller.updateControls();
     }
 
@@ -96,10 +116,10 @@ public class DeltagerDialog extends Stage {
         private Deltager Deltager;
         private boolean result = false;
 
-        public void fillCompanyComboBox() {
-            cbbKonferencer.getItems().setAll(Service.getAllkonferencer());
-            if (cbbKonferencer.getItems().size() > 0) {
-                cbbKonferencer.getSelectionModel().select(0);
+        public void fillHotelComboBox() {
+            cbbHoteller.getItems().setAll(Service.getAllHoteller());
+            if (cbbHoteller.getItems().size() > 0) {
+                cbbHoteller.getSelectionModel().select(0);
             }
         }
 
@@ -138,17 +158,6 @@ public class DeltagerDialog extends Stage {
             String name = txfNavn.getText().trim();
             if (name.length() == 0) {
                 lblError.setText("Name is empty");
-                return;
-            }
-
-            int wage = -1;
-            try {
-                wage = Integer.parseInt(txfWage.getText().trim());
-            } catch (NumberFormatException ex) {
-                // do nothing
-            }
-            if (wage < 0) {
-                lblError.setText("Wage is not a positive number");
                 return;
             }
 

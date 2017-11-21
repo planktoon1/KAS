@@ -178,12 +178,12 @@ public class KonferencePane extends GridPane {
             createUdflugtDialog.showAndWait();
             // ... wait for the dialog to close
 
-            boolean isCreated = createUdlfugtDialog.getResult();
-            if (isCreated) {
-                lvwUdflugter.getItems().setAll(konference.getUdflugter());
-                int index = lvwUdflugter.getItems().size() - 1;
-                lvwUdflugter.getSelectionModel().select(index);
-            }
+////            boolean isCreated = createUdlfugtDialog.getResult();
+//            if (isCreated) {
+//                lvwUdflugter.getItems().setAll(konference.getUdflugter());
+//                int index = lvwUdflugter.getItems().size() - 1;
+//                lvwUdflugter.getSelectionModel().select(index);
+//            }
         }
 
         // Update button action

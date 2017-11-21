@@ -24,7 +24,7 @@ public class DeltagerPane extends GridPane {
 
     private final TextField txfName = new TextField(), txfWage = new TextField(),
             txfCompany = new TextField(), txfSalary = new TextField();
-    private final ListView<Konference> lvwKonferences = new ListView<>();
+    private final ListView<Konference> lvwKonferencer = new ListView<>();
 
     private void initControls() {
         this.setPadding(new Insets(20));
@@ -32,24 +32,24 @@ public class DeltagerPane extends GridPane {
         this.setVgap(10);
         this.setGridLinesVisible(false);
 
-        Label lblComp = new Label("Konferences");
+        Label lblComp = new Label("Konferencer");
         this.add(lblComp, 0, 0);
 
-        this.add(lvwKonferences, 0, 1, 1, 5);
-        lvwKonferences.setPrefWidth(200);
-        lvwKonferences.setPrefHeight(200);
+        this.add(lvwKonferencer, 0, 1, 1, 5);
+        lvwKonferencer.setPrefWidth(200);
+        lvwKonferencer.setPrefHeight(200);
 
         ChangeListener<Konference> listener = (ov, o, n) -> controller.selectedKonferenceChanged();
-        lvwKonferences.getSelectionModel().selectedItemProperty().addListener(listener);
+        lvwKonferencer.getSelectionModel().selectedItemProperty().addListener(listener);
 
-        Label lblName = new Label("Name:");
+        Label lblName = new Label("Navn:");
         this.add(lblName, 1, 1);
 
         this.add(txfName, 2, 1);
         txfName.setPrefWidth(200);
         txfName.setEditable(false);
 
-        Label lblWage = new Label("Hourly Wage:");
+        Label lblWage = new Label(":");
         this.add(lblWage, 1, 2);
 
         this.add(txfWage, 2, 2);
@@ -72,19 +72,20 @@ public class DeltagerPane extends GridPane {
         hbxButtons.setPadding(new Insets(10, 0, 0, 0));
         hbxButtons.setAlignment(Pos.BASELINE_CENTER);
 
-        Button btnCreate = new Button("Create");
+        Button btnCreate = new Button("Opret");
         hbxButtons.getChildren().add(btnCreate);
         btnCreate.setOnAction(event -> controller.createAction());
 
-        Button btnUpdate = new Button("Update");
-        hbxButtons.getChildren().add(btnUpdate);
-        btnUpdate.setOnAction(event -> controller.updateAction());
+//        Button btnUpdate = new Button("Update");
+//        hbxButtons.getChildren().add(btnUpdate);
+//        btnUpdate.setOnAction(event -> controller.updateAction());
 
-        Button btnDelete = new Button("Delete");
+        Button btnDelete = new Button("Rediger");
         hbxButtons.getChildren().add(btnDelete);
         btnDelete.setOnAction(event -> controller.deleteAction());
 
         controller.fillLvwKonferences();
+
     }
 
     // -------------------------------------------------------------------------
@@ -99,12 +100,13 @@ public class DeltagerPane extends GridPane {
         private DeltagerDialog createDialog, updateDialog;
 
         public void fillLvwKonferences() {
-            lvwKonferences.getItems().setAll(Service.getAllkonferencer());
-            if (lvwKonferences.getItems().size() > 0)
-                lvwKonferences.getSelectionModel().select(0);
+            lvwKonferencer.getItems().setAll(Service.getAllkonferencer());
+            if (lvwKonferencer.getItems().size() > 0)
+                lvwKonferencer.getSelectionModel().select(0);
         }
 
         public void updateControls() {
+            controller.fillLvwKonferences();
 //            Konference Konference = lvwKonferences.getSelectionModel().getSelectedItem();
 //            if (Konference != null) {
 //                txfName.setText(Konference.getName());
@@ -130,7 +132,7 @@ public class DeltagerPane extends GridPane {
         public void createAction() {
             if (createDialog == null) {
                 createDialog = new DeltagerDialog("Opret deltager", null);
-                Stage stage = (Stage) lvwKonferences.getScene().getWindow();
+                Stage stage = (Stage) lvwKonferencer.getScene().getWindow();
                 createDialog.initOwner(stage);
             }
 
@@ -139,9 +141,9 @@ public class DeltagerPane extends GridPane {
 
             boolean isCreated = createDialog.getResult();
             if (isCreated) {
-                lvwKonferences.getItems().setAll(Service.getAllkonferencer());
-                int index = lvwKonferences.getItems().size() - 1;
-                lvwKonferences.getSelectionModel().select(index);
+                lvwKonferencer.getItems().setAll(Service.getAllkonferencer());
+                int index = lvwKonferencer.getItems().size() - 1;
+                lvwKonferencer.getSelectionModel().select(index);
             }
             this.updateControls();
         }
