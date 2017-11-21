@@ -11,6 +11,8 @@ public class Tilmelding {
     private Udflugt udflugt;
     private Deltager deltager;
     private double samletPris;
+    
+ // association: --> 0..1 konference 
     private Konference konference;
 
     public Tilmelding(boolean erFordragsholder, LocalDate ankomstdato, LocalDate afrejsedato, String ledsager,
@@ -23,10 +25,31 @@ public class Tilmelding {
         this.udflugt = udflugt;
         this.deltager = deltager;
         this.samletPris = samletPris;
-        this.konference = konference;
+        setKonference(konference);
     }
 
     public String getLedsager() {
         return ledsager;
     }
+    
+ // -----------------------------------------------------------------------------
+    
+    public Konference getKonference() {
+        return konference;
+    }
+    
+    public void setKonference(Konference konference) {
+        if (konference != null) {
+            assert this.konference == null;
+            this.konference = konference;
+            konference.addTilmelding(this);
+        } else {
+            assert this.konference != null;
+            this.konference.removeTilmelding(this);
+            this.konference = null;
+        }
+    }
+
+    
+ // -----------------------------------------------------------------------------
 }

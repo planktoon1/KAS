@@ -9,6 +9,8 @@ public class Udflugt {
     private boolean frokost;
     private String beskrivelse;
     private String navn;
+    
+    // association: --> 0..1 konference 
     private Konference konference;
 
     public Udflugt(String sted, LocalDate dato, double pris, boolean frokost, String beskrivelse, String navn,
@@ -19,7 +21,7 @@ public class Udflugt {
         this.frokost = frokost;
         this.beskrivelse = beskrivelse;
         this.navn = navn;
-        this.konference = konference;
+        setKonference(konference);
     }
 
     public String getSted() {
@@ -42,13 +44,29 @@ public class Udflugt {
         return navn;
     }
 
-    public Konference getKonference() {
-        return konference;
-    }
-
     public String toString() {
         String string = "" + navn;
         return string;
     }
+ // -----------------------------------------------------------------------------
+    
+    public Konference getKonference() {
+        return konference;
+    }
+    
+    public void setKonference(Konference konference) {
+        if (konference != null) {
+            assert this.konference == null;
+            this.konference = konference;
+            konference.addUdflugt(this);
+        } else {
+            assert this.konference != null;
+            this.konference.removeUdflugt(this);
+            this.konference = null;
+        }
+    }
+
+    
+ // -----------------------------------------------------------------------------
 
 }

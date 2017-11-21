@@ -5,36 +5,65 @@ import java.util.ArrayList;
 
 public class Konference {
     private String navn;
-    private ArrayList<Tilmelding> tilmeldinger;
     private LocalDate start;
     private LocalDate slut;
     private String adresse;
 
-    private ArrayList<Udflugt> udflugter;
-    private ArrayList<Hotel> hoteller;
+    // association: --> 0..* Tilmeldinger
+    private ArrayList<Tilmelding> tilmeldinger = new ArrayList<Tilmelding>();
+    // association: --> 0..* Udflugter
+    private ArrayList<Udflugt> udflugter = new ArrayList<Udflugt>();
+    // association: --> 0..* Hoteller
+    private ArrayList<Hotel> hoteller = new ArrayList<Hotel>();;
 
     public Konference(String navn, LocalDate start, LocalDate slut, String adresse) {
         this.navn = navn;
-        this.tilmeldinger = new ArrayList<Tilmelding>();
         this.start = start;
         this.slut = slut;
         this.adresse = adresse;
-        this.udflugter = new ArrayList<Udflugt>();
-        this.hoteller = new ArrayList<Hotel>();
     }
 
-    public void addTilmelding(Tilmelding tilmelding) {
+    //---------------Association's håndtering------------------
+    //- Tilmeldinger
+    public ArrayList<Tilmelding> getTilmeldinger() {
+        return new ArrayList<>(tilmeldinger);
+    }
+    
+    void addTilmelding(Tilmelding tilmelding) { // package visibility
         tilmeldinger.add(tilmelding);
     }
-
-    public void addUdflugt(Udflugt udflugt) {
-        udflugter.add(udflugt);
+    
+    void removeTilmelding(Tilmelding tilmelding) { // package visibility
+    	tilmeldinger.remove(tilmelding);
+    }
+    
+    //- Udflugter
+    public ArrayList<Udflugt> getUdflugter() {
+        return new ArrayList<>(udflugter);
     }
 
-    public void addHotel(Hotel hotel) {
-        hoteller.add(hotel);
+    void addUdflugt(Udflugt udflugt) { // package visibility
+    	udflugter.add(udflugt);
+    }
+    
+    void removeUdflugt(Udflugt udflugt) { // package visibility
+    	udflugter.remove(udflugt);
     }
 
+    //- Hoteller
+    public ArrayList<Hotel> getHoteller() { 
+        return new ArrayList<>(hoteller);
+    }
+
+    void addHotel(Hotel hotel) { // package visibility
+    	hoteller.add(hotel);
+    }
+    
+    void removeHotel(Hotel hotel) { // package visibility
+    	hoteller.remove(hotel);
+    }
+    
+    //---------------------------------------------------------
     @Override
     public String toString() {
         String string = "" + navn;
@@ -43,18 +72,6 @@ public class Konference {
 
     public String getNavn() {
         return navn;
-    }
-
-    public ArrayList<Tilmelding> getTilmeldinger() {
-        return tilmeldinger;
-    }
-
-    public ArrayList<Udflugt> getUdflugter() {
-        return udflugter;
-    }
-
-    public ArrayList<Hotel> getHoteller() {
-        return hoteller;
     }
 
     public LocalDate getStart() {
