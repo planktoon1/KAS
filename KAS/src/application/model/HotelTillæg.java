@@ -8,8 +8,21 @@ public class HotelTillæg {
     public HotelTillæg(String navn, double pris, Hotel hotel) {
         this.navn = navn;
         this.pris = pris;
+
         this.hotel = hotel;
-        this.hotel = hotel;
-        hotel.addHoteltillæg(this);
+        setHotel(hotel);
+    }
+    
+    @Override
+    public String toString() {
+    	return hotel + " | " + navn + ": " + pris + "Kr,-";
+    }
+    
+    public void setHotel(Hotel hotel) {
+        if (hotel != null) {
+            assert this.hotel == null;
+            this.hotel = hotel;
+            hotel.addHoteltillæg(this);
+        }
     }
 }

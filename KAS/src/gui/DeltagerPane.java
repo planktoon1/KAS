@@ -1,4 +1,4 @@
-dpackage gui;
+package gui;
 
 import application.model.Konference;
 import application.model.Tilmelding;

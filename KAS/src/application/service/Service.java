@@ -54,8 +54,8 @@ public class Service {
     }
     
     public static HotelTillæg tilføjHotelTillæg(String navn,  double pris, Hotel hotel) {
-        HotelTillæg hotelTillæg = new HotelTillæg(navn, pris, hotel);
-        //Storage.storeHotelTillæg(hotelTillæg); //Nødvendig ? idk
+    	HotelTillæg hotelTillæg = new HotelTillæg(navn, pris, hotel);
+    	//Storage.storeHotelTillæg(hotelTillæg); //Nødvendig ? idk
         return hotelTillæg;
     }
 
@@ -77,26 +77,25 @@ public class Service {
         LocalDate d3 = LocalDate.now().plusMonths(3);
         LocalDate d4 = d3.plusDays(3);
 
-        tilføjKonference("konference 1: Star Trekz", d1, d2, "Sønderhøj 30");
-        tilføjKonference("konference 2: Star warz", d3, d4, "Sønderhøj 30");
+        Konference k1 = tilføjKonference("konference 1: Star Trekz", d1, d2, "Sønderhøj 30");
+        Konference k2 = tilføjKonference("konference 2: Star warz", d3, d4, "Sønderhøj 30");
 
         Hotel h1 = tilføjHotel("nigga naps", "bullshitstræde 69", 800.0);
         Hotel h2 = tilføjHotel("sleepz", "Viby torv", 1600.0);
         
-        HotelTillæg ht1 = tilføjHotelTillæg("WIFI", 300.0,h1);
-        HotelTillæg ht2 = tilføjHotelTillæg("Bad", 150.0,h1);
-        HotelTillæg ht3 = tilføjHotelTillæg("Håndklæder", 50.0,h2);
+        HotelTillæg ht1 = tilføjHotelTillæg("WIFI", 300.0, h1);
+        HotelTillæg ht2 = tilføjHotelTillæg("Bad", 150.0, h1);
+        HotelTillæg ht3 = tilføjHotelTillæg("Håndklæder", 50.0, h2);
 
-        ArrayList<HotelTillæg> hotelTillæg = new ArrayList<HotelTillæg>();
-        hotelTillæg.add(ht1);
-        hotelTillæg.add(ht2);
-        hotelTillæg.add(ht3);
+        k1.addHotel(h1);
+        k2.addHotel(h2);
+
 
         
 
-        tilføjUdflugt("Den mørke skov", d1.plusDays(1), 400.0, false,
-                "Rollespil i den mørke skov og du må ikke være med før du får lov", "Rollespil",
-                Storage.getAllKonferencer().get(0));
+//        tilføjUdflugt("Den mørke skov", d1.plusDays(1), 400.0, false,
+//                "Rollespil i den mørke skov og du må ikke være med før du får lov", "Rollespil",
+//                Storage.getAllKonferencer().get(0));
         
         //Tilmelding t1 = new Tilmelding(false,d1,d2,"Heidi",new Hotel("nigga naps", "bullshitstræde 69", 800.0, hotelTillæg),getAllkonferencer().get(0).getUdflugter().get(1),new Deltager("lars", "et sted ", "99999999"),1000.00,getAllkonferencer().get(0));
 

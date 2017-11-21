@@ -212,7 +212,7 @@ public class DeltagerDialog extends Stage {
 //            if (konference != null)
 //              Service.updateCompany(konference, name, hours);
 //          else
-            Service.tilføjTilmelding();
+//            Service.tilføjTilmelding();
 
         }
 

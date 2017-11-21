@@ -6,7 +6,7 @@ public class Hotel {
     private String navn;
     private String adresse;
     private double prisPrNat;
-    private ArrayList<HotelTillæg> hoteltillæg;
+    private ArrayList<HotelTillæg> hotelTillæg = new ArrayList<>();;
 
     public Hotel(String navn, String adresse, double prisPrNat) {
         this.navn = navn;
@@ -27,15 +27,16 @@ public class Hotel {
     // ---------------------------
     
     public ArrayList<HotelTillæg> getHoteltillæg() {
-        return new ArrayList<>(hoteltillæg);
+        return new ArrayList<>(hotelTillæg);
     }
 
     void addHoteltillæg(HotelTillæg hoteltillæg) { // package visibility
-    	this.hoteltillæg.add(hoteltillæg);
+        System.out.println(hoteltillæg);
+    	hotelTillæg.add(hoteltillæg);
     }
 
     void removeHoteltillæg(HotelTillæg hoteltillæg) { // package visibility
-    	this.hoteltillæg.remove(hoteltillæg);
+    	this.hotelTillæg.remove(hoteltillæg);
     }
 
 }
