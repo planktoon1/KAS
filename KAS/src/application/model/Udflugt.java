@@ -22,4 +22,28 @@ public class Udflugt {
         this.konference = konference;
     }
 
+    public String getSted() {
+        return sted;
+    }
+
+    public LocalDate getDato() {
+        return dato;
+    }
+
+    public double getPris() {
+        return pris;
+    }
+
+    public String getBeskrivelse() {
+        return beskrivelse;
+    }
+
+    public String getNavn() {
+        return navn;
+    }
+
+    public Konference getKonference() {
+        return konference;
+    }
+
 }

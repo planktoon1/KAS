@@ -48,6 +48,14 @@ public class Konference {
         return tilmeldinger;
     }
 
+    public ArrayList<Udflugt> getUdflugter() {
+        return udflugter;
+    }
+
+    public ArrayList<Hotel> getHoteller() {
+        return hoteller;
+    }
+
     public LocalDate getStart() {
         return start;
     }
