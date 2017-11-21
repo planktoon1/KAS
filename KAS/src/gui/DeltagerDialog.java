@@ -3,12 +3,10 @@ package gui;
 import application.model.Deltager;
 import application.model.Konference;
 import application.service.Service;
-import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -20,8 +18,8 @@ public class DeltagerDialog extends Stage {
     private final Controller controller = new Controller();
 
     /** Note: Deltager is nullable. */
-    public DeltagerDialog(String title, Deltager Deltager) {
-        controller.Deltager = Deltager;
+    public DeltagerDialog(String title, Deltager deltager) {
+        controller.Deltager = deltager;
 
         this.initModality(Modality.APPLICATION_MODAL);
         this.setResizable(false);
@@ -36,9 +34,8 @@ public class DeltagerDialog extends Stage {
 
     // -------------------------------------------------------------------------
 
-    private final TextField txfName = new TextField(), txfWage = new TextField();
-    private final CheckBox cbxCompany = new CheckBox();
-    private final ComboBox<Deltager> cbbCompany = new ComboBox<>();
+    private final TextField txfNavn = new TextField(), txfWage = new TextField();
+    private final ComboBox<Konference> cbbKonferencer = new ComboBox<>();
     private final Label lblError = new Label();
 
     private void initContent(GridPane pane) {
@@ -50,8 +47,8 @@ public class DeltagerDialog extends Stage {
         Label lblName = new Label("Name");
         pane.add(lblName, 0, 0);
 
-        pane.add(txfName, 0, 1);
-        txfName.setPrefWidth(200);
+        pane.add(txfNavn, 0, 1);
+        txfNavn.setPrefWidth(200);
 
         Label lblWage = new Label("Hourly Wage");
         pane.add(lblWage, 0, 2);
@@ -59,13 +56,7 @@ public class DeltagerDialog extends Stage {
 
         pane.add(txfWage, 0, 3);
 
-        pane.add(cbxCompany, 0, 4);
-        cbxCompany.setText("Company");
-        GridPane.setMargin(cbxCompany, new Insets(10, 10, 0, 1));
-        ChangeListener<Boolean> listener = (ov, o, n) -> controller.companyCheckmarkChanged(n);
-        cbxCompany.selectedProperty().addListener(listener);
-
-        pane.add(cbbCompany, 0, 5);
+        pane.add(cbbKonferencer, 0, 5);
 
         Button btnCancel = new Button("Cancel");
         pane.add(btnCancel, 0, 6);
@@ -83,8 +74,8 @@ public class DeltagerDialog extends Stage {
         GridPane.setMargin(lblError, new Insets(0, 0, 10, 0));
         lblError.setStyle("-fx-text-fill: red");
 
-        // controller.fillCompanyComboBox();
-        // controller.updateControls();
+        controller.fillCompanyComboBox();
+//         controller.updateControls();
     }
 
     public boolean getResult() {
@@ -97,9 +88,9 @@ public class DeltagerDialog extends Stage {
         private Deltager Deltager;
         private boolean result = false;
 
-        // public void fillCompanyComboBox() {
-        // cbbCompany.getItems().addAll(Service.getAllkonferencer());
-        // }
+        public void fillCompanyComboBox() {
+            cbbKonferencer.getItems().addAll(Service.getAllkonferencer());
+        }
 
         // public void updateControls() {
         // if (Deltager != null) {
@@ -133,7 +124,7 @@ public class DeltagerDialog extends Stage {
 
         // OK Button action
         public void okAction() {
-            String name = txfName.getText().trim();
+            String name = txfNavn.getText().trim();
             if (name.length() == 0) {
                 lblError.setText("Name is empty");
                 return;
@@ -150,23 +141,9 @@ public class DeltagerDialog extends Stage {
                 return;
             }
 
-            Konference konference = null;
-            if (cbxCompany.isSelected())
-                konference = cbbCompany.getSelectionModel().getSelectedItem();
-
-            // Call Service methods
-            if (Deltager != null)
-                Service.updateDeltager(Deltager, name, wage);
-            else
-                Service.createDeltager(name, wage, company);
-
             result = true;
             DeltagerDialog.this.hide();
         }
 
-        // Selection in cbxCompany changed
-        public void companyCheckmarkChanged(boolean checked) {
-            cbbCompany.setDisable(!checked);
-        }
     }
 }

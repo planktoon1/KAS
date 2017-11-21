@@ -129,7 +129,7 @@ public class DeltagerPane extends GridPane {
         // Create button action
         public void createAction() {
             if (createDialog == null) {
-                createDialog = new DeltagerDialog("aber", deltager);
+                createDialog = new DeltagerDialog("Opret deltager", null);
                 Stage stage = (Stage) lvwKonferences.getScene().getWindow();
                 createDialog.initOwner(stage);
             }
@@ -148,25 +148,25 @@ public class DeltagerPane extends GridPane {
 
         // Update button action
         public void updateAction() {
-            Konference Konference = lvwKonferences.getSelectionModel().getSelectedItem();
-            if (Konference == null)
-                return;
-
-            if (updateDialog == null) {
-                updateDialog = new KonferenceDialog("Update Konference", Konference);
-                Stage stage = (Stage) lvwKonferences.getScene().getWindow();
-                updateDialog.initOwner(stage);
-            }
-
-            updateDialog.showAndWait();
-            // ... wait for the dialog to close
-
-            boolean isUpdated = updateDialog.getResult();
-            if (isUpdated) {
-                int selectedIndex = lvwKonferences.getSelectionModel().getSelectedIndex();
-                lvwKonferences.getItems().setAll(Service.getAllkonferencer());
-                lvwKonferences.getSelectionModel().select(selectedIndex);
-            }
+//            Konference Konference = lvwKonferences.getSelectionModel().getSelectedItem();
+//            if (Konference == null)
+//                return;
+//
+////            if (updateDialog == null) {
+////                updateDialog = new KonferenceDialog("Update Konference", Konference);
+////                Stage stage = (Stage) lvwKonferences.getScene().getWindow();
+////                updateDialog.initOwner(stage);
+//            }
+//
+//            updateDialog.showAndWait();
+//            // ... wait for the dialog to close
+//
+//            boolean isUpdated = updateDialog.getResult();
+//            if (isUpdated) {
+//                int selectedIndex = lvwKonferences.getSelectionModel().getSelectedIndex();
+//                lvwKonferences.getItems().setAll(Service.getAllkonferencer());
+//                lvwKonferences.getSelectionModel().select(selectedIndex);
+//            }
         }
 
         // Delete button action
