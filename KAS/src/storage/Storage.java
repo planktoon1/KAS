@@ -44,10 +44,7 @@ public class Storage {
     }
 
     public static void initStorage() {
-        Hotel h1 = new Hotel("Hilton", "Parkvej 9", 1049.0, null);
-        Hotel h2 = new Hotel("Lars Larsen Hotel", "Bowlingvej 11", 559.0, null);
-        hoteller.add(h1);
-        hoteller.add(h2);
+    	
     }
 
 }
