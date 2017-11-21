@@ -34,8 +34,8 @@ public class Storage {
     public static void storeUdflugt(Udflugt udflugt) {
         udflugter.add(udflugt);
     }
-    
-    public static ArrayList<Hotel> getAllHotel() {
+
+    public static ArrayList<Hotel> getAllHoteller() {
         return new ArrayList<>(hoteller);
     }
 
