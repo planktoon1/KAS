@@ -29,7 +29,7 @@ public class Tilmelding {
         setDeltager(deltager);
         setKonference(konference);
     }
-
+//
     public String getLedsager() {
         return ledsager;
     }
