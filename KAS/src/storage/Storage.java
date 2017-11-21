@@ -2,7 +2,6 @@ package storage;
 
 import java.util.ArrayList;
 
-import application.model.Deltager;
 import application.model.Firma;
 import application.model.Hotel;
 import application.model.Konference;
@@ -10,7 +9,6 @@ import application.model.Tilmelding;
 import application.model.Udflugt;
 
 public class Storage {
-    private static final ArrayList<Deltager> deltagere = new ArrayList<>();
     private static final ArrayList<Firma> firmaer = new ArrayList<>();
     private static final ArrayList<Hotel> hoteller = new ArrayList<>();
     private static final ArrayList<Konference> konferencer = new ArrayList<>();
@@ -36,7 +34,7 @@ public class Storage {
     }
 
     public static ArrayList<Hotel> getAllHotel() {
-        return new ArrayList<>(Hotel);
+        return new ArrayList<>(hoteller);
     }
 
     public static void storeHotel(Hotel hotel) {
