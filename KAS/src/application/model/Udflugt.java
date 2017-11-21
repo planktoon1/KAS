@@ -20,7 +20,6 @@ public class Udflugt {
         this.beskrivelse = beskrivelse;
         this.navn = navn;
         this.konference = konference;
-        konference.addUdflugt(this);
     }
 
 }
