@@ -96,7 +96,7 @@ public class DeltagerPane extends GridPane {
     // -------------------------------------------------------------------------
 
     private class Controller {
-        private KonferenceDialog createDialog, updateDialog;
+        private DeltagerDialog createDialog, updateDialog;
 
         public void fillLvwKonferences() {
             lvwKonferences.getItems().setAll(Service.getAllkonferencer());
@@ -129,7 +129,7 @@ public class DeltagerPane extends GridPane {
         // Create button action
         public void createAction() {
             if (createDialog == null) {
-                createDialog = new KonferenceDialog("Create Konference", null);
+                createDialog = new DeltagerDialog("aber", deltager);
                 Stage stage = (Stage) lvwKonferences.getScene().getWindow();
                 createDialog.initOwner(stage);
             }
