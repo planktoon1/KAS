@@ -130,7 +130,7 @@ public class KonferenceDialog extends Stage {
                 return;
             }
             if (adresse.length() == 0) {
-                lblError.setText("Adresse er tom");
+                lblError.setText("Adresse er tos");
                 return;
             }
             if (startDate == null) {
