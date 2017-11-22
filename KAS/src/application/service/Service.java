@@ -66,12 +66,6 @@ public class Service {
         return tilmelding;
     }
 
-    public static double prisForTilmelding(Tilmelding tilmelding) {
-        double totalPris = 0.0;
-
-        return totalPris;
-    }
-
     public static void initStorage() {
         //Storage.initStorage();
         LocalDate d1 = LocalDate.now();
