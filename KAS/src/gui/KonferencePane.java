@@ -1,5 +1,6 @@
 package gui;
 
+import application.model.Hotel;
 import application.model.Konference;
 import application.model.Udflugt;
 import application.service.Service;
@@ -12,6 +13,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class KonferencePane extends GridPane {
@@ -24,9 +26,12 @@ public class KonferencePane extends GridPane {
     // -------------------------------------------------------------------------
 
     private final TextField txfNavn = new TextField(), txfAdresse = new TextField(), txfStartDate = new TextField(),
-            txfSlutDate = new TextField(), txfDagsPris = new TextField(); //txfAntalUdflugt = new TextField();
+            txfSlutDate = new TextField(), txfDagsPris = new TextField(), txfUdflugtNavn = new TextField(),
+            txfUdflugtAdresse = new TextField(), txfUdflugtPris = new TextField(), txfFrokost = new TextField(),
+            txfDato = new TextField(), txfBeskrivelse = new TextField();
     private final ListView<Konference> lvwKonferencer = new ListView<>();
     private final ListView<Udflugt> lvwUdflugter = new ListView<>();
+    private final ListView<Hotel> lvwHoteller = new ListView<>();
     private final Button btnAddUdflugt = new Button("Opret Udflugt");
 
     private void initContent() {
@@ -37,51 +42,88 @@ public class KonferencePane extends GridPane {
 
         Label lblKonf = new Label("Konferencer");
         this.add(lblKonf, 0, 0);
+        lblKonf.setFont(new Font("Serif", 30));
 
-        this.add(lvwKonferencer, 0, 1, 1, 6);
-        lvwKonferencer.setPrefWidth(200);
-        lvwKonferencer.setPrefHeight(200);
+        this.add(lvwKonferencer, 0, 8, 2, 1);
+        lvwKonferencer.setPrefWidth(300);
+        lvwKonferencer.setPrefHeight(300);
+
+        this.add(lvwHoteller, 4, 8, 2, 1);
+        lvwHoteller.setPrefHeight(300);
+        lvwHoteller.setPrefWidth(300);
+
+        Label lblHoteller = new Label("Hoteller");
+        this.add(lblHoteller, 4, 0);
+        lblHoteller.setFont(new Font("Serif", 30));
 
         ChangeListener<Konference> listener = (ov, o, n) -> controller.selectedKonferenceChanged();
         lvwKonferencer.getSelectionModel().selectedItemProperty().addListener(listener);
 
-        Label lblNavn = new Label("Navn:");
-        this.add(lblNavn, 1, 1);
+        ChangeListener<Udflugt> listener1 = (ov, o, n) -> controller.selectedUdflugtChanged();
+        lvwUdflugter.getSelectionModel().selectedItemProperty().addListener(listener1);
 
-        this.add(txfNavn, 2, 1);
+        Label lblNavn = new Label("Navn:");
+        this.add(lblNavn, 0, 1);
+
+        this.add(txfNavn, 1, 1);
         txfNavn.setEditable(false);
 
         Label lblAdresse = new Label("Adresse:");
-        this.add(lblAdresse, 1, 2);
+        this.add(lblAdresse, 0, 2);
 
-        this.add(txfAdresse, 2, 2);
+        this.add(txfAdresse, 1, 2);
         txfAdresse.setEditable(false);
 
         Label lblStartDate = new Label("Start dato:");
-        this.add(lblStartDate, 1, 3);
+        this.add(lblStartDate, 0, 3);
 
-        this.add(txfStartDate, 2, 3);
+        this.add(txfStartDate, 1, 3);
         txfStartDate.setEditable(false);
 
         Label lblSlutDate = new Label("Slut dato:");
-        this.add(lblSlutDate, 1, 4);
+        this.add(lblSlutDate, 0, 4);
 
-        this.add(txfSlutDate, 2, 4);
+        this.add(txfSlutDate, 1, 4);
         txfSlutDate.setEditable(false);
 
         Label lblDagsPris = new Label("Dagspris:");
-        this.add(lblDagsPris, 1, 5);
+        this.add(lblDagsPris, 0, 5);
 
-        this.add(txfDagsPris, 2, 5);
+        this.add(txfDagsPris, 1, 5);
 
-//        Label lblUdflugt = new Label("Antal udflugter: ");
-//        this.add(lblUdflugt, 1, 5);
-//
-//        txfAntalUdflugt.setEditable(false);
-//        this.add(txfAntalUdflugt, 2, 5);
+        Label lblUdflugtNavn = new Label("Navn:");
+        this.add(lblUdflugtNavn, 2, 1);
+
+        this.add(txfUdflugtNavn, 3, 1);
+
+        Label lblUdflugtAdresse = new Label("Adresse:");
+        this.add(lblUdflugtAdresse, 2, 2);
+
+        this.add(txfUdflugtAdresse, 3, 2);
+
+        Label lblUdflugtPris = new Label("Pris:");
+        this.add(lblUdflugtPris, 2, 3);
+
+        this.add(txfUdflugtPris, 3, 3);
+
+        Label lblFrokost = new Label("Frokost:");
+        this.add(lblFrokost, 2, 4);
+
+        this.add(txfFrokost, 3, 4);
+
+        Label lblDato = new Label("Dato:");
+        this.add(lblDato, 2, 5);
+
+        this.add(txfDato, 3, 5);
+        txfSlutDate.setEditable(false);
+
+        Label lblBeskrivelse = new Label("Beskrivelse:");
+        this.add(lblBeskrivelse, 2, 6);
+
+        this.add(txfBeskrivelse, 3, 6);
 
         HBox hbxButtons = new HBox(40);
-        this.add(hbxButtons, 0, 7, 2, 1);
+        this.add(hbxButtons, 0, 9, 1, 1);
         hbxButtons.setPadding(new Insets(10, 0, 0, 0));
         hbxButtons.setAlignment(Pos.BASELINE_CENTER);
 
@@ -93,14 +135,15 @@ public class KonferencePane extends GridPane {
         hbxButtons.getChildren().add(btnRediger);
         btnRediger.setOnAction(event -> controller.redigerAction());
 
-        Label lblUdflugt = new Label("Udflugter til denne konference");
-        this.add(lblUdflugt, 4, 1);
+        Label lblUdflugt = new Label("Udflugter");
+        this.add(lblUdflugt, 2, 0);
+        lblUdflugt.setFont(new Font("Serif", 30));
 
-        this.add(lvwUdflugter, 4, 2, 1, 5);
-        lvwUdflugter.setPrefWidth(200);
-        lvwUdflugter.setPrefHeight(200);
+        this.add(lvwUdflugter, 2, 8, 2, 1);
+        lvwUdflugter.setPrefWidth(300);
+        lvwUdflugter.setPrefHeight(300);
 
-        this.add(btnAddUdflugt, 4, 7);
+        this.add(btnAddUdflugt, 2, 9);
         btnAddUdflugt.setOnAction(event -> controller.createUdflugtAction());
         btnAddUdflugt.setDisable(true);
 
@@ -123,6 +166,7 @@ public class KonferencePane extends GridPane {
         private KonferenceDialog createDialog;
         private UdflugtDialog createUdflugtDialog;
         private Konference konference;
+        private Udflugt udflugt;
 
         public void fillLvwKonferencer() {
             lvwKonferencer.getItems().setAll(Service.getAllkonferencer());
@@ -153,6 +197,21 @@ public class KonferencePane extends GridPane {
                 txfSlutDate.clear();
                 lvwUdflugter.getItems().clear();
                 btnAddUdflugt.setDisable(true);
+            }
+            this.udflugt = lvwUdflugter.getSelectionModel().getSelectedItem();
+            if (udflugt != null) {
+                txfUdflugtNavn.setText(udflugt.getNavn());
+                txfUdflugtAdresse.setText("" + udflugt.getSted());
+                txfDato.setText("" + udflugt.getDato());
+                txfUdflugtPris.setText("" + udflugt.getPris());
+                txfFrokost.setText("" + udflugt.getFrokost());
+                txfBeskrivelse.setText("" + udflugt.getBeskrivelse());
+//                btnAddUdflugt.setDisable(false);
+            } else {
+                txfUdflugtNavn.clear();
+                txfUdflugtAdresse.clear();
+                txfDato.clear();
+//                btnAddUdflugt.setDisable(true);
             }
         }
 
@@ -220,6 +279,10 @@ public class KonferencePane extends GridPane {
 
         // Selected item in lvwCompanies changed
         public void selectedKonferenceChanged() {
+            this.updateControls();
+        }
+
+        public void selectedUdflugtChanged() {
             this.updateControls();
         }
     }
