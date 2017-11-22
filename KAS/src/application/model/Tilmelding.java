@@ -77,7 +77,7 @@ public class Tilmelding {
             totalPris += e.getPris();
         }
         if (hotel != null) {
-            totalPris += ChronoUnit.DAYS.between(ankomstdato, afrejsedato) * hotel.getPrisPrNat()
+            totalPris += ChronoUnit.DAYS.between(ankomstdato, afrejsedato) * hotel.getPrisPrNat();
         }
 
         return totalPris;
