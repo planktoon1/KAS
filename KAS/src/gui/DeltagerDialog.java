@@ -48,7 +48,6 @@ public class DeltagerDialog extends Stage {
             txfTlf = new TextField(), txfFirmaNavn = new TextField(), txfFirmaTlf = new TextField();
 //    private final ComboBox<Konference> cbbKonferencer = new ComboBox<>();
     private final ComboBox<Hotel> cbbHoteller = new ComboBox<>();
-    private final ComboBox<Udflugt> cbbUdflugter = new ComboBox<>();
     private final ComboBox<Firma> cbbFirma = new ComboBox<>();
     private final Label lblError = new Label();
     private final CheckBox cbxFordrag = new CheckBox(), cbxFirma = new CheckBox();
@@ -92,7 +91,7 @@ public class DeltagerDialog extends Stage {
         pane.add(lblUdflugt, 1, 7);
 
         VBox vbxUdflugter = new VBox(5);
-        pane.add(vbxUdflugter, 1, 8);
+        pane.add(vbxUdflugter, 1, 8,1,5);
         
         int i = 0;
         for (Udflugt u : controller.konference.getUdflugter()) {
@@ -170,11 +169,6 @@ public class DeltagerDialog extends Stage {
             cbbHoteller.getItems().setAll(konference.getHoteller());
             if (cbbHoteller.getItems().size() > 0) {
                 cbbHoteller.getSelectionModel().select(0);
-            }
-
-            cbbUdflugter.getItems().setAll(Service.getAllUdflugter());
-            if (cbbUdflugter.getItems().size() > 0) {
-                cbbUdflugter.getSelectionModel().select(0);
             }
 
 //            cbbFirma.getItems().setAll(Service.getAllHoteller());
