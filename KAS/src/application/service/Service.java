@@ -117,7 +117,7 @@ public class Service {
                 "En af de frækkeste aftener i SLM – eller ”Folden” som vi kalder klubben denne aften. ",
                 "StallionNight",
                 k1);
-
+        //test
         tilføjUdflugt("Det falske sted", d1.plusDays(9), 200.0, true,
                 "Vi øver os i at blæse sæbebobler med næsen", "Den farlige leg",
                 k1);
@@ -137,7 +137,7 @@ public class Service {
         p3Udflugter.add(Storage.getAllUdflugter().get(0));
 
         ArrayList<HotelTillæg> p4Tillæg = new ArrayList<HotelTillæg>();
-        p4Tillæg.add(h1.getHotelTillæg().get(0));
+        p4Tillæg.add(h1t1);
         ArrayList<Udflugt> p4Udflugter = new ArrayList<Udflugt>();
         p4Udflugter.add(k1.getUdflugter().get(1));
         p4Udflugter.add(k1.getUdflugter().get(2));
