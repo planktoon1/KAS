@@ -9,7 +9,7 @@ public class Udflugt {
     private boolean frokost;
     private String beskrivelse;
     private String navn;
-    
+
     // association: --> 0..1 konference 
     private Konference konference;
 
@@ -45,15 +45,15 @@ public class Udflugt {
     }
 
     public String toString() {
-        String string = "" + navn;
+        String string = "" + navn + ", " + pris;
         return string;
     }
- // -----------------------------------------------------------------------------
-    
+    // -----------------------------------------------------------------------------
+
     public Konference getKonference() {
         return konference;
     }
-    
+
     public void setKonference(Konference konference) {
         if (konference != null) {
             assert this.konference == null;
@@ -66,7 +66,6 @@ public class Udflugt {
         }
     }
 
-    
- // -----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
 }

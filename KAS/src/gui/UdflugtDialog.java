@@ -158,11 +158,13 @@ public class UdflugtDialog extends Stage {
                 lblError.setText("Dato er tom");
                 return;
             }
-            if (pris <= 0.0) {
-                lblError.setText("pris skal være over 0");
+            if (pris == 0 || pris < 0) {
+                lblError.setText("pris skal være et valid tal");
+                return;
             }
             if (beskrivelse == null) {
                 lblError.setText("Beskrivelse er tom");
+                return;
             }
 
 //            if (udflugt != null)
