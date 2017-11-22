@@ -66,6 +66,27 @@ public class Service {
         return tilmelding;
     }
 
+    public static boolean validDouble(String string) {
+        boolean result = true;
+        boolean dotFound = false;
+
+        for (int i = 0; i < string.length(); i++) {
+            if (string.charAt(i) >= '0' && string.charAt(i) <= '9' || string.charAt(i) == '.') {
+                if (string.charAt(i) == '.') {
+                    if (dotFound) {
+                        result = false;
+                        break;
+                    }
+                    dotFound = true;
+                }
+            } else {
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
+
     public static void initStorage() {
         //Storage.initStorage();
         LocalDate d1 = LocalDate.now();

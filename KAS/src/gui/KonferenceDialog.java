@@ -88,7 +88,7 @@ public class KonferenceDialog extends Stage {
         GridPane.setMargin(btnOK, new Insets(10, 30, 0, 0));
         btnOK.setOnAction(event -> controller.okAction());
 
-        pane.add(lblError, 0, 9);
+        pane.add(lblError, 0, 11);
         GridPane.setMargin(lblError, new Insets(0, 0, 10, 0));
         lblError.setStyle("-fx-text-fill: red");
 
@@ -131,7 +131,22 @@ public class KonferenceDialog extends Stage {
             LocalDate slutDate = slutDatePicker.getValue();
             String navn = txfName.getText().trim();
             String adresse = txfAdresse.getText().trim();
-            double dagsPris = txfDagsPris.
+            double dagsPris = 0;
+
+            if (txfDagsPris.getText().length() == 0) {
+                lblError.setText("Dagsprisen er tom!");
+                return;
+            }
+
+            else if (Service.validDouble(txfDagsPris.getText())) {
+                System.out.println("Hey");
+                dagsPris = Double.parseDouble(txfDagsPris.getText());
+            }
+
+            else {
+                lblError.setText("Dagsprisen skal været et tal");
+                return;
+            }
 
             if (navn.length() == 0) {
                 lblError.setText("Du mangler at indtaste et navn til konferencen!");
@@ -157,7 +172,6 @@ public class KonferenceDialog extends Stage {
 
             result = true;
             KonferenceDialog.this.hide();
-            
 
         }
     }

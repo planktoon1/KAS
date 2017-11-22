@@ -24,7 +24,7 @@ public class KonferencePane extends GridPane {
     // -------------------------------------------------------------------------
 
     private final TextField txfNavn = new TextField(), txfAdresse = new TextField(), txfStartDate = new TextField(),
-            txfSlutDate = new TextField(); //txfAntalUdflugt = new TextField();
+            txfSlutDate = new TextField(), txfDagsPris = new TextField(); //txfAntalUdflugt = new TextField();
     private final ListView<Konference> lvwKonferencer = new ListView<>();
     private final ListView<Udflugt> lvwUdflugter = new ListView<>();
     private final Button btnAddUdflugt = new Button("Opret Udflugt");
@@ -68,6 +68,11 @@ public class KonferencePane extends GridPane {
 
         this.add(txfSlutDate, 2, 4);
         txfSlutDate.setEditable(false);
+
+        Label lblDagsPris = new Label("Dagspris:");
+        this.add(lblDagsPris, 1, 5);
+
+        this.add(txfDagsPris, 2, 5);
 
 //        Label lblUdflugt = new Label("Antal udflugter: ");
 //        this.add(lblUdflugt, 1, 5);
@@ -139,6 +144,7 @@ public class KonferencePane extends GridPane {
                 txfStartDate.setText("" + konference.getStart());
                 txfSlutDate.setText("" + konference.getSlut());
                 lvwUdflugter.getItems().setAll(konference.getUdflugter());
+                txfDagsPris.setText("" + konference.getDagsPris());
                 btnAddUdflugt.setDisable(false);
             } else {
                 txfNavn.clear();
