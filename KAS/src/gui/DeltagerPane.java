@@ -41,8 +41,11 @@ public class DeltagerPane extends GridPane {
 		this.setVgap(10);
 		this.setGridLinesVisible(false);
 
-		Label lblComp = new Label("Konferencer");
+		Label lblComp = new Label("Konferencer:");
 		this.add(lblComp, 0, 0);
+
+		Label lblDeltagere = new Label("Tilmelding");
+		this.add(lblDeltagere, 2, 0);
 
 		this.add(lvwKonferencer, 0, 1, 1, 5);
 		lvwKonferencer.setPrefWidth(200);
@@ -51,7 +54,7 @@ public class DeltagerPane extends GridPane {
 		ChangeListener<Konference> listener = (ov, o, n) -> controller.selectedKonferenceChanged();
 		lvwKonferencer.getSelectionModel().selectedItemProperty().addListener(listener);
 
-		Label lblTilmelding = new Label("Deltagere");
+		Label lblTilmelding = new Label("Deltagere:");
 		this.add(lblTilmelding, 3, 0);
 
 		this.add(lvwTilmelding, 3, 1, 1, 5);
@@ -106,6 +109,9 @@ public class DeltagerPane extends GridPane {
 		this.add(lblSamletpris, 1, 9);
 
 		this.add(txfSamletPris, 2, 9);
+		txfSamletPris.setEditable(false);
+		txfFordrag.setEditable(false);
+		txfHotel.setEditable(false);
 
 		Label lblHoteltillæg = new Label("Hotel tillæg:");
 		this.add(lblHoteltillæg, 1, 8);
