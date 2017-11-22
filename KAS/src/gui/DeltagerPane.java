@@ -135,6 +135,7 @@ public class DeltagerPane extends GridPane {
             if (konference != null) {
                 lvwTilmelding.getItems().setAll(konference.getTilmeldinger());
             }
+
         }
 
         public void updateControls() {

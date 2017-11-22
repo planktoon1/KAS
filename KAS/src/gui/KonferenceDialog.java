@@ -35,7 +35,7 @@ public class KonferenceDialog extends Stage {
 
     // -------------------------------------------------------------------------
 
-    private final TextField txfName = new TextField(), txfAdresse = new TextField();
+    private final TextField txfName = new TextField(), txfAdresse = new TextField(), txfDagsPris = new TextField();
     private final Label lblError = new Label();
     private final DatePicker startDatePicker = new DatePicker(), slutDatePicker = new DatePicker();
 
@@ -44,6 +44,7 @@ public class KonferenceDialog extends Stage {
         pane.setHgap(10);
         pane.setVgap(5);
         pane.setGridLinesVisible(false);
+        pane.setPrefHeight(350);
 
         Label lblNavn = new Label("Konference navn");
         pane.add(lblNavn, 0, 0);
@@ -69,14 +70,20 @@ public class KonferenceDialog extends Stage {
         slutDatePicker.setShowWeekNumbers(true);
         pane.add(slutDatePicker, 0, 7);
 
+        Label lblDagsPris = new Label("Dagspris");
+        pane.add(lblDagsPris, 0, 8);
+        GridPane.setMargin(lblAdresse, new Insets(10, 0, 0, 0));
+
+        pane.add(txfDagsPris, 0, 9);
+
         Button btnCancel = new Button("Annuller");
-        pane.add(btnCancel, 0, 8);
+        pane.add(btnCancel, 0, 10);
         GridPane.setHalignment(btnCancel, HPos.LEFT);
         GridPane.setMargin(btnCancel, new Insets(10, 0, 0, 30));
         btnCancel.setOnAction(event -> controller.cancelAction());
 
         Button btnOK = new Button("OK");
-        pane.add(btnOK, 0, 8);
+        pane.add(btnOK, 0, 10);
         GridPane.setHalignment(btnOK, HPos.RIGHT);
         GridPane.setMargin(btnOK, new Insets(10, 30, 0, 0));
         btnOK.setOnAction(event -> controller.okAction());
@@ -124,6 +131,7 @@ public class KonferenceDialog extends Stage {
             LocalDate slutDate = slutDatePicker.getValue();
             String navn = txfName.getText().trim();
             String adresse = txfAdresse.getText().trim();
+//            double dagsPris = txfDagspris.get
 
             if (navn.length() == 0) {
                 lblError.setText("Du mangler at indtaste et navn til konferencen!");
@@ -145,7 +153,7 @@ public class KonferenceDialog extends Stage {
 //            if (konference != null)
 //				Service.updateCompany(konference, name, hours);
 //			else
-            Service.tilføjKonference(navn, startDate, slutDate, adresse);
+            Service.tilføjKonference(navn, startDate, slutDate, adresse, dagsPris);
 
             result = true;
             KonferenceDialog.this.hide();

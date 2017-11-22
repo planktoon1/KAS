@@ -129,7 +129,7 @@ public class DeltagerDialog extends Stage {
         GridPane.setMargin(lblError, new Insets(0, 0, 10, 0));
         lblError.setStyle("-fx-text-fill: red");
 
-        controller.fillHotelComboBox();
+        controller.fillComboBox();
 //         controller.updateControls();
     }
 
@@ -143,8 +143,18 @@ public class DeltagerDialog extends Stage {
         public Deltager Deltager;
         private boolean result = false;
 
-        public void fillHotelComboBox() {
+        public void fillComboBox() {
             cbbHoteller.getItems().setAll(Service.getAllHoteller());
+            if (cbbHoteller.getItems().size() > 0) {
+                cbbHoteller.getSelectionModel().select(0);
+            }
+
+            cbbUdflugter.getItems().setAll(Service.getAllUdflugter());
+            if (cbbUdflugter.getItems().size() > 0) {
+                cbbUdflugter.getSelectionModel().select(0);
+            }
+
+//            cbbFirma.getItems().setAll(Service.getAllHoteller());
             if (cbbHoteller.getItems().size() > 0) {
                 cbbHoteller.getSelectionModel().select(0);
             }

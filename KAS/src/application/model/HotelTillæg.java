@@ -12,15 +12,14 @@ public class HotelTillæg {
         this.hotel = hotel;
         setHotel(hotel);
     }
-    
+
     @Override
     public String toString() {
-    	return hotel + " | " + navn + ": " + pris + "Kr,-";
+        return hotel + " | " + navn + ": " + pris + "Kr,-";
     }
-    
+
     public void setHotel(Hotel hotel) {
         if (hotel != null) {
-            assert this.hotel == null;
             this.hotel = hotel;
             hotel.addHoteltillæg(this);
         }
