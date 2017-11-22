@@ -73,6 +73,12 @@ public class Tilmelding {
         if (!erFordragsholder) {
             totalPris += ChronoUnit.DAYS.between(ankomstdato, afrejsedato) * konference.getDagsPris();
         }
+        for (Udflugt e : udflugter) {
+            totalPris += e.getPris();
+        }
+        if (hotel != null) {
+            totalPris += ChronoUnit.DAYS.between(ankomstdato, afrejsedato) * hotel.getPrisPrNat()
+        }
 
         return totalPris;
     }
