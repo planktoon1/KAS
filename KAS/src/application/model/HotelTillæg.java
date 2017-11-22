@@ -20,6 +20,10 @@ public class HotelTillæg {
 
     public void setHotel(Hotel hotel) {
         if (hotel != null) {
+<<<<<<< HEAD
+=======
+            assert this.hotel != null;
+>>>>>>> branch 'master' of https://github.com/planktoon1/KAS.git
             this.hotel = hotel;
             hotel.addHoteltillæg(this);
         }

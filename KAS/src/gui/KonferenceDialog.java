@@ -131,7 +131,7 @@ public class KonferenceDialog extends Stage {
             LocalDate slutDate = slutDatePicker.getValue();
             String navn = txfName.getText().trim();
             String adresse = txfAdresse.getText().trim();
-//            double dagsPris = txfDagspris.get
+            double dagsPris = txfDagsPris.
 
             if (navn.length() == 0) {
                 lblError.setText("Du mangler at indtaste et navn til konferencen!");
@@ -157,6 +157,7 @@ public class KonferenceDialog extends Stage {
 
             result = true;
             KonferenceDialog.this.hide();
+            
 
         }
     }
