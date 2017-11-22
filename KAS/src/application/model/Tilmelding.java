@@ -95,8 +95,16 @@ public class Tilmelding {
 			double prisPrNat = hotel.getPrisPrNat1();
 			if (ledsager != null) {
 				prisPrNat = hotel.getPrisPrNat2();
+
 			}
-			totalPris += ChronoUnit.DAYS.between(ankomstdato, afrejsedato) * prisPrNat;
+			if (hotelTillæg != null) {
+				for (HotelTillæg e : hotelTillæg) {
+					totalPris += e.getPris();
+
+				}
+			}
+
+			totalPris += (ChronoUnit.DAYS.between(ankomstdato, afrejsedato) - 1) * prisPrNat;
 		}
 		return totalPris;
 	}
