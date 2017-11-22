@@ -137,7 +137,7 @@ public class Service {
         p3Udflugter.add(Storage.getAllUdflugter().get(0));
 
         ArrayList<HotelTillæg> p4Tillæg = new ArrayList<HotelTillæg>();
-        p4Tillæg.add(h1.getHotelTillæg().get(0));
+        p4Tillæg.add(h1t1);
         ArrayList<Udflugt> p4Udflugter = new ArrayList<Udflugt>();
         p4Udflugter.add(k1.getUdflugter().get(1));
         p4Udflugter.add(k1.getUdflugter().get(2));
