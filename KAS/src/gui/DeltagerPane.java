@@ -177,12 +177,9 @@ public class DeltagerPane extends GridPane {
 
 		// Create button action
 		public void createAction() {
-			if (createDialog == null) {
-				createDialog = new DeltagerDialog("Opret deltager", null);
-				Stage stage = (Stage) lvwKonferencer.getScene().getWindow();
-				createDialog.initOwner(stage);
-			}
-
+			createDialog = new DeltagerDialog("Opret deltager", konference);
+			Stage stage = (Stage) lvwKonferencer.getScene().getWindow();
+			createDialog.initOwner(stage);
 			createDialog.showAndWait();
 			// ... wait for the dialog to close
 

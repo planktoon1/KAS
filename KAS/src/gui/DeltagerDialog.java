@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import application.model.Deltager;
 import application.model.Firma;
 import application.model.Hotel;
+import application.model.Konference;
 import application.model.Udflugt;
 import application.service.Service;
 import javafx.beans.value.ChangeListener;
@@ -18,6 +19,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -25,8 +28,8 @@ public class DeltagerDialog extends Stage {
     private final Controller controller = new Controller();
 
     /** Note: Deltager is nullable. */
-    public DeltagerDialog(String title, Deltager deltager) {
-        controller.Deltager = deltager;
+    public DeltagerDialog(String title, Konference konference) {
+        controller.konference = konference;
 
         this.initModality(Modality.APPLICATION_MODAL);
         this.setResizable(false);
@@ -42,7 +45,7 @@ public class DeltagerDialog extends Stage {
     // -------------------------------------------------------------------------
 
     private final TextField txfNavn = new TextField(), txfLedsager = new TextField(), txfAdresse = new TextField(),
-            txfTlf = new TextField();
+            txfTlf = new TextField(), txfFirmaNavn = new TextField(), txfFirmaTlf = new TextField();
 //    private final ComboBox<Konference> cbbKonferencer = new ComboBox<>();
     private final ComboBox<Hotel> cbbHoteller = new ComboBox<>();
     private final ComboBox<Udflugt> cbbUdflugter = new ComboBox<>();
@@ -50,6 +53,7 @@ public class DeltagerDialog extends Stage {
     private final Label lblError = new Label();
     private final CheckBox cbxFordrag = new CheckBox(), cbxFirma = new CheckBox();
     private final DatePicker startDatePicker = new DatePicker(), slutDatePicker = new DatePicker();
+    private final CheckBox[] cbxUdflugter = new CheckBox[Service.getAllUdflugter().size()];
 
     private void initContent(GridPane pane) {
         pane.setPadding(new Insets(20, 20, 0, 20));
@@ -84,10 +88,23 @@ public class DeltagerDialog extends Stage {
 
         pane.add(txfLedsager, 0, 8);
 
-        Label lblUdflugt = new Label("Udflugt");
-        pane.add(lblUdflugt, 1, 15);
+        Label lblUdflugt = new Label("Udflugt(er):");
+        pane.add(lblUdflugt, 1, 7);
 
-        pane.add(cbbUdflugter, 1, 16);
+        VBox vbxUdflugter = new VBox(5);
+        pane.add(vbxUdflugter, 1, 8);
+        
+        int i = 0;
+        for (Udflugt u : controller.konference.getUdflugter()) {
+        	HBox hbx = new HBox(5);
+        	Label lblkonfUdflugt = new Label(u.getNavn());
+        	
+        	hbx.getChildren().add(lblkonfUdflugt);
+        	cbxUdflugter[i] = new CheckBox();
+        	hbx.getChildren().add(cbxUdflugter[i]);
+        	vbxUdflugter.getChildren().add(hbx);
+        	i++;
+        }
 
         Label lblStartDate = new Label("Start dato");
         pane.add(lblStartDate, 0, 11);
@@ -104,20 +121,27 @@ public class DeltagerDialog extends Stage {
 
         pane.add(cbbHoteller, 0, 16);
 
+
         pane.add(cbxFirma, 0, 17);
         cbxFirma.setText("Firma");
+        Label lblFirmaNavn = new Label("Firma navn");
+        pane.add(lblFirmaNavn, 0, 18);
+        pane.add(txfFirmaNavn, 0, 19);
+        Label lblFirmaTlf = new Label("Firma tlf.");
+        pane.add(lblFirmaTlf, 1, 18);
+        pane.add(txfFirmaTlf, 1, 19);
 
-        pane.add(cbbFirma, 0, 18);
-        cbbFirma.setDisable(true);
-
+        txfFirmaNavn.setDisable(true);
+        txfFirmaTlf.setDisable(true);
+        
         Button btnCancel = new Button("Annuller");
-        pane.add(btnCancel, 0, 19);
+        pane.add(btnCancel, 0, 20);
         GridPane.setHalignment(btnCancel, HPos.LEFT);
         GridPane.setMargin(btnCancel, new Insets(10, 0, 0, 30));
         btnCancel.setOnAction(event -> controller.cancelAction());
 
         Button btnOK = new Button("OK");
-        pane.add(btnOK, 0, 19);
+        pane.add(btnOK, 0, 20);
         GridPane.setHalignment(btnOK, HPos.RIGHT);
         GridPane.setMargin(btnOK, new Insets(10, 30, 0, 0));
         btnOK.setOnAction(event -> controller.okAction());
@@ -130,7 +154,6 @@ public class DeltagerDialog extends Stage {
         lblError.setStyle("-fx-text-fill: red");
 
         controller.fillComboBox();
-//         controller.updateControls();
     }
 
     public boolean getResult() {
@@ -140,11 +163,11 @@ public class DeltagerDialog extends Stage {
     // -------------------------------------------------------------------------
 
     private class Controller {
-        public Deltager Deltager;
+        public Konference konference;
         private boolean result = false;
 
         public void fillComboBox() {
-            cbbHoteller.getItems().setAll(Service.getAllHoteller());
+            cbbHoteller.getItems().setAll(konference.getHoteller());
             if (cbbHoteller.getItems().size() > 0) {
                 cbbHoteller.getSelectionModel().select(0);
             }
@@ -203,12 +226,6 @@ public class DeltagerDialog extends Stage {
 
             LocalDate startDate = startDatePicker.getValue();
             LocalDate slutDate = slutDatePicker.getValue();
-//            Deltager deltager = new Deltager(txfNavn.getText().trim(), adresse);
-
-//            if (navn.length() == 0) {
-//                lblError.setText("Du mangler at indtaste et navn til konferencen!");
-//                return;
-//            }
 
             if (startDate == null) {
                 lblError.setText("Start dato er tom!");
@@ -219,15 +236,14 @@ public class DeltagerDialog extends Stage {
                 return;
             }
 
-//            if (konference != null)
-//              Service.updateCompany(konference, name, hours);
-//          else
-//            Service.tilføjTilmelding();
 
         }
 
         public void firmaCbxChange(Boolean checked) {
-            cbbFirma.setDisable(!checked);
+            txfFirmaNavn.setDisable(!checked);
+            txfFirmaTlf.setDisable(!checked);
+            txfFirmaNavn.clear();
+            txfFirmaTlf.clear();
         }
 
     }
