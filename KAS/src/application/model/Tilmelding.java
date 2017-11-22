@@ -83,6 +83,10 @@ public class Tilmelding {
 
 	public double prisForTilmelding() {
 		double totalPris = 0.0;
+		int personer = 1;
+		if (ledsager != null) {
+			personer = 2;
+		}
 		if (!erFordragsholder) {
 			totalPris += ChronoUnit.DAYS.between(ankomstdato, afrejsedato) * konference.getDagsPris();
 		}
@@ -99,7 +103,7 @@ public class Tilmelding {
 			}
 			if (hotelTillæg != null) {
 				for (HotelTillæg e : hotelTillæg) {
-					totalPris += e.getPris();
+					totalPris += e.getPris() * personer;
 
 				}
 			}
