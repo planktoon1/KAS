@@ -117,10 +117,10 @@ public class Service {
                 "En af de frækkeste aftener i SLM – eller ”Folden” som vi kalder klubben denne aften. ",
                 "StallionNight",
                 k1);
-
+        //test
         tilføjUdflugt("Det falske sted", d1.plusDays(9), 200.0, true,
                 "Vi øver os i at blæse sæbebobler med næsen", "Den farlige leg",
-                k2);
+                k1);
 
         Deltager p1 = new Deltager("Finn Madsen", "8000 Århus C, Eckersbergsgade 19 st tv",
                 "+45 22 99 88 41");
