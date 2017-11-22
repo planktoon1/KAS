@@ -1,12 +1,10 @@
 package storage;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import application.model.Deltager;
 import application.model.Firma;
 import application.model.Hotel;
-import application.model.HotelTillæg;
 import application.model.Konference;
 import application.model.Tilmelding;
 import application.model.Udflugt;
@@ -43,10 +41,6 @@ public class Storage {
 
     public static void storeHotel(Hotel hotel) {
         hoteller.add(hotel);
-    }
-
-    public static void initStorage() {
-
     }
 
 }
