@@ -32,6 +32,13 @@ public class Udflugt {
         return dato;
     }
 
+    public String getFrokost() {
+        if (frokost == true) {
+            return "Ja";
+        }
+        return "Nej";
+    }
+
     public double getPris() {
         return pris;
     }
@@ -44,6 +51,7 @@ public class Udflugt {
         return navn;
     }
 
+    @Override
     public String toString() {
         String string = "" + navn + ", " + pris;
         return string;
