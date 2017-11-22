@@ -84,4 +84,9 @@ public class Tilmelding {
 
         return totalPris;
     }
+
+    @Override
+    public String toString() {
+        return this.deltager.toString();
+    }
 }

@@ -118,7 +118,8 @@ public class Service {
                 "Vi øver os i at blæse sæbebobler med næsen", "Den farlige leg",
                 k2);
 
-        Deltager p1 = new Deltager("Finn Madsen", null, null);
+        Deltager p1 = new Deltager("Finn 'Karrigan' Andersen", "8000 Århus C, Eckersbergsgade 19 st tv",
+                "+45 22 99 88 41");
 
         tilføjTilmelding(false, d1, d2, null, null, null, p1, k1);
 

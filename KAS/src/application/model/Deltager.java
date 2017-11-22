@@ -6,12 +6,12 @@ public class Deltager {
     private String navn;
     private String adresse;
     private String tlf;
-    
+
     // association: --> 0..* Tilmeldinger
     private final ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
     // association: --> 0..1 Firma 
     private Firma firma;
-    
+
     public Deltager(String navn, String adresse, String tlf) {
         this.navn = navn;
         this.adresse = adresse;
@@ -23,12 +23,11 @@ public class Deltager {
         this.navn = navn;
         this.adresse = adresse;
         this.tlf = tlf;
-        
+
         Firma firma = new Firma(firmaNavn, firmaTlf);
         setFirma(firma);
     }
-    
-    
+
     //------------------------------------------
     //- Tilmeldinger
     public ArrayList<Tilmelding> getTilmeldinger() {
@@ -36,9 +35,9 @@ public class Deltager {
     }
 
     void addTilmelding(Tilmelding tilmelding) { // package visibility
-    	tilmeldinger.add(tilmelding);
+        tilmeldinger.add(tilmelding);
     }
-    
+
     //- Firma
     public Firma getFirma() {
         return firma;
@@ -61,6 +60,11 @@ public class Deltager {
             this.firma.removeDeltager(this);
             this.firma = null;
         }
+    }
+
+    @Override
+    public String toString() {
+        return navn;
     }
 
     //------------------------------------------
