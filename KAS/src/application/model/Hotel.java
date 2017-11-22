@@ -5,17 +5,19 @@ import java.util.ArrayList;
 public class Hotel {
     private String navn;
     private String adresse;
-    private double prisPrNat;
+    private double prisPrNat2;
+    private double prisPrNat1;
 
     // association: --> 0..* HotelTillæg
-    private ArrayList<HotelTillæg> hotelTillæg = new ArrayList<>();;
+    private ArrayList<HotelTillæg> hotelTillæg = new ArrayList<>();
     // association: --> 0..1 konference 
     private Konference konference;
 
-    public Hotel(String navn, String adresse, double prisPrNat, Konference konference) {
+    public Hotel(String navn, String adresse, double prisPrNat2, double prisPrNat1, Konference konference) {
         this.navn = navn;
         this.adresse = adresse;
-        this.prisPrNat = prisPrNat;
+        this.prisPrNat2 = prisPrNat2;
+        this.prisPrNat1 = prisPrNat1;
         setKonference(konference);
     }
 
@@ -64,8 +66,12 @@ public class Hotel {
         return adresse;
     }
 
-    public double getPrisPrNat() {
-        return prisPrNat;
+    public double getPrisPrNat1() {
+        return prisPrNat1;
+    }
+
+    public double getPrisPrNat2() {
+        return prisPrNat2;
     }
 
     public ArrayList<HotelTillæg> getHotelTillæg() {

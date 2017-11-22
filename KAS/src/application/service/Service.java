@@ -46,8 +46,9 @@ public class Service {
         return udflugt;
     }
 
-    public static Hotel tilføjHotel(String navn, String adresse, double prisPrNat, Konference konference) {
-        Hotel hotel = new Hotel(navn, adresse, prisPrNat, konference);
+    public static Hotel tilføjHotel(String navn, String adresse, double prisPrNat2, double prisPrNat1,
+            Konference konference) {
+        Hotel hotel = new Hotel(navn, adresse, prisPrNat2, prisPrNat1, konference);
         Storage.storeHotel(hotel);
         return hotel;
     }
@@ -58,9 +59,10 @@ public class Service {
     }
 
     public static Tilmelding tilføjTilmelding(Boolean erFordragsholder, LocalDate ankomstdato, LocalDate afrejsedato,
-            String ledsager, Hotel hotel, ArrayList<Udflugt> udflugter, Deltager deltager,
+            String ledsager, Hotel hotel, ArrayList<HotelTillæg> hotelTillæg, ArrayList<Udflugt> udflugter,
+            Deltager deltager,
             Konference konference) {
-        Tilmelding tilmelding = new Tilmelding(erFordragsholder, ankomstdato, afrejsedato, ledsager, hotel,
+        Tilmelding tilmelding = new Tilmelding(erFordragsholder, ankomstdato, afrejsedato, ledsager, hotel, hotelTillæg,
                 udflugter, deltager, konference);
 
         return tilmelding;
@@ -98,30 +100,59 @@ public class Service {
         Konference k1 = tilføjKonference("Hav og Himmel", d1, d2, "Sønderhøj 30", 1500);
         Konference k2 = tilføjKonference("Comic-Con", d3, d4, "Finlandsgade 19", 1300);
 
-        Hotel h1 = tilføjHotel("Den Hvide Svane", "Eckersbergsgade 67", 800.0, k1);
-        Hotel h2 = tilføjHotel("Hilton", "Grøndlandsstræde 3", 1600.0, k2);
+        Hotel h1 = tilføjHotel("Den Hvide Svane", "Eckersbergsgade 67", 1250, 1050, k1);
+        Hotel h2 = tilføjHotel("Høtel Phønix", "Grøndlandsstræde 3", 800, 700, k1);
+        Hotel h3 = tilføjHotel("Pension Tusindfryd", "Grøndlandsstræde 3", 600, 500, k1);
 
-        HotelTillæg ht1 = tilføjHotelTillæg("WIFI", 300.0, h1);
-        HotelTillæg ht2 = tilføjHotelTillæg("Bad", 150.0, h1);
-        HotelTillæg ht3 = tilføjHotelTillæg("Håndklæder", 50.0, h2);
+        HotelTillæg h1t1 = tilføjHotelTillæg("WIFI", 50.0, h1);
+        HotelTillæg h2t1 = tilføjHotelTillæg("WIFI", 75.0, h2);
+        HotelTillæg h2t2 = tilføjHotelTillæg("Bad", 200.0, h2);
+        HotelTillæg h3t3 = tilføjHotelTillæg("Morgenmad", 100.0, h3);
 
-        tilføjUdflugt("Den mørke skov", d1.plusDays(1), 400.0, false,
+        tilføjUdflugt("Den mørke skov", d1.plusDays(1), 125.0, true,
                 "Rollespil i den mørke skov og du må ikke være med før du får lov", "Rollespil",
                 k1);
 
-        tilføjUdflugt("Slm Aarhus", d1.plusDays(4), 130.0, false,
+        tilføjUdflugt("Slm Aarhus", d1.plusDays(4), 75.0, false,
                 "En af de frækkeste aftener i SLM – eller ”Folden” som vi kalder klubben denne aften. ",
                 "StallionNight",
                 k1);
 
-        tilføjUdflugt("Det falske sted", d1.plusDays(9), 10.0, true,
+        tilføjUdflugt("Det falske sted", d1.plusDays(9), 200.0, true,
                 "Vi øver os i at blæse sæbebobler med næsen", "Den farlige leg",
                 k2);
 
-        Deltager p1 = new Deltager("Finn 'Karrigan' Andersen", "8000 Århus C, Eckersbergsgade 19 st tv",
+        Deltager p1 = new Deltager("Finn Madsen", "8000 Århus C, Eckersbergsgade 19 st tv",
+                "+45 22 99 88 41");
+        Deltager p2 = new Deltager("Niels Petersen", "8000 Århus C, Eckersbergsgade 19 st tv",
+                "+45 22 99 88 41");
+        Deltager p3 = new Deltager("Ulla Hansen' Andersen", "8000 Århus C, Eckersbergsgade 19 st tv",
+                "+45 22 99 88 41");
+        Deltager p4 = new Deltager("Peter Sommer' Andersen", "8000 Århus C, Eckersbergsgade 19 st tv",
+                "+45 22 99 88 41");
+        Deltager p5 = new Deltager("Lone Jensen' Andersen", "8000 Århus C, Eckersbergsgade 19 st tv",
                 "+45 22 99 88 41");
 
-        tilføjTilmelding(false, d1, d2, null, null, null, p1, k1);
+        ArrayList<Udflugt> p3Udflugter = new ArrayList<Udflugt>();
+        p3Udflugter.add(Storage.getAllUdflugter().get(0));
+
+        ArrayList<HotelTillæg> p4Tillæg = new ArrayList<HotelTillæg>();
+        p4Tillæg.add(h1.getHotelTillæg().get(0));
+        ArrayList<Udflugt> p4Udflugter = new ArrayList<Udflugt>();
+        p4Udflugter.add(k1.getUdflugter().get(1));
+        p4Udflugter.add(k1.getUdflugter().get(2));
+
+        ArrayList<HotelTillæg> p5Tillæg = new ArrayList<HotelTillæg>();
+        p5Tillæg.add(h1.getHotelTillæg().get(0));
+        ArrayList<Udflugt> p5Udflugter = new ArrayList<Udflugt>();
+        p5Udflugter.add(k1.getUdflugter().get(0));
+        p5Udflugter.add(k1.getUdflugter().get(1));
+
+        tilføjTilmelding(false, d1, d2, null, null, null, null, p1, k1);
+        tilføjTilmelding(false, d1, d2, null, h1, null, null, p2, k1);
+        tilføjTilmelding(false, d1, d1.plusDays(1), "Hans Hansen", null, null, p3Udflugter, p3, k1);
+        tilføjTilmelding(false, d1, d2, "Mie Sommer", h1, p4Tillæg, p4Udflugter, p4, k1);
+        tilføjTilmelding(true, d1, d2, "Jan Madsen", h1, p5Tillæg, p5Udflugter, p5, k1);
 
     }
 
