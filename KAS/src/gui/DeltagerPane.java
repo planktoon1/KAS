@@ -143,7 +143,7 @@ public class DeltagerPane extends GridPane {
 	// -------------------------------------------------------------------------
 
 	private class Controller {
-		private DeltagerDialog createDialog, updateDialog;
+		private DeltagerDialog createDialog;// updateDialog;
 		private Konference konference;
 		Tilmelding tilmelding;
 
@@ -229,8 +229,8 @@ public class DeltagerPane extends GridPane {
 					lvwUdflugt.getItems().clear();
 				}
 
-				if (tilmelding.getHotel() != null && tilmelding.getHotel().getHoteltillæg() != null) {
-					lvwHotelTillæg.getItems().setAll(tilmelding.getHotel().getHoteltillæg());
+				if (tilmelding.getHotel() != null && tilmelding.getHotel().getHotelTillæg() != null) {
+					lvwHotelTillæg.getItems().setAll(tilmelding.getHotel().getHotelTillæg());
 				} else {
 					lvwHotelTillæg.getItems().clear();
 				}
