@@ -58,10 +58,10 @@ public class Service {
     }
 
     public static Tilmelding tilføjTilmelding(Boolean erFordragsholder, LocalDate ankomstdato, LocalDate afrejsedato,
-            String ledsager, Hotel hotel, ArrayList<Udflugt> udflugter, Deltager deltager, double samletPris,
+            String ledsager, Hotel hotel, ArrayList<Udflugt> udflugter, Deltager deltager,
             Konference konference) {
         Tilmelding tilmelding = new Tilmelding(erFordragsholder, ankomstdato, afrejsedato, ledsager, hotel,
-                udflugter, deltager, samletPris, konference);
+                udflugter, deltager, konference);
 
         return tilmelding;
     }
@@ -97,7 +97,9 @@ public class Service {
                 "Vi øver os i at blæse sæbebobler med næsen", "Den farlige leg",
                 k2);
 
-        //Tilmelding t1 = new Tilmelding(false,d1,d2,"Heidi",new Hotel("nigga naps", "bullshitstræde 69", 800.0, hotelTillæg),getAllkonferencer().get(0).getUdflugter().get(1),new Deltager("lars", "et sted ", "99999999"),1000.00,getAllkonferencer().get(0));
+        Deltager p1 = new Deltager("Finn Madsen", null, null);
+
+        tilføjTilmelding(false, d1, d2, null, null, null, p1, k1);
 
     }
 

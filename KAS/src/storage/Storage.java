@@ -43,4 +43,12 @@ public class Storage {
         hoteller.add(hotel);
     }
 
+    public static ArrayList<Tilmelding> getAllTilemelding() {
+        return new ArrayList<>(tilmeldinger);
+    }
+
+    public static void storeTilmelding(Tilmelding tilmelding) {
+        tilmeldinger.add(tilmelding);
+    }
+
 }

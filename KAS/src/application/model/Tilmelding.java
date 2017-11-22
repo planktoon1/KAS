@@ -19,17 +19,17 @@ public class Tilmelding {
     private Deltager deltager;
 
     public Tilmelding(boolean erFordragsholder, LocalDate ankomstdato, LocalDate afrejsedato, String ledsager,
-            Hotel hotel, ArrayList<Udflugt> udflugter, Deltager deltager, double samletPris, Konference konference) {
+            Hotel hotel, ArrayList<Udflugt> udflugter, Deltager deltager, Konference konference) {
         this.erFordragsholder = erFordragsholder;
         this.ankomstdato = ankomstdato;
         this.afrejsedato = afrejsedato;
         this.ledsager = ledsager;
         this.hotel = hotel;
         this.udflugter = udflugter;
-        this.samletPris = samletPris;
 
         setDeltager(deltager);
         setKonference(konference);
+        this.samletPris = prisForTilmelding();
     }
 
 //
@@ -73,8 +73,10 @@ public class Tilmelding {
         if (!erFordragsholder) {
             totalPris += ChronoUnit.DAYS.between(ankomstdato, afrejsedato) * konference.getDagsPris();
         }
-        for (Udflugt e : udflugter) {
-            totalPris += e.getPris();
+        if (udflugter != null) {
+            for (Udflugt e : udflugter) {
+                totalPris += e.getPris();
+            }
         }
         if (hotel != null) {
             totalPris += ChronoUnit.DAYS.between(ankomstdato, afrejsedato) * hotel.getPrisPrNat();
