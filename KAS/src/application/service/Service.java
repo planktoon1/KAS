@@ -58,10 +58,10 @@ public class Service {
     }
 
     public static Tilmelding tilføjTilmelding(Boolean erFordragsholder, LocalDate ankomstdato, LocalDate afrejsedato,
-            String ledsager, Hotel hotel, Udflugt udflugt, Deltager deltager, double samletPris,
+            String ledsager, Hotel hotel, ArrayList<Udflugt> udflugter, Deltager deltager, double samletPris,
             Konference konference) {
         Tilmelding tilmelding = new Tilmelding(erFordragsholder, ankomstdato, afrejsedato, ledsager, hotel,
-                udflugt, deltager, samletPris, konference);
+                udflugter, deltager, samletPris, konference);
 
         return tilmelding;
     }
