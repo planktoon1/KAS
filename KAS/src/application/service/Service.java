@@ -66,12 +66,6 @@ public class Service {
         return tilmelding;
     }
 
-    public static double prisForTilmelding(Tilmelding tilmelding) {
-        double totalPris = 0.0;
-
-        return totalPris;
-    }
-
     public static void initStorage() {
         //Storage.initStorage();
         LocalDate d1 = LocalDate.now();
@@ -80,11 +74,11 @@ public class Service {
         LocalDate d3 = LocalDate.now().plusMonths(3);
         LocalDate d4 = d3.plusDays(3);
 
-        Konference k1 = tilføjKonference("konference 1: Star Trekz", d1, d2, "Sønderhøj 30", 1500);
-        Konference k2 = tilføjKonference("konference 2: Star warz", d3, d4, "Sønderhøj 30", 1300);
+        Konference k1 = tilføjKonference("Hav og Himmel", d1, d2, "Sønderhøj 30", 1500);
+        Konference k2 = tilføjKonference("Comic-Con", d3, d4, "Finlandsgade 19", 1300);
 
-        Hotel h1 = tilføjHotel("nigga naps", "bullshitstræde 69", 800.0, k1);
-        Hotel h2 = tilføjHotel("sleepz", "Viby torv", 1600.0, k2);
+        Hotel h1 = tilføjHotel("Den Hvide Svane", "Eckersbergsgade 67", 800.0, k1);
+        Hotel h2 = tilføjHotel("Hilton", "Grøndlandsstræde 3", 1600.0, k2);
 
         HotelTillæg ht1 = tilføjHotelTillæg("WIFI", 300.0, h1);
         HotelTillæg ht2 = tilføjHotelTillæg("Bad", 150.0, h1);
