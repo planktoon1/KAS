@@ -33,8 +33,8 @@ public class Service {
      * Creater en ny konference.<br />
      */
     public static Konference tilføjKonference(String navn, LocalDate start, LocalDate slut,
-            String adresse) {
-        Konference konference = new Konference(navn, start, slut, adresse);
+            String adresse, double dagsPris) {
+        Konference konference = new Konference(navn, start, slut, adresse, dagsPris);
         Storage.storeKonference(konference);
         return konference;
     }
@@ -51,9 +51,9 @@ public class Service {
         Storage.storeHotel(hotel);
         return hotel;
     }
-    
-    public static HotelTillæg tilføjHotelTillæg(String navn,  double pris, Hotel hotel) {
-    	HotelTillæg hotelTillæg = new HotelTillæg(navn, pris, hotel);
+
+    public static HotelTillæg tilføjHotelTillæg(String navn, double pris, Hotel hotel) {
+        HotelTillæg hotelTillæg = new HotelTillæg(navn, pris, hotel);
         return hotelTillæg;
     }
 
@@ -66,6 +66,12 @@ public class Service {
         return tilmelding;
     }
 
+    public static double prisForTilmelding(Tilmelding tilmelding) {
+        double totalPris = 0.0;
+
+        return totalPris;
+    }
+
     public static void initStorage() {
         //Storage.initStorage();
         LocalDate d1 = LocalDate.now();
@@ -74,28 +80,29 @@ public class Service {
         LocalDate d3 = LocalDate.now().plusMonths(3);
         LocalDate d4 = d3.plusDays(3);
 
-        Konference k1 = tilføjKonference("konference 1: Star Trekz", d1, d2, "Sønderhøj 30");
-        Konference k2 = tilføjKonference("konference 2: Star warz", d3, d4, "Sønderhøj 30");
+        Konference k1 = tilføjKonference("konference 1: Star Trekz", d1, d2, "Sønderhøj 30", 1500);
+        Konference k2 = tilføjKonference("konference 2: Star warz", d3, d4, "Sønderhøj 30", 1300);
 
         Hotel h1 = tilføjHotel("nigga naps", "bullshitstræde 69", 800.0, k1);
         Hotel h2 = tilføjHotel("sleepz", "Viby torv", 1600.0, k2);
-        
+
         HotelTillæg ht1 = tilføjHotelTillæg("WIFI", 300.0, h1);
         HotelTillæg ht2 = tilføjHotelTillæg("Bad", 150.0, h1);
-        HotelTillæg ht3 = tilføjHotelTillæg("Håndklæder", 50.0, h2);    
+        HotelTillæg ht3 = tilføjHotelTillæg("Håndklæder", 50.0, h2);
 
         tilføjUdflugt("Den mørke skov", d1.plusDays(1), 400.0, false,
                 "Rollespil i den mørke skov og du må ikke være med før du får lov", "Rollespil",
                 k1);
-        
+
         tilføjUdflugt("Slm Aarhus", d1.plusDays(4), 130.0, false,
-                "En af de frækkeste aftener i SLM – eller ”Folden” som vi kalder klubben denne aften. ", "StallionNight",
+                "En af de frækkeste aftener i SLM – eller ”Folden” som vi kalder klubben denne aften. ",
+                "StallionNight",
                 k1);
-        
+
         tilføjUdflugt("Det falske sted", d1.plusDays(9), 10.0, true,
                 "Vi øver os i at blæse sæbebobler med næsen", "Den farlige leg",
                 k2);
-        
+
         //Tilmelding t1 = new Tilmelding(false,d1,d2,"Heidi",new Hotel("nigga naps", "bullshitstræde 69", 800.0, hotelTillæg),getAllkonferencer().get(0).getUdflugter().get(1),new Deltager("lars", "et sted ", "99999999"),1000.00,getAllkonferencer().get(0));
 
     }

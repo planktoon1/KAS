@@ -8,19 +8,21 @@ public class Konference {
     private LocalDate start;
     private LocalDate slut;
     private String adresse;
+    private double dagsPris;
 
     // association: --> 0..* Tilmeldinger
     private ArrayList<Tilmelding> tilmeldinger = new ArrayList<Tilmelding>();
     // association: --> 0..* Udflugter
     private ArrayList<Udflugt> udflugter = new ArrayList<Udflugt>();
     // association: --> 0..* Hoteller
-    private ArrayList<Hotel> hoteller = new ArrayList<Hotel>();;
+    private ArrayList<Hotel> hoteller = new ArrayList<Hotel>();
 
-    public Konference(String navn, LocalDate start, LocalDate slut, String adresse) {
+    public Konference(String navn, LocalDate start, LocalDate slut, String adresse, double dagsPris) {
         this.navn = navn;
         this.start = start;
         this.slut = slut;
         this.adresse = adresse;
+        this.dagsPris = dagsPris;
     }
 
     //---------------Association's håndtering------------------
@@ -28,46 +30,50 @@ public class Konference {
     public ArrayList<Tilmelding> getTilmeldinger() {
         return new ArrayList<>(tilmeldinger);
     }
-    
+
     void addTilmelding(Tilmelding tilmelding) { // package visibility
         tilmeldinger.add(tilmelding);
     }
-    
+
     void removeTilmelding(Tilmelding tilmelding) { // package visibility
-    	tilmeldinger.remove(tilmelding);
+        tilmeldinger.remove(tilmelding);
     }
-    
+
     //- Udflugter
     public ArrayList<Udflugt> getUdflugter() {
         return new ArrayList<>(udflugter);
     }
 
     void addUdflugt(Udflugt udflugt) { // package visibility
-    	udflugter.add(udflugt);
+        udflugter.add(udflugt);
     }
-    
+
     void removeUdflugt(Udflugt udflugt) { // package visibility
-    	udflugter.remove(udflugt);
+        udflugter.remove(udflugt);
     }
 
     //- Hoteller
-    public ArrayList<Hotel> getHoteller() { 
+    public ArrayList<Hotel> getHoteller() {
         return new ArrayList<>(hoteller);
     }
 
     void addHotel(Hotel hotel) { // package visibility
-    	hoteller.add(hotel);
+        hoteller.add(hotel);
     }
-    
+
     void removeHotel(Hotel hotel) { // package visibility
-    	hoteller.remove(hotel);
+        hoteller.remove(hotel);
     }
-    
+
     //---------------------------------------------------------
     @Override
     public String toString() {
         String string = "" + navn;
         return string;
+    }
+
+    public double getDagsPris() {
+        return dagsPris;
     }
 
     public String getNavn() {

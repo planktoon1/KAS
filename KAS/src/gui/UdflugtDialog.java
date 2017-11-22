@@ -167,9 +167,6 @@ public class UdflugtDialog extends Stage {
                 return;
             }
 
-//            if (udflugt != null)
-//				Service.updateCompany(udflugt, name, hours);
-//			else
             Service.tilføjUdflugt(sted, dato, pris, frokost, beskrivelse, navn,
                     konference);
 
