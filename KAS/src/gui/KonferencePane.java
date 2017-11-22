@@ -28,7 +28,9 @@ public class KonferencePane extends GridPane {
     private final TextField txfNavn = new TextField(), txfAdresse = new TextField(), txfStartDate = new TextField(),
             txfSlutDate = new TextField(), txfDagsPris = new TextField(), txfUdflugtNavn = new TextField(),
             txfUdflugtAdresse = new TextField(), txfUdflugtPris = new TextField(), txfFrokost = new TextField(),
-            txfDato = new TextField(), txfBeskrivelse = new TextField();
+            txfDato = new TextField(), txfBeskrivelse = new TextField(), txfHotelNavn = new TextField(),
+            txfHotelAdresse = new TextField(), txfHotelPrisPerNat1 = new TextField(),
+            txfHotelPrisPerNat2 = new TextField(), txfHotelTillæg = new TextField();
     private final ListView<Konference> lvwKonferencer = new ListView<>();
     private final ListView<Udflugt> lvwUdflugter = new ListView<>();
     private final ListView<Hotel> lvwHoteller = new ListView<>();
@@ -62,6 +64,11 @@ public class KonferencePane extends GridPane {
         ChangeListener<Udflugt> listener1 = (ov, o, n) -> controller.selectedUdflugtChanged();
         lvwUdflugter.getSelectionModel().selectedItemProperty().addListener(listener1);
 
+        ChangeListener<Hotel> listener2 = (ov, o, n) -> controller.selectedHotelChanged();
+        lvwHoteller.getSelectionModel().selectedItemProperty().addListener(listener2);
+
+        // KONFERENCER - KONFERENCER - KONFERENCER - KONFERENCER - KONFERENCER - KONFERENCER - KONFERENCER - KONFERENCER //
+
         Label lblNavn = new Label("Navn:");
         this.add(lblNavn, 0, 1);
 
@@ -90,6 +97,8 @@ public class KonferencePane extends GridPane {
         this.add(lblDagsPris, 0, 5);
 
         this.add(txfDagsPris, 1, 5);
+
+        // UDFLUGTER - UDFLUGTER - UDFLUGTER - UDFLUGTER - UDFLUGTER - UDFLUGTER - UDFLUGTER - UDFLUGTER - UDFLUGTER - UDFLUGTER - //
 
         Label lblUdflugtNavn = new Label("Navn:");
         this.add(lblUdflugtNavn, 2, 1);
@@ -122,6 +131,38 @@ public class KonferencePane extends GridPane {
 
         this.add(txfBeskrivelse, 3, 6);
 
+        // HOTELLER - HOTELLER - HOTELLER - HOTELLER - HOTELLER - HOTELLER - HOTELLER - HOTELLER - HOTELLER - HOTELLER //
+
+        Label lblHotelNavn = new Label("Navn:");
+        this.add(lblHotelNavn, 4, 1);
+
+        this.add(txfHotelNavn, 5, 1);
+        txfHotelNavn.setEditable(false);
+
+        Label lblHotelAdresse = new Label("Adresse:");
+        this.add(lblHotelAdresse, 4, 2);
+
+        this.add(txfHotelAdresse, 5, 2);
+        txfHotelAdresse.setEditable(false);
+
+        Label lblHotelPrisPerNat1 = new Label("Pris per nat (én person):");
+        this.add(lblHotelPrisPerNat1, 4, 3);
+
+        this.add(txfHotelPrisPerNat1, 5, 3);
+        txfHotelPrisPerNat1.setEditable(false);
+
+        Label lblHotelPrisPerNat2 = new Label("Pris per nat (to personer):");
+        this.add(lblHotelPrisPerNat2, 4, 4);
+
+        this.add(txfHotelPrisPerNat2, 5, 4);
+        txfHotelPrisPerNat2.setEditable(false);
+
+        Label lblHotelTillæg = new Label("Tillæg:");
+        this.add(lblHotelTillæg, 4, 5);
+
+        this.add(txfHotelTillæg, 5, 5);
+        txfHotelTillæg.setEditable(false);
+
         HBox hbxButtons = new HBox(40);
         this.add(hbxButtons, 0, 9, 1, 1);
         hbxButtons.setPadding(new Insets(10, 0, 0, 0));
@@ -148,7 +189,7 @@ public class KonferencePane extends GridPane {
         btnAddUdflugt.setDisable(true);
 
         controller.fillLvwKonferencer();
-        controller.fillLvwUdflugter();
+//        controller.fillLvwUdflugter();
     }
 
     // -------------------------------------------------------------------------
@@ -167,17 +208,12 @@ public class KonferencePane extends GridPane {
         private UdflugtDialog createUdflugtDialog;
         private Konference konference;
         private Udflugt udflugt;
+        private Hotel hotel;
 
         public void fillLvwKonferencer() {
             lvwKonferencer.getItems().setAll(Service.getAllkonferencer());
             if (lvwKonferencer.getItems().size() > 0)
                 lvwKonferencer.getSelectionModel().select(0);
-        }
-
-        public void fillLvwUdflugter() {
-            lvwUdflugter.getItems().setAll(Service.getAllUdflugter());
-            if (lvwUdflugter.getItems().size() > 0)
-                lvwUdflugter.getSelectionModel().select(0);
         }
 
         public void updateControls() {
@@ -188,8 +224,14 @@ public class KonferencePane extends GridPane {
                 txfStartDate.setText("" + konference.getStart());
                 txfSlutDate.setText("" + konference.getSlut());
                 lvwUdflugter.getItems().setAll(konference.getUdflugter());
+                lvwHoteller.getItems().setAll(konference.getHoteller());
                 txfDagsPris.setText("" + konference.getDagsPris());
                 btnAddUdflugt.setDisable(false);
+                if (lvwHoteller.getItems().size() > 0)
+                    lvwHoteller.getSelectionModel().select(0);
+                if (lvwUdflugter.getItems().size() > 0)
+                    lvwUdflugter.getSelectionModel().select(0);
+
             } else {
                 txfNavn.clear();
                 txfAdresse.clear();
@@ -198,21 +240,7 @@ public class KonferencePane extends GridPane {
                 lvwUdflugter.getItems().clear();
                 btnAddUdflugt.setDisable(true);
             }
-            this.udflugt = lvwUdflugter.getSelectionModel().getSelectedItem();
-            if (udflugt != null) {
-                txfUdflugtNavn.setText(udflugt.getNavn());
-                txfUdflugtAdresse.setText("" + udflugt.getSted());
-                txfDato.setText("" + udflugt.getDato());
-                txfUdflugtPris.setText("" + udflugt.getPris());
-                txfFrokost.setText("" + udflugt.getFrokost());
-                txfBeskrivelse.setText("" + udflugt.getBeskrivelse());
-//                btnAddUdflugt.setDisable(false);
-            } else {
-                txfUdflugtNavn.clear();
-                txfUdflugtAdresse.clear();
-                txfDato.clear();
-//                btnAddUdflugt.setDisable(true);
-            }
+
         }
 
         // --------------------------------------------------------------------
@@ -283,8 +311,44 @@ public class KonferencePane extends GridPane {
         }
 
         public void selectedUdflugtChanged() {
-            this.updateControls();
+
+            this.udflugt = lvwUdflugter.getSelectionModel().getSelectedItem();
+            if (udflugt != null) {
+                txfUdflugtNavn.setText(udflugt.getNavn());
+                txfUdflugtAdresse.setText("" + udflugt.getSted());
+                txfDato.setText("" + udflugt.getDato());
+                txfUdflugtPris.setText("" + udflugt.getPris());
+                txfFrokost.setText("" + udflugt.getFrokost());
+                txfBeskrivelse.setText("" + udflugt.getBeskrivelse());
+//                btnAddUdflugt.setDisable(false);
+            } else {
+                txfUdflugtNavn.clear();
+                txfUdflugtAdresse.clear();
+                txfDato.clear();
+//                btnAddUdflugt.setDisable(true);
+            }
         }
+
+        public void selectedHotelChanged() {
+
+            this.hotel = lvwHoteller.getSelectionModel().getSelectedItem();
+            if (hotel != null) {
+                txfHotelNavn.setText(hotel.getNavn());
+                txfHotelAdresse.setText("" + hotel.getAdresse());
+                txfHotelPrisPerNat1.setText("" + hotel.getPrisPrNat1());
+                txfHotelPrisPerNat2.setText("" + hotel.getPrisPrNat2());
+                txfHotelTillæg.setText("" + hotel.getHotelTillæg());
+//                btnAddUdflugt.setDisable(false);
+            } else {
+                txfHotelNavn.clear();
+                txfHotelAdresse.clear();
+                txfHotelPrisPerNat1.clear();
+                txfHotelPrisPerNat2.clear();
+                txfHotelTillæg.clear();
+//                btnAddUdflugt.setDisable(true);
+            }
+        }
+
     }
 
 }

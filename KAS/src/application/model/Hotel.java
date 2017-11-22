@@ -45,7 +45,7 @@ public class Hotel {
     }
 
     //- HotelTillæg
-    public ArrayList<HotelTillæg> getHoteltillæg() {
+    public ArrayList<HotelTillæg> getHotelTillæg() {
         return new ArrayList<>(hotelTillæg);
     }
 
@@ -72,10 +72,6 @@ public class Hotel {
 
     public double getPrisPrNat2() {
         return prisPrNat2;
-    }
-
-    public ArrayList<HotelTillæg> getHotelTillæg() {
-        return hotelTillæg;
     }
 
 }
