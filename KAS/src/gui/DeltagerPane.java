@@ -1,7 +1,9 @@
 package gui;
 
+import application.model.HotelTillæg;
 import application.model.Konference;
 import application.model.Tilmelding;
+import application.model.Udflugt;
 import application.service.Service;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
@@ -25,10 +27,13 @@ public class DeltagerPane extends GridPane {
 	// -------------------------------------------------------------------------
 
 	private final TextField txfNavn = new TextField(), txfLedsager = new TextField(), txfUdflugt = new TextField(),
-			txfStartDate = new TextField(), txfSlutDate = new TextField(), txfHotel = new TextField();
+			txfStartDate = new TextField(), txfSlutDate = new TextField(), txfHotel = new TextField(),
+			txfSamletPris = new TextField(), txfFordrag = new TextField();
 	private final ListView<Konference> lvwKonferencer = new ListView<>();
 	private final CheckBox cbxFordrag = new CheckBox();
 	private final ListView<Tilmelding> lvwTilmelding = new ListView<>();
+	private final ListView<Udflugt> lvwUdflugt = new ListView<>();
+	private final ListView<HotelTillæg> lvwHotelTillæg = new ListView<>();
 
 	private void initControls() {
 		this.setPadding(new Insets(20));
@@ -36,8 +41,11 @@ public class DeltagerPane extends GridPane {
 		this.setVgap(10);
 		this.setGridLinesVisible(false);
 
-		Label lblComp = new Label("Konferencer");
+		Label lblComp = new Label("Konferencer:");
 		this.add(lblComp, 0, 0);
+
+		Label lblDeltagere = new Label("Tilmelding");
+		this.add(lblDeltagere, 2, 0);
 
 		this.add(lvwKonferencer, 0, 1, 1, 5);
 		lvwKonferencer.setPrefWidth(200);
@@ -46,7 +54,7 @@ public class DeltagerPane extends GridPane {
 		ChangeListener<Konference> listener = (ov, o, n) -> controller.selectedKonferenceChanged();
 		lvwKonferencer.getSelectionModel().selectedItemProperty().addListener(listener);
 
-		Label lblTilmelding = new Label("Deltagere");
+		Label lblTilmelding = new Label("Deltagere:");
 		this.add(lblTilmelding, 3, 0);
 
 		this.add(lvwTilmelding, 3, 1, 1, 5);
@@ -66,7 +74,7 @@ public class DeltagerPane extends GridPane {
 		Label lblFordrag = new Label("Fordragsholder:");
 		this.add(lblFordrag, 1, 2);
 
-		this.add(cbxFordrag, 2, 2);
+		this.add(txfFordrag, 2, 2);
 
 		Label lblLedsager = new Label("Ledsager:");
 		this.add(lblLedsager, 1, 3);
@@ -76,9 +84,11 @@ public class DeltagerPane extends GridPane {
 
 		Label lblUdflugt = new Label("Udflugt(er):");
 		this.add(lblUdflugt, 1, 4);
-
-		this.add(txfUdflugt, 2, 4);
-		txfUdflugt.setEditable(false);
+		this.add(lvwUdflugt, 2, 4);
+		lvwUdflugt.setMaxHeight(50);
+		//
+		// this.add(txfUdflugt, 2, 4);
+		// txfUdflugt.setEditable(false);
 
 		Label lblStartDate = new Label("Start dato:");
 		this.add(lblStartDate, 1, 5);
@@ -95,8 +105,21 @@ public class DeltagerPane extends GridPane {
 
 		this.add(txfHotel, 2, 7);
 
+		Label lblSamletpris = new Label("Samlet pris:");
+		this.add(lblSamletpris, 1, 9);
+
+		this.add(txfSamletPris, 2, 9);
+		txfSamletPris.setEditable(false);
+		txfFordrag.setEditable(false);
+		txfHotel.setEditable(false);
+
+		Label lblHoteltillæg = new Label("Hotel tillæg:");
+		this.add(lblHoteltillæg, 1, 8);
+		this.add(lvwHotelTillæg, 2, 8);
+		lvwHotelTillæg.setMaxHeight(50);
+
 		HBox hbxButtons = new HBox(40);
-		this.add(hbxButtons, 0, 8, 3, 1);
+		this.add(hbxButtons, 0, 10, 3, 1);
 		hbxButtons.setPadding(new Insets(10, 0, 0, 0));
 		hbxButtons.setAlignment(Pos.BASELINE_CENTER);
 
@@ -185,12 +208,35 @@ public class DeltagerPane extends GridPane {
 		public void selectedTilmeldingChanged() {
 			tilmelding = lvwTilmelding.getSelectionModel().getSelectedItem();
 			if (tilmelding != null) {
-				txfNavn.setText(tilmelding.getDeltager().getNavn());
-				// txfLedsager.setText(tilmelding.getLedsager());
-
 				txfStartDate.setText("" + tilmelding.getAnkomstdato());
 				txfSlutDate.setText("" + tilmelding.getAfrejsedato());
 				txfHotel.setText("" + tilmelding.getHotel());
+				txfNavn.setText(tilmelding.getDeltager().getNavn());
+				if (tilmelding.isErFordragsholder()) {
+					txfFordrag.setText("JA");
+				} else {
+					txfFordrag.setText("NEJ");
+				}
+				if (tilmelding.getLedsager() == null) {
+					txfLedsager.setText("Ingen");
+				} else {
+					txfLedsager.setText(tilmelding.getLedsager());
+				}
+
+				if (tilmelding.getUdflugter() != null) {
+					lvwUdflugt.getItems().setAll(tilmelding.getUdflugter());
+				} else {
+					lvwUdflugt.getItems().clear();
+				}
+
+				if (tilmelding.getHotel() != null && tilmelding.getHotel().getHoteltillæg() != null) {
+					lvwHotelTillæg.getItems().setAll(tilmelding.getHotel().getHoteltillæg());
+				} else {
+					lvwHotelTillæg.getItems().clear();
+				}
+
+				txfSamletPris.setText(String.valueOf(tilmelding.getSamletPris()));
+
 			} else {
 				txfNavn.clear();
 				cbxFordrag.setSelected(false);
