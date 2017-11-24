@@ -125,11 +125,11 @@ public class Service {
 
         Deltager p1 = new Deltager("Finn Madsen", "8000 Århus C, Eckersbergsgade 19 st tv", "+45 22 99 88 41");
         Deltager p2 = new Deltager("Niels Petersen", "8000 Århus C, Eckersbergsgade 19 st tv", "+45 22 99 88 41");
-        Deltager p3 = new Deltager("Ulla Hansen' Andersen", "8000 Århus C, Eckersbergsgade 19 st tv",
+        Deltager p3 = new Deltager("Ulla Hansen", "8000 Århus C, Eckersbergsgade 19 st tv",
                 "+45 22 99 88 41");
-        Deltager p4 = new Deltager("Peter Sommer' Andersen", "8000 Århus C, Eckersbergsgade 19 st tv",
+        Deltager p4 = new Deltager("Peter Sommer", "8000 Århus C, Eckersbergsgade 19 st tv",
                 "+45 22 99 88 41");
-        Deltager p5 = new Deltager("Lone Jensen' Andersen", "8000 Århus C, Eckersbergsgade 19 st tv",
+        Deltager p5 = new Deltager("Lone Jensen", "8000 Århus C, Eckersbergsgade 19 st tv",
                 "+45 22 99 88 41");
 
         ArrayList<Udflugt> p3Udflugter = new ArrayList<Udflugt>();

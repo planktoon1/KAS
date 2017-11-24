@@ -37,7 +37,7 @@ public class Tilmelding {
 
     //
     public String getLedsager() {
-        return ledsager;
+        return ledsager + " (Deltagers navn: " + getDeltager() + ", deltagers tlf. " + getDeltager().getTlf() + ")";
     }
 
     // -----------------------------------------------------------------------------

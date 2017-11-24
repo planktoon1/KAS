@@ -70,4 +70,8 @@ public class Deltager {
         return navn;
     }
 
+    public String getTlf() {
+        return tlf;
+    }
+
 }
