@@ -35,12 +35,17 @@ public class KonferencePane extends GridPane {
     private final ListView<Udflugt> lvwUdflugter = new ListView<>();
     private final ListView<Hotel> lvwHoteller = new ListView<>();
     private final Button btnAddUdflugt = new Button("Opret Udflugt");
+    private final Button btnPrintDeltagere = new Button("Print deltageroversigt");
+    private final Button btnPrintUdflugter = new Button("Print udflugtoversigt");
+    private final Button btnPrintHoteller = new Button("Print hoteloversigt");
 
     private void initContent() {
         this.setPadding(new Insets(20));
         this.setHgap(20);
         this.setVgap(10);
         this.setGridLinesVisible(false);
+
+//        this.add(btnPrintUd, );
 
         Label lblKonf = new Label("Konferencer");
         this.add(lblKonf, 0, 0);
@@ -165,7 +170,6 @@ public class KonferencePane extends GridPane {
 
         HBox hbxButtons = new HBox(40);
         this.add(hbxButtons, 0, 9, 1, 1);
-        hbxButtons.setPadding(new Insets(10, 0, 0, 0));
         hbxButtons.setAlignment(Pos.BASELINE_CENTER);
 
         Button btnAdd = new Button("Tilføj Konference");
@@ -173,8 +177,8 @@ public class KonferencePane extends GridPane {
         btnAdd.setOnAction(event -> controller.createAction());
 
         Button btnRediger = new Button("Rediger");
-        hbxButtons.getChildren().add(btnRediger);
-        btnRediger.setOnAction(event -> controller.redigerAction());
+        hbxButtons.getChildren().add(btnPrintDeltagere);
+        btnPrintDeltagere.setOnAction(event -> controller.printDeltagere());
 
         Label lblUdflugt = new Label("Udflugter");
         this.add(lblUdflugt, 2, 0);
@@ -184,8 +188,16 @@ public class KonferencePane extends GridPane {
         lvwUdflugter.setPrefWidth(300);
         lvwUdflugter.setPrefHeight(300);
 
-        this.add(btnAddUdflugt, 2, 9);
+        this.add(btnPrintHoteller, 4, 9);
+        btnPrintHoteller.setOnAction(event -> controller.printHoteller());
+
+        HBox hbox1 = new HBox(40);
+        this.add(hbox1, 2, 9);
+        hbox1.getChildren().add(btnPrintUdflugter);
+        hbox1.getChildren().add(btnAddUdflugt);
+
         btnAddUdflugt.setOnAction(event -> controller.createUdflugtAction());
+        btnPrintUdflugter.setOnAction(event -> controller.printUdflugter());
         btnAddUdflugt.setDisable(true);
 
         controller.fillLvwKonferencer();
@@ -209,6 +221,7 @@ public class KonferencePane extends GridPane {
         private Konference konference;
         private Udflugt udflugt;
         private Hotel hotel;
+        private PrintDialog printDialog;
 
         public void fillLvwKonferencer() {
             lvwKonferencer.getItems().setAll(Service.getAllkonferencer());
@@ -283,26 +296,27 @@ public class KonferencePane extends GridPane {
         }
 
         // Update button action
-        public void redigerAction() {
-            // Company company = lvwKonferencer.getSelectionModel().getSelectedItem();
-            // if (company == null)
-            // return;
-            //
-            // if (updateDialog == null) {
-            // updateDialog = new CompanyDialog("Update Company", company);
-            // Stage stage = (Stage) lvwKonferencer.getScene().getWindow();
-            // updateDialog.initOwner(stage);
-            // }
-            //
-            // updateDialog.showAndWait();
-            // // ... wait for the dialog to close
-            //
-            // boolean isUpdated = updateDialog.getResult();
-            // if (isUpdated) {
-            // int selectIndex = lvwKonferencer.getSelectionModel().getSelectedIndex();
-            // lvwKonferencer.getItems().setAll(Service.getAllCompanies());
-            // lvwKonferencer.getSelectionModel().select(selectIndex);
-            // }
+        public void printDeltagere() {
+            printDialog = new PrintDialog(konference);
+            Stage stage = (Stage) lvwKonferencer.getScene().getWindow();
+            printDialog.initOwner(stage);
+            printDialog.showAndWait();
+        }
+
+        public void printUdflugter() {
+            printDialog = new PrintDialog(konference);
+            Stage stage = (Stage) lvwUdflugter.getScene().getWindow();
+            printDialog.initOwner(stage);
+
+            printDialog.showAndWait();
+        }
+
+        public void printHoteller() {
+            printDialog = new PrintDialog(konference);
+            Stage stage = (Stage) lvwHoteller.getScene().getWindow();
+            printDialog.initOwner(stage);
+
+            printDialog.showAndWait();
         }
 
         // Selected item in lvwCompanies changed

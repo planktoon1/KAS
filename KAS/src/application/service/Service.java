@@ -93,6 +93,22 @@ public class Service {
         return result;
     }
 
+    public static ArrayList<String> getLedsager(Udflugt udflugt) {
+        ArrayList<String> ledsagere = new ArrayList<>();
+
+        for (Tilmelding t : Service.getAllTilmeldinger()) {
+            if (t.getUdflugter() != null) {
+                for (Udflugt u : t.getUdflugter()) {
+                    if (u.equals(udflugt)) {
+                        ledsagere.add(t.getLedsager());
+                    }
+                }
+            }
+        }
+        System.out.println(ledsagere);
+        return ledsagere;
+    }
+
     public static void initStorage() {
         // Storage.initStorage();
         LocalDate d1 = LocalDate.now();

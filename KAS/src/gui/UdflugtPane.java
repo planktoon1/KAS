@@ -1,8 +1,5 @@
 package gui;
 
-import java.util.ArrayList;
-
-import application.model.Tilmelding;
 import application.model.Udflugt;
 import application.service.Service;
 import javafx.beans.value.ChangeListener;
@@ -76,7 +73,7 @@ public class UdflugtPane extends GridPane {
                 udflugt = lvwUdflugter.getSelectionModel().getSelectedItem();
             }
             if (udflugt != null) {
-                lvwLedsagere.getItems().setAll(getLedsager());
+                lvwLedsagere.getItems().setAll(Service.getLedsager(udflugt));
             }
 
         }
@@ -87,31 +84,11 @@ public class UdflugtPane extends GridPane {
 
             if (udflugt != null) {
 
-                lvwLedsagere.getItems().setAll(getLedsager());
+                lvwLedsagere.getItems().setAll(Service.getLedsager(udflugt));
 
             } else {
                 lvwLedsagere.getItems().clear();
             }
-        }
-
-        public ArrayList<String> getLedsager() {
-            ArrayList<String> ledsagere = new ArrayList<>();
-
-            for (Tilmelding t : Service.getAllTilmeldinger()) {
-                System.out.println(t);
-                if (t.getUdflugter() != null) {
-                    for (Udflugt u : t.getUdflugter()) {
-                        System.out.println(u);
-                        System.out.println(lvwUdflugter.getSelectionModel().getSelectedItem());
-                        if (u.equals(lvwUdflugter.getSelectionModel().getSelectedItem())) {
-                            ledsagere.add(t.getLedsager());
-                            System.out.println("Hej");
-                        }
-                    }
-                }
-            }
-            System.out.println(ledsagere);
-            return ledsagere;
         }
 
         // Selected item in lvwKonferences changed
