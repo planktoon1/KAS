@@ -2,7 +2,6 @@ package gui;
 
 import application.service.Service;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tab;
@@ -12,7 +11,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Mainapp extends Application {
-    private final Controller controller = new Controller();
 
     public static void main(String[] args) {
         Application.launch(args);
@@ -25,7 +23,6 @@ public class Mainapp extends Application {
 
     @Override
     public void start(Stage stage) {
-        controller.stage = stage;
 
         stage.setTitle("KAS");
         BorderPane pane = new BorderPane();
@@ -84,35 +81,15 @@ public class Mainapp extends Application {
         Tab tabDeltager = new Tab("Deltagere");
         tabPane.getTabs().add(tabDeltager);
 
+        Tab tabUdflugter = new Tab("Udflugter");
+        tabPane.getTabs().add(tabUdflugter);
+
+        UdflugtPane udflugtPane = new UdflugtPane();
+        tabUdflugter.setContent(udflugtPane);
+        tabUdflugter.setOnSelectionChanged(event -> udflugtPane.updateControls());
+
         DeltagerPane deltagerPane = new DeltagerPane();
         tabDeltager.setContent(deltagerPane);
         tabDeltager.setOnSelectionChanged(event -> deltagerPane.updateControls());
-    }
-
-    // -------------------------------------------------------------------------
-
-    private class Controller {
-        private Stage stage;
-        private PrintDialog printStage;
-
-        public void employeesAction() {
-            if (printStage == null)
-                printStage = new PrintDialog(stage);
-            printStage.showDeltagere();
-            printStage.show();
-            // ... wait for the dialog to close
-        }
-
-        public void companiesAction() {
-            if (printStage == null)
-                printStage = new PrintDialog(stage);
-            printStage.showCompanies();
-            printStage.showAndWait();
-            // ... wait for the dialog to close
-        }
-
-        public void exitAction() {
-            Platform.exit();
-        }
     }
 }
