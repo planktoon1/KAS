@@ -42,7 +42,7 @@ public class DeltagerPane extends GridPane {
         this.setVgap(10);
         this.setGridLinesVisible(false);
 
-        Label lblComp = new Label("Konferencer:");
+        Label lblComp = new Label("Konferencer");
         this.add(lblComp, 0, 0);
         lblComp.setFont(new Font("Serif", 30));
 
@@ -57,7 +57,7 @@ public class DeltagerPane extends GridPane {
         ChangeListener<Konference> listener = (ov, o, n) -> controller.selectedKonferenceChanged();
         lvwKonferencer.getSelectionModel().selectedItemProperty().addListener(listener);
 
-        Label lblDeltagere = new Label("Deltagere:");
+        Label lblDeltagere = new Label("Deltagere");
         this.add(lblDeltagere, 3, 0);
         lblDeltagere.setFont(new Font("Serif", 30));
 
