@@ -10,6 +10,7 @@ import application.model.HotelTillæg;
 import application.model.Konference;
 import application.model.Udflugt;
 import application.service.Service;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -138,6 +139,9 @@ public class DeltagerDialog extends Stage {
 		pane.add(lblFirmaTlf, 1, 18);
 		pane.add(txfFirmaTlf, 1, 19);
 
+		ChangeListener<Boolean> listener = (ov, o, n) -> controller.firmaCheckmarkChanged(n);
+		cbxFirma.selectedProperty().addListener(listener);
+
 		txfFirmaNavn.setDisable(true);
 		txfFirmaTlf.setDisable(true);
 
@@ -240,5 +244,9 @@ public class DeltagerDialog extends Stage {
 			}
 		}
 
+		public void firmaCheckmarkChanged(boolean checked) {
+			txfFirmaNavn.setDisable(!checked);
+			txfFirmaTlf.setDisable(!checked);
+		}
 	}
 }
