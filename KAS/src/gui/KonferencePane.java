@@ -297,14 +297,14 @@ public class KonferencePane extends GridPane {
 
         // Update button action
         public void printDeltagere() {
-            printDialog = new PrintDialog(konference);
+            printDialog = new PrintDialog(Service.deltagerOversigt(konference));
             Stage stage = (Stage) lvwKonferencer.getScene().getWindow();
             printDialog.initOwner(stage);
             printDialog.showAndWait();
         }
 
         public void printUdflugter() {
-            printDialog = new PrintDialog(konference);
+            printDialog = new PrintDialog(Service.udflugtOversigt(konference));
             Stage stage = (Stage) lvwUdflugter.getScene().getWindow();
             printDialog.initOwner(stage);
 
@@ -312,7 +312,7 @@ public class KonferencePane extends GridPane {
         }
 
         public void printHoteller() {
-            printDialog = new PrintDialog(konference);
+            printDialog = new PrintDialog(Service.hotelOversigt(konference));
             Stage stage = (Stage) lvwHoteller.getScene().getWindow();
             printDialog.initOwner(stage);
 

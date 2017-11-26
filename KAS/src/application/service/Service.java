@@ -33,6 +33,8 @@ public class Service {
         return Storage.getAllTilemelding();
     }
 
+    
+    
     /**
      * Creater en ny konference.<br />
      */
@@ -171,4 +173,59 @@ public class Service {
 
     }
 
+    public static String deltagerOversigt(Konference konference){
+    	StringBuilder oversigt = new StringBuilder();
+    	oversigt.append("--- " + konference.getNavn() + " ---");
+    	oversigt.append("\n\n");
+    	
+    	for (Tilmelding t : konference.getTilmeldinger()) {
+    		oversigt.append(t.getDeltager().getNavn()+"\n");
+    		oversigt.append(" - Ankomst/Afrejse: fra: " + t.getAnkomstdato()+"  til: "+t.getAfrejsedato()+"\n");
+    		if (t.getHotel() != null) {oversigt.append(" - Hotel: " + t.getHotel()+"\n");}
+    		oversigt.append(" - Samlet pris: " + t.getSamletPris()+"\n");
+    		oversigt.append("\n");
+    	}
+    	
+    	return oversigt.toString();
+    }
+    
+    public static String udflugtOversigt(Konference konference){
+    	StringBuilder oversigt = new StringBuilder();
+    	oversigt.append("--- " + konference.getNavn() + " ---");
+    	oversigt.append("\n\n");
+    	
+    	for (Udflugt u : konference.getUdflugter()) {
+    		oversigt.append(u.getNavn()+"\n");
+    		oversigt.append(" - Dato: "+u.getDato()+"\n");
+    		oversigt.append(" - Adresse: "+u.getSted()+"\n");
+    		if (u.getFrokost() == "Ja") {oversigt.append(" - Frokost: "+ "\u2713" +"\n");}
+    		oversigt.append(" - Pris: " + u.getPris()+"\n");
+    		oversigt.append(" - Beskrivelse: "+u.getBeskrivelse()+"\n");
+    		oversigt.append("\n");
+    	}
+    	
+    	return oversigt.toString();
+    }
+    
+    public static String hotelOversigt(Konference konference){
+    	StringBuilder oversigt = new StringBuilder();
+    	oversigt.append("--- " + konference.getNavn() + " ---");
+    	oversigt.append("\n\n");
+    	
+    	for (Hotel h : konference.getHoteller()) {
+    		oversigt.append(h.getNavn()+"\n");
+    		oversigt.append(" - Adresse: "+h.getAdresse()+"\n");
+    		oversigt.append(" - Enkeltværelse pris pr. nat: " + h.getPrisPrNat1()+"\n");
+    		oversigt.append(" - Dobbeltværelse pris pr. nat: " + h.getPrisPrNat2()+"\n");
+    		oversigt.append(" - Tillæg: \n");
+    		for (HotelTillæg ht : h.getHotelTillæg()) {
+    			oversigt.append("     -" + ht + "\n");
+    		}
+    		
+    		oversigt.append("\n");
+    	}
+    	
+    	return oversigt.toString();
+    }
+    
 }

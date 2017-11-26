@@ -1,6 +1,7 @@
 package gui;
 
 import application.model.Konference;
+import application.service.Service;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,8 +17,8 @@ public class PrintDialog extends Stage {
     private final TextArea texten = new TextArea();
 
     /** Note: company is nullable. */
-    public PrintDialog(Konference konference) {
-        controller.konference = konference;
+    public PrintDialog(String content) {
+        controller.content = content;
 
         this.initModality(Modality.APPLICATION_MODAL);
         this.setResizable(false);
@@ -37,7 +38,7 @@ public class PrintDialog extends Stage {
 
         Button btnLuk = new Button("Luk");
         pane.add(btnLuk, 0, 2);
-
+        
     }
 
     // -------------------------------------------------------------------------
@@ -48,8 +49,9 @@ public class PrintDialog extends Stage {
         pane.setVgap(5);
         pane.setGridLinesVisible(false);
         pane.setPrefHeight(350);
-
-        texten.setText(controller.konference.getNavn() + "\n" + controller.konference.getUdflugter() + "\n");
+        
+        controller.setTexten();
+        //texten.setText(controller.konference.getNavn() + "\n" + controller.konference.getUdflugter() + "\n");
 
     }
 
@@ -60,7 +62,10 @@ public class PrintDialog extends Stage {
     // -------------------------------------------------------------------------
 
     private class Controller {
-        private Konference konference;
-
+        private String content;
+        
+        public void setTexten() {
+        	texten.setText(content);
+        }
     }
 }
