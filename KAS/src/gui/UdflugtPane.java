@@ -61,7 +61,7 @@ public class UdflugtPane extends GridPane {
     // -------------------------------------------------------------------------
 
     private class Controller {
-        private DeltagerDialog createDialog;// updateDialog;
+        private DeltagerDialog createDialog;
         private Udflugt udflugt;
         String tilmelding;
 
@@ -91,7 +91,6 @@ public class UdflugtPane extends GridPane {
             }
         }
 
-        // Selected item in lvwKonferences changed
         public void selectedKonferenceChanged() {
             this.updateControls();
         }

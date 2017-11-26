@@ -103,9 +103,6 @@ public class UdflugtDialog extends Stage {
         controller.updateControls();
     }
 
-    /**
-     * Return true, if a company is created or updated.
-     */
     public boolean getResult() {
         return controller.result;
     }

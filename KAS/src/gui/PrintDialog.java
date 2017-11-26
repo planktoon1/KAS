@@ -51,15 +51,8 @@ public class PrintDialog extends Stage {
         pane.setPrefHeight(350);
         
         controller.setTexten();
-        //texten.setText(controller.konference.getNavn() + "\n" + controller.konference.getUdflugter() + "\n");
-
     }
 
-    /**
-     * Return true, if a company is created or updated.
-     */
-
-    // -------------------------------------------------------------------------
 
     private class Controller {
         private String content;

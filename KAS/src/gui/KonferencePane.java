@@ -45,8 +45,6 @@ public class KonferencePane extends GridPane {
         this.setVgap(10);
         this.setGridLinesVisible(false);
 
-//        this.add(btnPrintUd, );
-
         Label lblKonf = new Label("Konferencer");
         this.add(lblKonf, 0, 0);
         lblKonf.setFont(new Font("Serif", 30));
@@ -201,7 +199,6 @@ public class KonferencePane extends GridPane {
         btnAddUdflugt.setDisable(true);
 
         controller.fillLvwKonferencer();
-//        controller.fillLvwUdflugter();
     }
 
     // -------------------------------------------------------------------------
@@ -352,14 +349,12 @@ public class KonferencePane extends GridPane {
                 txfHotelPrisPerNat1.setText("" + hotel.getPrisPrNat1());
                 txfHotelPrisPerNat2.setText("" + hotel.getPrisPrNat2());
                 txfHotelTillæg.setText("" + hotel.getHotelTillæg());
-//                btnAddUdflugt.setDisable(false);
             } else {
                 txfHotelNavn.clear();
                 txfHotelAdresse.clear();
                 txfHotelPrisPerNat1.clear();
                 txfHotelPrisPerNat2.clear();
                 txfHotelTillæg.clear();
-//                btnAddUdflugt.setDisable(true);
             }
         }
 

@@ -90,9 +90,6 @@ public class DeltagerPane extends GridPane {
         this.add(lblUdflugt, 1, 4);
         this.add(lvwUdflugt, 2, 4);
         lvwUdflugt.setMaxHeight(50);
-        //
-        // this.add(txfUdflugt, 2, 4);
-        // txfUdflugt.setEditable(false);
 
         Label lblStartDate = new Label("Start dato:");
         this.add(lblStartDate, 1, 5);
@@ -147,7 +144,7 @@ public class DeltagerPane extends GridPane {
     // -------------------------------------------------------------------------
 
     private class Controller {
-        private DeltagerDialog createDialog;// updateDialog;
+        private DeltagerDialog createDialog;
         private Konference konference;
         Tilmelding tilmelding;
 

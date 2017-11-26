@@ -183,7 +183,6 @@ public class DeltagerDialog extends Stage {
                 cbbHoteller.getSelectionModel().select(0);
             }
 
-            // cbbFirma.getItems().setAll(Service.getAllHoteller());
             if (cbbHoteller.getItems().size() > 0) {
                 cbbHoteller.getSelectionModel().select(0);
             }

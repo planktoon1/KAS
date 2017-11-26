@@ -111,7 +111,6 @@ public class Service {
     }
 
     public static void initStorage() {
-        // Storage.initStorage();
         LocalDate d1 = LocalDate.now();
         LocalDate d2 = d1.plusDays(3);
 

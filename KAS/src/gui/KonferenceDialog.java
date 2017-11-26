@@ -164,9 +164,6 @@ public class KonferenceDialog extends Stage {
 				return;
 			}
 
-			// if (konference != null)
-			// Service.updateCompany(konference, name, hours);
-			// else
 			Service.tilføjKonference(navn, startDate, slutDate, adresse, dagsPris);
 
 			result = true;
