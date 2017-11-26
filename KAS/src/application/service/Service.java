@@ -107,7 +107,6 @@ public class Service {
                 }
             }
         }
-        System.out.println(ledsagere);
         return ledsagere;
     }
 

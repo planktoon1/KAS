@@ -50,7 +50,6 @@ public class Hotel {
     }
 
     void addHoteltillæg(HotelTillæg hoteltillæg) { // package visibility
-        System.out.println(hoteltillæg);
         hotelTillæg.add(hoteltillæg);
     }
 

@@ -139,7 +139,6 @@ public class KonferenceDialog extends Stage {
 			}
 
 			else if (Service.validDouble(txfDagsPris.getText())) {
-				System.out.println("Hey");
 				dagsPris = Double.parseDouble(txfDagsPris.getText());
 			}
 

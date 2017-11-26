@@ -37,7 +37,6 @@ public class Mainapp extends Application {
 
     private void initContent(BorderPane pane) {
         MenuBar menubar = new MenuBar();
-        //this.initMenus(menubar);
         pane.setTop(menubar);
 
         TabPane tabPane = new TabPane();
@@ -45,28 +44,6 @@ public class Mainapp extends Application {
         pane.setCenter(tabPane);
     }
 
-//	private void initMenus(MenuBar menubar) {
-//		Menu menuPrint = new Menu("Oversigter");
-//		menubar.getMenus().add(menuPrint);
-//
-//		MenuItem deltagere = new MenuItem("Deltagere");
-//		menuPrint.getItems().add(deltagere);
-//		deltagere.setOnAction(event -> controller.companiesAction());
-//
-//		MenuItem udflugt = new MenuItem("Udflugter");
-//		menuPrint.getItems().add(udflugt);
-//		udflugt.setOnAction(event -> controller.employeesAction());
-//
-//		MenuItem hotel = new MenuItem("Hoteller");
-//		menuPrint.getItems().add(hotel);
-//		hotel.setOnAction(event -> controller.companiesAction());
-//
-//		menuPrint.getItems().add(new SeparatorMenuItem());
-//
-//		MenuItem exit = new MenuItem("Exit");
-//		menuPrint.getItems().add(exit);
-//		exit.setOnAction(event -> controller.exitAction());
-//	}
 
     private void initTabPane(TabPane tabPane) {
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
