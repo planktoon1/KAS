@@ -13,7 +13,7 @@ public class Tilmelding {
     private ArrayList<HotelTillæg> hotelTillæg;
     private ArrayList<Udflugt> udflugter;
     private double samletPris;
-    
+
     // association: --> 0..1 konference
     private Konference konference;
     // association: --> 1 deltager
@@ -38,6 +38,10 @@ public class Tilmelding {
     //
     public String getLedsager() {
         return ledsager + " (Deltagers navn: " + getDeltager() + ", deltagers tlf. " + getDeltager().getTlf() + ")";
+    }
+
+    public String getLedsagerNavn() {
+        return ledsager;
     }
 
     // -----------------------------------------------------------------------------
