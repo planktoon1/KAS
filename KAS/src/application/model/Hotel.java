@@ -49,8 +49,11 @@ public class Hotel {
         return new ArrayList<>(hotelTillæg);
     }
 
-    void addHoteltillæg(HotelTillæg hoteltillæg) { // package visibility
-        hotelTillæg.add(hoteltillæg);
+    public HotelTillæg createHoteltillæg(String navn, double pris) { // package visibility
+        HotelTillæg hoteltillæg = new HotelTillæg(navn, pris);
+        hoteltillæg.setHotel(this);
+        this.hotelTillæg.add(hoteltillæg);
+        return hoteltillæg;
     }
 
     void removeHoteltillæg(HotelTillæg hoteltillæg) { // package visibility
