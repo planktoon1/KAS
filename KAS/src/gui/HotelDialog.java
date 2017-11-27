@@ -1,6 +1,7 @@
 package gui;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import application.model.Hotel;
 import application.model.Konference;
@@ -41,7 +42,7 @@ public class HotelDialog extends Stage {
     // -------------------------------------------------------------------------
 
     private final TextField txfName = new TextField(), txfSted = new TextField(), txfPris = new TextField(),
-            txfPris1 = new TextField(), txfTillæg = new TextField();
+            txfPris1 = new TextField();
     private final CheckBox cbxFrokost = new CheckBox("Frokost ");
     private final Label lblError = new Label();
     private final DatePicker DatePicker = new DatePicker();
@@ -116,6 +117,8 @@ public class HotelDialog extends Stage {
         private Konference konference;
         private Hotel hotel;
         private boolean result = false;
+        private ArrayList<TextField> tillægNavn = new ArrayList<>();
+        private ArrayList<TextField> tillægPris = new ArrayList<>();
 
         public void updateControls() {
             if (hotel != null) {
@@ -141,10 +144,10 @@ public class HotelDialog extends Stage {
             if (txfPris.getText().length() > 0 && Service.validDouble(txfPris.getText()) == true) {
                 pris = 1.0 * Double.parseDouble(txfPris.getText());
             }
-            boolean frokost = cbxFrokost.isSelected();
-            String beskrivelse = txaBeskrivelse.getText().trim();
             String navn = txfName.getText().trim();
             String sted = txfSted.getText().trim();
+            String pris1 = txfPris.getText().trim();
+            String pris2 = txfPris1.getText().trim();
 
             if (navn.length() == 0) {
                 lblError.setText("Name is empty");
@@ -154,21 +157,35 @@ public class HotelDialog extends Stage {
                 lblError.setText("Adresse er tom");
                 return;
             }
-            if (dato == null) {
-                lblError.setText("Dato er tom");
-                return;
-            }
-            if (pris == 0 || pris < 0) {
+
+            if (!Service.validDouble(pris1) || !Service.validDouble(pris2)) {
                 lblError.setText("Pris skal være et valid tal");
                 return;
             }
-            if (beskrivelse == null) {
-                lblError.setText("Beskrivelse er tom");
+            if (pris1.length() == 0) {
+                lblError.setText("Prisen er tom");
                 return;
             }
 
-            Service.tilføjUdflugt(sted, dato, pris, frokost, beskrivelse, navn,
-                    konference);
+            if (pris2.length() == 0) {
+                lblError.setText("Prisen er tom");
+                return;
+            }
+
+            Hotel h = Service.tilføjHotel(navn, sted, Double.parseDouble(pris2), Double.parseDouble(pris1), konference);
+
+            int i = 0;
+            for (TextField tf : tillægNavn) {
+                if (Service.validDouble(tillægPris.get(i).getText()))
+                    Service.tilføjHotelTillæg(tillægNavn.get(i).getText(),
+                            Double.parseDouble(tillægPris.get(i).getText()),
+                            h);
+                else {
+                    lblError.setText("Pris skal være tal");
+                    return;
+                }
+                i++;
+            }
 
             result = true;
             HotelDialog.this.hide();
@@ -181,6 +198,8 @@ public class HotelDialog extends Stage {
             TextField txfPris = new TextField();
             hBox.getChildren().add(txfNavn);
             hBox.getChildren().add(txfPris);
+            tillægNavn.add(txfNavn);
+            tillægPris.add(txfPris);
 
         }
     }

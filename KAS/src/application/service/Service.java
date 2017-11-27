@@ -121,6 +121,7 @@ public class Service {
         Hotel h1 = tilføjHotel("Den Hvide Svane", "Eckersbergsgade 67", 1250, 1050, k1);
         Hotel h2 = tilføjHotel("Høtel Phønix", "Grøndlandsstræde 3", 800, 700, k1);
         Hotel h3 = tilføjHotel("Pension Tusindfryd", "Grøndlandsstræde 3", 600, 500, k1);
+        Hotel h4 = tilføjHotel("Lüddes Hytte", "Lüddevej 69", 1337, 420, k2);
 
         HotelTillæg h1t1 = tilføjHotelTillæg("WIFI", 50.0, h1);
         tilføjHotelTillæg("WIFI", 75.0, h2);
@@ -130,12 +131,14 @@ public class Service {
         tilføjUdflugt("Den mørke skov", d1.plusDays(1), 125.0, true,
                 "Rollespil i den mørke skov og du må ikke være med før du får lov", "Rollespil", k1);
 
-        tilføjUdflugt("Slm Aarhus", d1.plusDays(4), 75.0, false,
-                "En af de frækkeste aftener i SLM – eller ”Folden” som vi kalder klubben denne aften. ",
-                "StallionNight", k1);
+        tilføjUdflugt("Byen", d1.plusDays(4), 75.0, false,
+                "På denne udflugt har vi lejet cykler så vi nemt kan køre rundt i byen og se de forskellige seværdigheder i byen ",
+                "Sightseeing", k1);
         // test
         tilføjUdflugt("Det falske sted", d1.plusDays(9), 200.0, true, "Vi øver os i at blæse sæbebobler med næsen",
                 "Den farlige leg", k1);
+
+        tilføjUdflugt("Badeanstalten", d1.plusDays(2), 250.0, true, "Her bader vi sammen", "Fællesbad", k2);
 
         Deltager p1 = new Deltager("Finn Madsen", "8000 Århus C, Eckersbergsgade 19 st tv", "+45 22 99 88 41");
         Deltager p2 = new Deltager("Niels Petersen", "8000 Århus C, Eckersbergsgade 19 st tv", "+45 22 99 88 41");
@@ -166,6 +169,7 @@ public class Service {
         tilføjTilmelding(false, d1, d1.plusDays(2), "Hans Hansen", null, null, p3Udflugter, p3, k1);
         tilføjTilmelding(false, d1, d2, "Mie Sommer", h1, p4Tillæg, p4Udflugter, p4, k1);
         tilføjTilmelding(true, d1, d2, "Jan Madsen", h1, p5Tillæg, p5Udflugter, p5, k1);
+        tilføjTilmelding(true, d1, d2, "James Bond", h4, null, null, p2, k2);
 
     }
 
