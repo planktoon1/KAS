@@ -2,8 +2,8 @@ package gui;
 
 import java.time.LocalDate;
 
+import application.model.Hotel;
 import application.model.Konference;
-import application.model.Udflugt;
 import application.service.Service;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -18,12 +18,12 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class UdflugtDialog extends Stage {
+public class HotelDialog extends Stage {
     private final Controller controller = new Controller();
 
     /** Note: company is nullable. */
-    public UdflugtDialog(String navn, Udflugt udflugt, Konference konference) {
-        controller.udflugt = udflugt;
+    public HotelDialog(String navn, Hotel hotel, Konference konference) {
+        controller.hotel = hotel;
         controller.konference = konference;
 
         this.initModality(Modality.APPLICATION_MODAL);
@@ -39,7 +39,8 @@ public class UdflugtDialog extends Stage {
 
     // -------------------------------------------------------------------------
 
-    private final TextField txfName = new TextField(), txfSted = new TextField(), txfPris = new TextField();
+    private final TextField txfName = new TextField(), txfSted = new TextField(), txfPris = new TextField(),
+            txfPris1 = new TextField(), txfTillæg = new TextField();
     private final TextArea txaBeskrivelse = new TextArea();
     private final CheckBox cbxFrokost = new CheckBox("Frokost ");
     private final Label lblError = new Label();
@@ -51,7 +52,7 @@ public class UdflugtDialog extends Stage {
         pane.setVgap(5);
         pane.setGridLinesVisible(false);
 
-        Label lblNavn = new Label("Udflugt navn");
+        Label lblNavn = new Label("Navn");
         pane.add(lblNavn, 0, 0);
 
         pane.add(txfName, 0, 1);
@@ -63,35 +64,39 @@ public class UdflugtDialog extends Stage {
 
         pane.add(txfSted, 0, 3);
 
-        Label lblPris = new Label("Pris (kr . øre)");
+        Label lblPris = new Label("Pris for enkeltmands værelse (kr . øre)");
         pane.add(lblPris, 0, 4);
         GridPane.setMargin(lblPris, new Insets(10, 0, 0, 0));
 
-        pane.add(txfPris, 0, 5);
+        pane.add(txfPris1, 0, 5);
 
-        pane.add(cbxFrokost, 0, 6);
+        Label lblPris1 = new Label("Pris for to personers værelse (kr . øre)");
+        pane.add(lblPris1, 0, 6);
+        GridPane.setMargin(lblPris, new Insets(10, 0, 0, 0));
 
-        Label lblDato = new Label("Dato");
-        pane.add(lblDato, 0, 7);
-        GridPane.setMargin(lblDato, new Insets(10, 0, 0, 0));
-        DatePicker.setShowWeekNumbers(true);
-        pane.add(DatePicker, 0, 8);
+        pane.add(txfPris, 0, 7);
+
+        Label lblTillæg = new Label("Tillæg");
+        pane.add(lblTillæg, 0, 8);
+        GridPane.setMargin(lblTillæg, new Insets(10, 0, 0, 0));
+
+        pane.add(txfTillæg, 0, 9);
 
         Label lblBeskrivelse = new Label("Beskrivelse");
-        pane.add(lblBeskrivelse, 0, 9);
+        pane.add(lblBeskrivelse, 0, 10);
 
-        pane.add(txaBeskrivelse, 0, 10);
+        pane.add(txaBeskrivelse, 0, 11);
         txaBeskrivelse.setPrefWidth(200);
         txaBeskrivelse.setPrefHeight(200);
 
         Button btnCancel = new Button("Annuller");
-        pane.add(btnCancel, 0, 11);
+        pane.add(btnCancel, 0, 12);
         GridPane.setHalignment(btnCancel, HPos.LEFT);
         GridPane.setMargin(btnCancel, new Insets(10, 0, 0, 30));
         btnCancel.setOnAction(event -> controller.cancelAction());
 
         Button btnOK = new Button("OK");
-        pane.add(btnOK, 0, 11);
+        pane.add(btnOK, 0, 12);
         GridPane.setHalignment(btnOK, HPos.RIGHT);
         GridPane.setMargin(btnOK, new Insets(10, 30, 0, 0));
         btnOK.setOnAction(event -> controller.okAction());
@@ -111,13 +116,13 @@ public class UdflugtDialog extends Stage {
 
     private class Controller {
         private Konference konference;
-        private Udflugt udflugt;
+        private Hotel hotel;
         private boolean result = false;
 
         public void updateControls() {
-            if (udflugt != null) {
-                txfName.setText(udflugt.getNavn());
-                txfSted.setText("" + udflugt.getSted());
+            if (hotel != null) {
+                txfName.setText(hotel.getNavn());
+                txfSted.setText("" + hotel.getAdresse());
             } else {
                 txfName.clear();
                 txfSted.clear();
@@ -128,7 +133,7 @@ public class UdflugtDialog extends Stage {
         // Cancel button action
         public void cancelAction() {
             result = false;
-            UdflugtDialog.this.hide();
+            HotelDialog.this.hide();
         }
 
         // OK button action
@@ -168,7 +173,7 @@ public class UdflugtDialog extends Stage {
                     konference);
 
             result = true;
-            UdflugtDialog.this.hide();
+            HotelDialog.this.hide();
         }
 
         public boolean validDouble(String string) {

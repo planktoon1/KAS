@@ -34,10 +34,11 @@ public class KonferencePane extends GridPane {
     private final ListView<Konference> lvwKonferencer = new ListView<>();
     private final ListView<Udflugt> lvwUdflugter = new ListView<>();
     private final ListView<Hotel> lvwHoteller = new ListView<>();
-    private final Button btnAddUdflugt = new Button("Opret Udflugt");
+    private final Button btnAddUdflugt = new Button("Tilføj Udflugt");
     private final Button btnPrintDeltagere = new Button("Print deltageroversigt");
     private final Button btnPrintUdflugter = new Button("Print udflugtoversigt");
     private final Button btnPrintHoteller = new Button("Print hoteloversigt");
+    private final Button btnAddHotel = new Button("Tilføj hotel");
 
     private void initContent() {
         this.setPadding(new Insets(20));
@@ -186,13 +187,17 @@ public class KonferencePane extends GridPane {
         lvwUdflugter.setPrefWidth(300);
         lvwUdflugter.setPrefHeight(300);
 
-        this.add(btnPrintHoteller, 4, 9);
+        HBox hbox2 = new HBox(40);
+        this.add(hbox2, 4, 9);
+        hbox2.getChildren().add(btnAddHotel);
+        hbox2.getChildren().add(btnPrintHoteller);
         btnPrintHoteller.setOnAction(event -> controller.printHoteller());
+        btnAddHotel.setOnAction(event -> controller.createHotelAction());
 
         HBox hbox1 = new HBox(40);
         this.add(hbox1, 2, 9);
-        hbox1.getChildren().add(btnPrintUdflugter);
         hbox1.getChildren().add(btnAddUdflugt);
+        hbox1.getChildren().add(btnPrintUdflugter);
 
         btnAddUdflugt.setOnAction(event -> controller.createUdflugtAction());
         btnPrintUdflugter.setOnAction(event -> controller.printUdflugter());
@@ -219,6 +224,7 @@ public class KonferencePane extends GridPane {
         private Udflugt udflugt;
         private Hotel hotel;
         private PrintDialog printDialog;
+        private HotelDialog createHotelDialog;
 
         public void fillLvwKonferencer() {
             lvwKonferencer.getItems().setAll(Service.getAllkonferencer());
@@ -258,7 +264,7 @@ public class KonferencePane extends GridPane {
         // Create button action
         public void createAction() {
             if (createDialog == null) {
-                createDialog = new KonferenceDialog("Create Konference", null);
+                createDialog = new KonferenceDialog("Opret Konference", null);
                 Stage stage = (Stage) lvwKonferencer.getScene().getWindow();
                 createDialog.initOwner(stage);
             }
@@ -276,7 +282,7 @@ public class KonferencePane extends GridPane {
 
         public void createUdflugtAction() {
             if (createUdflugtDialog == null) {
-                createUdflugtDialog = new UdflugtDialog("Create Udflugt", null, konference);
+                createUdflugtDialog = new UdflugtDialog("Opret Udflugt", null, konference);
                 Stage stage = (Stage) lvwUdflugter.getScene().getWindow();
                 createUdflugtDialog.initOwner(stage);
             }
@@ -355,6 +361,24 @@ public class KonferencePane extends GridPane {
                 txfHotelPrisPerNat1.clear();
                 txfHotelPrisPerNat2.clear();
                 txfHotelTillæg.clear();
+            }
+        }
+
+        public void createHotelAction() {
+            if (createHotelDialog == null) {
+                createHotelDialog = new HotelDialog("Opret hotel", null, konference);
+                Stage stage = (Stage) lvwHoteller.getScene().getWindow();
+                createHotelDialog.initOwner(stage);
+            }
+
+            createHotelDialog.showAndWait();
+            // ... wait for the dialog to close
+
+            boolean isCreated = createHotelDialog.getResult();
+            if (isCreated) {
+                lvwHoteller.getItems().setAll(konference.getHoteller());
+                int index = lvwHoteller.getItems().size() - 1;
+                lvwHoteller.getSelectionModel().select(index);
             }
         }
 
