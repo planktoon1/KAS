@@ -123,9 +123,9 @@ public class Service {
         Hotel h3 = tilføjHotel("Pension Tusindfryd", "Grøndlandsstræde 3", 600, 500, k1);
 
         HotelTillæg h1t1 = tilføjHotelTillæg("WIFI", 50.0, h1);
-        HotelTillæg h2t1 = tilføjHotelTillæg("WIFI", 75.0, h2);
-        HotelTillæg h2t2 = tilføjHotelTillæg("Bad", 200.0, h2);
-        HotelTillæg h3t3 = tilføjHotelTillæg("Morgenmad", 100.0, h3);
+        tilføjHotelTillæg("WIFI", 75.0, h2);
+        tilføjHotelTillæg("Bad", 200.0, h2);
+        tilføjHotelTillæg("Morgenmad", 100.0, h3);
 
         tilføjUdflugt("Den mørke skov", d1.plusDays(1), 125.0, true,
                 "Rollespil i den mørke skov og du må ikke være med før du får lov", "Rollespil", k1);

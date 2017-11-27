@@ -12,9 +12,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -41,16 +42,18 @@ public class HotelDialog extends Stage {
 
     private final TextField txfName = new TextField(), txfSted = new TextField(), txfPris = new TextField(),
             txfPris1 = new TextField(), txfTillæg = new TextField();
-    private final TextArea txaBeskrivelse = new TextArea();
     private final CheckBox cbxFrokost = new CheckBox("Frokost ");
     private final Label lblError = new Label();
     private final DatePicker DatePicker = new DatePicker();
+    private final VBox vBox = new VBox(10);
+    private final Button btnTilføjTillæg = new Button("Tilføj tillæg");
 
     private void initContent(GridPane pane) {
         pane.setPadding(new Insets(20, 20, 0, 20));
         pane.setHgap(10);
         pane.setVgap(5);
         pane.setGridLinesVisible(false);
+        pane.setPrefHeight(500);
 
         Label lblNavn = new Label("Navn");
         pane.add(lblNavn, 0, 0);
@@ -80,14 +83,9 @@ public class HotelDialog extends Stage {
         pane.add(lblTillæg, 0, 8);
         GridPane.setMargin(lblTillæg, new Insets(10, 0, 0, 0));
 
-        pane.add(txfTillæg, 0, 9);
-
-        Label lblBeskrivelse = new Label("Beskrivelse");
-        pane.add(lblBeskrivelse, 0, 10);
-
-        pane.add(txaBeskrivelse, 0, 11);
-        txaBeskrivelse.setPrefWidth(200);
-        txaBeskrivelse.setPrefHeight(200);
+        pane.add(vBox, 0, 9);
+        vBox.getChildren().add(btnTilføjTillæg);
+        btnTilføjTillæg.setOnAction(event -> controller.tilføjTillæg());
 
         Button btnCancel = new Button("Annuller");
         pane.add(btnCancel, 0, 12);
@@ -140,7 +138,7 @@ public class HotelDialog extends Stage {
         public void okAction() {
             LocalDate dato = DatePicker.getValue();
             double pris = 0.0;
-            if (txfPris.getText().length() > 0 && validDouble(txfPris.getText()) == true) {
+            if (txfPris.getText().length() > 0 && Service.validDouble(txfPris.getText()) == true) {
                 pris = 1.0 * Double.parseDouble(txfPris.getText());
             }
             boolean frokost = cbxFrokost.isSelected();
@@ -176,25 +174,14 @@ public class HotelDialog extends Stage {
             HotelDialog.this.hide();
         }
 
-        public boolean validDouble(String string) {
-            boolean result = true;
-            boolean dotFound = false;
+        public void tilføjTillæg() {
+            HBox hBox = new HBox(5);
+            vBox.getChildren().add(hBox);
+            TextField txfNavn = new TextField();
+            TextField txfPris = new TextField();
+            hBox.getChildren().add(txfNavn);
+            hBox.getChildren().add(txfPris);
 
-            for (int i = 0; i < string.length(); i++) {
-                if (string.charAt(i) >= '0' && string.charAt(i) <= '9' || string.charAt(i) == '.') {
-                    if (string.charAt(i) == '.') {
-                        if (dotFound) {
-                            result = false;
-                            break;
-                        }
-                        dotFound = true;
-                    }
-                } else {
-                    result = false;
-                    break;
-                }
-            }
-            return result;
         }
     }
 }
