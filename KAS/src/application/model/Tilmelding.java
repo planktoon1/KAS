@@ -1,6 +1,8 @@
 package application.model;
 
-import java.ti
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 
 //gruppe: Anders R.P., Casper L. og Frederik Ø.
 public class Tilmelding {
