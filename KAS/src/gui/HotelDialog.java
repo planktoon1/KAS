@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+//gruppe: Anders R.P., Casper L. og Frederik Ø.
 public class HotelDialog extends Stage {
     private final Controller controller = new Controller();
 

@@ -2,6 +2,7 @@ package application.model;
 
 import java.time.LocalDate;
 
+//gruppe: Anders R.P., Casper L. og Frederik Ø.
 public class Udflugt {
     private String sted;
     private LocalDate dato;

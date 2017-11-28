@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+//gruppe: Anders R.P., Casper L. og Frederik Ø.
 public class DeltagerPane extends GridPane {
     private final Controller controller = new Controller();
 

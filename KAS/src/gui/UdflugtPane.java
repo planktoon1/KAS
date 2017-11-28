@@ -9,6 +9,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
+//gruppe: Anders R.P., Casper L. og Frederik Ø.
 public class UdflugtPane extends GridPane {
     private final Controller controller = new Controller();
 

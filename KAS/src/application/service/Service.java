@@ -11,6 +11,7 @@ import application.model.Tilmelding;
 import application.model.Udflugt;
 import storage.Storage;
 
+//gruppe: Anders R.P., Casper L. og Frederik Ø.
 public class Service {
 
     /**

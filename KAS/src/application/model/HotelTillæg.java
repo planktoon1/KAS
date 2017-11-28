@@ -1,5 +1,6 @@
 package application.model;
 
+//gruppe: Anders R.P., Casper L. og Frederik Ø.
 public class HotelTillæg {
     private String navn;
     private double pris;

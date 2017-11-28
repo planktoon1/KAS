@@ -10,6 +10,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+//gruppe: Anders R.P., Casper L. og Frederik Ø.
 public class PrintDialog extends Stage {
     private final Controller controller = new Controller();
     private final TextArea texten = new TextArea();

@@ -2,6 +2,7 @@ package application.model;
 
 import java.util.ArrayList;
 
+//gruppe: Anders R.P., Casper L. og Frederik Ø.
 public class Hotel {
     private String navn;
     private String adresse;

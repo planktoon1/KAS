@@ -10,6 +10,7 @@ import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+//gruppe: Anders R.P., Casper L. og Frederik Ø.
 public class Mainapp extends Application {
 
     public static void main(String[] args) {
@@ -43,7 +44,6 @@ public class Mainapp extends Application {
         this.initTabPane(tabPane);
         pane.setCenter(tabPane);
     }
-
 
     private void initTabPane(TabPane tabPane) {
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);

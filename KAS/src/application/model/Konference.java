@@ -3,6 +3,7 @@ package application.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+//gruppe: Anders R.P., Casper L. og Frederik Ø.
 public class Konference {
     private String navn;
     private LocalDate start;

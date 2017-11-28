@@ -7,6 +7,7 @@ import application.model.Firma;
 import application.model.Hotel;
 import application.model.Konference;
 
+//gruppe: Anders R.P., Casper L. og Frederik Ø.
 public class Storage {
     private static final ArrayList<Hotel> hoteller = new ArrayList<>();
     private static final ArrayList<Konference> konferencer = new ArrayList<>();
